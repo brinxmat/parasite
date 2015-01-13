@@ -13,4 +13,7 @@ hs_err_pid*
 
 #.DS_Store
 .DS_Store
-/target/
+target/
+
+# Netbeans configuration
+nb-configuration.xml
