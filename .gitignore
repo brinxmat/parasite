@@ -13,7 +13,14 @@ hs_err_pid*
 
 #.DS_Store
 .DS_Store
-target/
 
 # Netbeans configuration
 nb-configuration.xml
+
+# Eclipse stuff
+.classpath
+.project
+target/
+local.properties
+.settings/
+.loadpath
