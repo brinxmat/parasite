@@ -40,38 +40,38 @@ public class RDFConsumerMockTest {
     }
 
     /**
-     * Test of getManifestationList method, of class KohaConsumerMock.
+     * Test of getManifestationList method, of class ManifestationConsumerMock.
      */
     @Test
     public void testGetManifestationList() {
         System.out.println("getManifestationList");
-        KohaConsumerMock instance = new KohaConsumerMock();
+        ManifestationConsumerMock instance = new ManifestationConsumerMock();
         HashMap<Integer, Manifestation> expResult = null;
         HashMap<Integer, Manifestation> result = instance.getManifestationList();
         assertEquals(3, result.size());
     }
 
     /**
-     * Test of getManifestationsByWorkId method, of class KohaConsumerMock.
+     * Test of getManifestationsByWorkId method, of class ManifestationConsumerMock.
      */
     @Test
     public void testGetManifestationsByWorkId() {
         System.out.println("getManifestationsByWorkId");
         int id = 1;
-        KohaConsumerMock instance = new KohaConsumerMock();
+        ManifestationConsumerMock instance = new ManifestationConsumerMock();
         HashMap<Integer, Manifestation> expResult = null;
         HashMap<Integer, Manifestation> result = instance.getManifestationsByWorkId(id);
         assertEquals(2, result.size());
     }
 
     /**
-     * Test of getManifestationById method, of class KohaConsumerMock.
+     * Test of getManifestationById method, of class ManifestationConsumerMock.
      */
     @Test
     public void testGetManifestationById() {
         System.out.println("getManifestationById");
         int manifestationId = 1;
-        KohaConsumerMock instance = new KohaConsumerMock();
+        ManifestationConsumerMock instance = new ManifestationConsumerMock();
         Manifestation expResult = null;
         Manifestation result = instance.getManifestationById(manifestationId);
         assertEquals(1, result.getId());

@@ -8,6 +8,7 @@ package no.deichman.ls.consumer;
 import com.hp.hpl.jena.rdf.model.Model;
 import java.util.HashMap;
 import no.deichman.ls.domain.Work;
+import org.apache.jena.riot.Lang;
 
 /**
  *
@@ -37,7 +38,7 @@ public class RDFConsumerMock implements RdfConsumer{
     }
 
     @Override
-    public void loadData() {
+    public void loadData(String url) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -47,7 +48,7 @@ public class RDFConsumerMock implements RdfConsumer{
     }
 
     @Override
-    public String printModel() {
+    public String printModel(Lang lang) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

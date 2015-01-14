@@ -12,12 +12,12 @@ import no.deichman.ls.domain.Manifestation;
  *
  * @author sbd
  */
-public class KohaConsumerMock {
+public class ManifestationConsumerMock implements ManifestationConsumer {
 
     private HashMap<Integer, Manifestation> manifestationList = new HashMap<Integer, Manifestation>();
     private HashMap<Integer, HashMap<Integer, Manifestation>> manifestationListByWorkId = new HashMap<Integer, HashMap<Integer, Manifestation>>();
 
-    public KohaConsumerMock() {
+    public ManifestationConsumerMock() {
         createMockLists();
     }
 
@@ -51,5 +51,20 @@ public class KohaConsumerMock {
         manifestationListOfWork1.put(manifestation3.getId(), manifestation3);
         manifestationListByWorkId.put(manifestation3.getWorkId(), manifestationListOfWork1);
 
+    }
+
+    @Override
+    public void openConnection(String url) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String connect(String url) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getResponse() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -6,6 +6,7 @@
 package no.deichman.ls.consumer;
 
 import com.hp.hpl.jena.rdf.model.Model;
+import org.apache.jena.riot.Lang;
 
 /**
  *
@@ -13,7 +14,7 @@ import com.hp.hpl.jena.rdf.model.Model;
  */
 public interface RdfConsumer {
     
-    public void loadData();
+    public void loadData(String url);
     public Model getModel();
-    public String printModel();
+    public String printModel(Lang lang);
 }
