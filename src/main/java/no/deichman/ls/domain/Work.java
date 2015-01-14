@@ -5,6 +5,10 @@
  */
 package no.deichman.ls.domain;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  *
  * @author sbd
@@ -15,8 +19,10 @@ public class Work {
     private String title;
     private String author;
     private double price;
+    private HashMap<Integer, Manifestation> manifestations;
 
     public Work(int id, String title, String author, double price) {
+        this.manifestations = new HashMap<Integer, Manifestation>();
         this.id = id;
         this.title = title;
         this.author = author;
@@ -55,6 +61,14 @@ public class Work {
         this.price = price;
     }
 
+    public HashMap<Integer, Manifestation> getManifestations() {
+        return manifestations;
+    }
+
+    public void setManifestations(HashMap<Integer, Manifestation> manifestations) {
+        this.manifestations = manifestations;
+    }
+    
     @Override
     public String toString() {
 
