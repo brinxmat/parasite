@@ -1,4 +1,4 @@
-package no.deichman.ls.parasite;
+package no.deichman.ls.consumer;
 
 import java.io.StringWriter;
 
@@ -8,7 +8,7 @@ import org.apache.jena.riot.RDFDataMgr;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
-public class GetRdf {
+public class RDFConsumerDefault {
 	
 	private final Model model = ModelFactory.createDefaultModel();
 	
@@ -26,14 +26,12 @@ public class GetRdf {
 		return model ;
 	}
 	
-	public String print (Lang lang) {
+	public String printModel (Lang lang) {
 		
 		StringWriter sw = new StringWriter () ;
-		
 		RDFDataMgr.write(sw, model, lang);
 		
 		String data = sw.toString () ;
-
 		
 		return data ;
 	}

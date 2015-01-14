@@ -1,18 +1,38 @@
-package no.deichman.ls.parasite;
+package no.deichman.ls.consumer;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.net.URL;
+
+import no.deichman.ls.consumer.KohaConsumerDefault;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
-public class TestGetJson {
+public class TestKohaConsumerDefault {
 
+    
 	@Test
-	public void test() {
+	public void test() throws IOException {
 		
-		GetJson getJson = new GetJson();
+		KohaConsumerDefault getJson = new KohaConsumerDefault();
+		
         assertNotNull ("Class GetJson is implemented", getJson.getClass () );
 	    
-        assertEquals ( "GetJson.loadData", "{\"test\":\"Yes, it's a test\"}",  GetJson.getData("Test"));
+        
+        testConnect () ;
+	}
+	
+	public void testConnect () throws IOException {
+
+		URL url = this.getClass () .getResource ( "/testJsonConnect.json" ) ;
+	    String expected = StringUtils.trim ( IOUtils.toString ( url, "UTF-8" ) ) ;
+	    String actual = KohaConsumerDefault.connect("http://www.ntnu.no/ub/digital/document/ntnu203") ;
+	    
+        assertEquals ( "GetJson.connect", expected, actual );
+
 	}
 
 }

@@ -1,4 +1,4 @@
-package no.deichman.ls.parasite;
+package no.deichman.ls.consumer;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
-import no.deichman.ls.parasite.GetRdf;
+import no.deichman.ls.consumer.RDFConsumerDefault;
 
 import com.hp.hpl.jena.rdf.model.*;
 
@@ -18,10 +18,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class TestGetRdf {
+public class TestRDFConsumerDefault {
 	String expected ;
 	URL url ;
-	GetRdf getRdf ;
+	RDFConsumerDefault RDFConsumerDefault ;
 
 	@Before
 	
@@ -29,21 +29,21 @@ public class TestGetRdf {
 		
 		url = this.getClass () .getResource ( "/test1.ttl" ) ;
 	    expected = StringUtils.trim ( IOUtils.toString ( url, "UTF-8" ) ) ;
-	    getRdf = new GetRdf () ;
+	    RDFConsumerDefault = new RDFConsumerDefault () ;
 	}
 	
 	@Test
 	public void test () {
 		
-		assertNotNull ( "Class GetRdf is implemented", getRdf ) ;
+		assertNotNull ( "Class RDFConsumerDefault is implemented", RDFConsumerDefault ) ;
 		
 	}
 	
 	@Test
 	public void loadData_test () throws IOException {
 		
-	    getRdf.loadData ( url.toString () ) ;
-		Model model = getRdf.getModel () ;
+	    RDFConsumerDefault.loadData ( url.toString () ) ;
+		Model model = RDFConsumerDefault.getModel () ;
 		ByteArrayOutputStream out = new ByteArrayOutputStream () ;
 		Lang lang = Lang.TURTLE;
 		RDFDataMgr.write ( out,model,lang ) ;
@@ -56,8 +56,8 @@ public class TestGetRdf {
 	@Test
 	public void print_test () {
 		
-		getRdf.loadData ( url.toString () ) ;
-		String actual = StringUtils.trim ( getRdf.print ( Lang.TURTLE ) ) ;
+		RDFConsumerDefault.loadData ( url.toString () ) ;
+		String actual = StringUtils.trim ( RDFConsumerDefault.printModel ( Lang.TURTLE ) ) ;
 		
 		assertEquals ( "Test data print", actual, expected ) ;
 				
