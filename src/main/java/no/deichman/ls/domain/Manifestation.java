@@ -5,6 +5,8 @@
  */
 package no.deichman.ls.domain;
 
+import java.util.HashMap;
+
 /**
  *
  * @author sbd
@@ -16,6 +18,7 @@ public class Manifestation {
     private String publisher;
     private String publicationYear;
     private int workId;
+    private HashMap<Integer, Item> items;
 
     public Manifestation(int id, String isbn, String publisher, String publicationYear, int workId) {
         this.id = id;
@@ -23,6 +26,11 @@ public class Manifestation {
         this.publisher = publisher;
         this.publicationYear = publicationYear;
         this.workId = workId;
+        this.items = new HashMap<Integer, Item>();
+    }
+
+    public Manifestation(int id) {
+        this.id = id;
     }
 
     public int getId() {
@@ -43,5 +51,13 @@ public class Manifestation {
 
     public int getWorkId() {
         return workId;
+    }
+
+    public HashMap<Integer, Item> getItems() {
+        return items;
+    }
+
+    public void setItems(HashMap<Integer, Item> items) {
+        this.items = items;
     }
 }

@@ -29,21 +29,21 @@ public class SPARQLResource {
     public Response getSparqlHTML(@QueryParam("query") String query) {
 
         if (query == null) {
-            return Response.ok().
-                    link("http://localhost:8080/parasite/sparql", "self").
-                    entity("WELCOME TO THE SPARQL ENDPOINT\n").
-                    build();
+            return Response.ok()
+                    .link("http://localhost:8080/parasite/sparql", "self")
+                    .entity("WELCOME TO THE SPARQL ENDPOINT\n")
+                    .build();
         } else {
             if (queryOk(query)) {
                 return Response.ok().
-                        link("http://localhost:8080/parasite/sparql", "self").
-                        entity("some rdf is going to get back here\n").
-                        build();
+                        link("http://localhost:8080/parasite/sparql", "self")
+                        .entity("some rdf is going to get back here\n")
+                        .build();
             } else {
                 return Response.
-                        status(Response.Status.BAD_REQUEST).
-                        entity("Empty query-paramter is not allowed\n").
-                        build();
+                        status(Response.Status.BAD_REQUEST)
+                        .entity("Empty query-paramter is not allowed\n")
+                        .build();
             }
         }
     }

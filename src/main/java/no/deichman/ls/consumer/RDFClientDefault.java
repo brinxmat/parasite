@@ -13,7 +13,7 @@ public class RDFClientDefault implements RdfClient {
     private final Model model = ModelFactory.createDefaultModel();
 
     public static void main(String[] args) {
-		// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 
