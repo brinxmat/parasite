@@ -21,14 +21,17 @@ public class ManifestationConsumerMock implements ManifestationConsumer {
         createMockLists();
     }
 
+    @Override
     public HashMap<Integer, Manifestation> getManifestationList() {
         return manifestationList;
     }
 
+    @Override
     public HashMap<Integer, Manifestation> getManifestationsByWorkId(int id) {
         return manifestationListByWorkId.get(id);
     }
 
+    @Override
     public Manifestation getManifestationById(int manifestationId) { 
        return manifestationList.get(manifestationId);
     }
@@ -51,20 +54,5 @@ public class ManifestationConsumerMock implements ManifestationConsumer {
         manifestationListOfWork1.put(manifestation3.getId(), manifestation3);
         manifestationListByWorkId.put(manifestation3.getWorkId(), manifestationListOfWork1);
 
-    }
-
-    @Override
-    public void openConnection(String url) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String connect(String url) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getResponse() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

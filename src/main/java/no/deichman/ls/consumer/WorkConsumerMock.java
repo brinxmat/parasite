@@ -14,18 +14,20 @@ import org.apache.jena.riot.Lang;
  *
  * @author sbd
  */
-public class RDFConsumerMock implements RdfConsumer{
+public class WorkConsumerMock implements WorkConsumer {
 
     private HashMap<Integer, Work> workList = new HashMap<Integer, Work>();
 
-    public RDFConsumerMock() {
+    public WorkConsumerMock() {
         createMockList();
     }
 
+    @Override
     public HashMap<Integer, Work> getWorkList() {
         return workList;
     }
 
+    @Override
     public Work getWork(int id) {
         return workList.get(id);
     }
@@ -35,20 +37,5 @@ public class RDFConsumerMock implements RdfConsumer{
         workList.put(workItem1.getId(), workItem1);
         Work workItem2 = new Work(2, "Sykkelrytteren", "Tim Krabbé", 22.20);
         workList.put(workItem2.getId(), workItem2);
-    }
-
-    @Override
-    public void loadData(String url) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Model getModel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String printModel(Lang lang) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

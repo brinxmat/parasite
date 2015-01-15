@@ -6,18 +6,16 @@
 package no.deichman.ls.consumer;
 
 import java.util.HashMap;
-import no.deichman.ls.domain.Manifestation;
+import no.deichman.ls.domain.Work;
 
 /**
  *
  * @author sbd
  */
-public interface ManifestationConsumer {
+public interface WorkConsumer {
 
-    Manifestation getManifestationById(int manifestationId);
+    Work getWork(int id);
 
-    HashMap<Integer, Manifestation> getManifestationList();
-
-    HashMap<Integer, Manifestation> getManifestationsByWorkId(int id);
+    HashMap<Integer, Work> getWorkList();
     
 }

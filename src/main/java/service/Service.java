@@ -7,8 +7,9 @@ package service;
 
 import java.util.HashMap;
 import no.deichman.ls.consumer.ManifestationConsumer;
-import no.deichman.ls.consumer.RDFConsumerMock;
+import no.deichman.ls.consumer.WorkConsumerMock;
 import no.deichman.ls.consumer.ManifestationConsumerMock;
+import no.deichman.ls.consumer.WorkConsumer;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
 
@@ -17,11 +18,11 @@ import no.deichman.ls.domain.Work;
  * @author sbd
  */
 public class Service {
-    static private RDFConsumerMock katalog =  new RDFConsumerMock();
+    static private WorkConsumer workConsumer =  new WorkConsumerMock();
     static private ManifestationConsumer manifestationConsumer = new ManifestationConsumerMock();
     
     public HashMap<Integer, Work> retriveWorkList() {
-        return katalog.getWorkList();
+        return workConsumer.getWorkList();
 }
 
     public HashMap<Integer, Manifestation> retriveManifestationList() {
@@ -29,7 +30,7 @@ public class Service {
     }
 
     public Work retriveWorkById(int id) {
-        Work work = katalog.getWork(id);
+        Work work = workConsumer.getWork(id);
         work.setManifestations(manifestationConsumer.getManifestationsByWorkId(id));
         return work;
     }

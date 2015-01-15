@@ -18,9 +18,9 @@ import static org.junit.Assert.*;
  *
  * @author sbd
  */
-public class RDFConsumerMockTest {
+public class WorkConsumerMockTest {
     
-    public RDFConsumerMockTest() {
+    public WorkConsumerMockTest() {
     }
     
     @BeforeClass

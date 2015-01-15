@@ -44,5 +44,4 @@ public class Manifestation {
     public int getWorkId() {
         return workId;
     }
-    
 }

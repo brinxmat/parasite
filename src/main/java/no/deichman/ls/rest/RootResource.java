@@ -49,6 +49,7 @@ public class RootResource {
                 link("http://localhost:8080/parasite/", "self" ).
                 link("http://localhost:8080/parasite/work", "works" ).
                 link("http://localhost:8080/parasite/manifestation", "manifestations").
+                link("http://localhost:8080/parasite/sparql", "sparql" ).
                 build();
     }
 

@@ -1,12 +1,10 @@
 package no.deichman.ls.consumer;
 
-import java.util.HashMap;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
-import no.deichman.ls.domain.Manifestation;
 
-public class ManifestationConsumerDefault implements ManifestationConsumer {
+public class JSONClientDefault implements JSONClient {
 
 	private final static String JSONAPI = "http://base.address.no/";
 	private static Client client = null ;
@@ -40,19 +38,4 @@ public class ManifestationConsumerDefault implements ManifestationConsumer {
 	public String getResponse () {
 		return response ;
 	}
-
-    @Override
-    public HashMap<Integer, Manifestation> getManifestationList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public HashMap<Integer, Manifestation> getManifestationsByWorkId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Manifestation getManifestationById(int manifestationId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

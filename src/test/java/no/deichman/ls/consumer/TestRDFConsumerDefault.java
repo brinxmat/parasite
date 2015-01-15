@@ -6,7 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
-import no.deichman.ls.consumer.RDFConsumerDefault;
+import no.deichman.ls.consumer.RDFClientDefault;
 
 import com.hp.hpl.jena.rdf.model.*;
 
@@ -21,7 +21,7 @@ import org.junit.Test;
 public class TestRDFConsumerDefault {
 	String expected ;
 	URL url ;
-	RDFConsumerDefault RDFConsumerDefault ;
+	RDFClientDefault RDFConsumerDefault ;
 
 	@Before
 	
@@ -29,7 +29,7 @@ public class TestRDFConsumerDefault {
 		
 		url = this.getClass () .getResource ( "/test1.ttl" ) ;
 	    expected = StringUtils.trim ( IOUtils.toString ( url, "UTF-8" ) ) ;
-	    RDFConsumerDefault = new RDFConsumerDefault () ;
+	    RDFConsumerDefault = new RDFClientDefault () ;
 	}
 	
 	@Test

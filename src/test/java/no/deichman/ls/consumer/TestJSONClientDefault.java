@@ -5,18 +5,18 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.net.URL;
 
-import no.deichman.ls.consumer.ManifestationConsumerDefault;
+import no.deichman.ls.consumer.JSONClientDefault;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
-public class TestManifestationConsumerDefault {
+public class TestJSONClientDefault {
 
     @Test
     public void test() throws IOException {
 
-        ManifestationConsumerDefault getJson = new ManifestationConsumerDefault();
+        JSONClientDefault getJson = new JSONClientDefault();
 
         assertNotNull("Class GetJson is implemented", getJson.getClass());
 
@@ -24,7 +24,7 @@ public class TestManifestationConsumerDefault {
     }
 
     public void testConnect() throws IOException {
-        ManifestationConsumerDefault getJson = new ManifestationConsumerDefault();
+        JSONClientDefault getJson = new JSONClientDefault();
         URL url = this.getClass().getResource("/testJsonConnect.json");
         String expected = StringUtils.trim(IOUtils.toString(url, "UTF-8"));
         String actual = getJson.connect("http://www.ntnu.no/ub/digital/document/ntnu203");

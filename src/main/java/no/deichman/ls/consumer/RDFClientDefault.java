@@ -8,7 +8,7 @@ import org.apache.jena.riot.RDFDataMgr;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
-public class RDFConsumerDefault implements RdfConsumer {
+public class RDFClientDefault implements RdfClient {
 
     private final Model model = ModelFactory.createDefaultModel();
 
