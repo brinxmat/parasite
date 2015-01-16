@@ -1,6 +1,6 @@
-package no.deichman.ls.helper;
+package no.deichman.ls.dao;
 
-public class Item {
+public class ItemDAO {
     public String withdrawn ;
     public String biblioitemnumber ;
     public String restricted ;

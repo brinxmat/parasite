@@ -12,27 +12,27 @@ package no.deichman.ls.domain;
  */
 public class Item {
 
-    private int biblioItemNumber;
+    private String biblioItemNumber;
     private String holdingBranchName;
-    private int notForLoan;
-    private int itemNumber;
+    private boolean notForLoan;
+    private String itemNumber;
     private String itemCallNumber;
     private int itemLost;
-    private long barcode;
+    private String id;
     private String dateDue;
     private String uri;
     private String dateLastSeen;
     private String homeBranch;
     private String homeBranchName;
-    private int manifestationId; // aka biblioNumber
+    private String manifestationId; // aka biblioNumber
     private String holdingBranch;
     private int copyNumber;
 
-    public int getBiblioItemNumber() {
+    public String getBiblioItemNumber() {
         return biblioItemNumber;
     }
 
-    public void setBiblioItemNumber(int biblioItemNumber) {
+    public void setBiblioItemNumber(String biblioItemNumber) {
         this.biblioItemNumber = biblioItemNumber;
     }
 
@@ -44,19 +44,19 @@ public class Item {
         this.holdingBranchName = holdingBranchName;
     }
 
-    public int getNotForLoan() {
+    public boolean getNotForLoan() {
         return notForLoan;
     }
 
-    public void setNotForLoan(int notForLoan) {
+    public void setNotForLoan(boolean notForLoan) {
         this.notForLoan = notForLoan;
     }
 
-    public int getItemNumber() {
+    public String getItemNumber() {
         return itemNumber;
     }
 
-    public void setItemNumber(int itemNumber) {
+    public void setItemNumber(String itemNumber) {
         this.itemNumber = itemNumber;
     }
 
@@ -76,12 +76,12 @@ public class Item {
         this.itemLost = itemLost;
     }
 
-    public long getBarcode() {
-        return barcode;
+    public String getId() {
+        return id;
     }
 
-    public void setBarcode(long barcode) {
-        this.barcode = barcode;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDateDue() {
@@ -124,11 +124,11 @@ public class Item {
         this.homeBranchName = homeBranchName;
     }
 
-    public int getManifestationId() {
+    public String getManifestationId() {
         return manifestationId;
     }
 
-    public void setManifestationId(int manifestationId) {
+    public void setManifestationId(String manifestationId) {
         this.manifestationId = manifestationId;
     }
 

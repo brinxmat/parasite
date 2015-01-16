@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.deichman.ls.consumer;
+package no.deichman.ls.adapter;
 
 import java.util.HashMap;
 import no.deichman.ls.domain.Manifestation;
@@ -12,7 +12,7 @@ import no.deichman.ls.domain.Manifestation;
  *
  * @author sbd
  */
-public interface ManifestationConsumer {
+public interface KohaAdapter {
 
     Manifestation getManifestationById(int manifestationId);
 

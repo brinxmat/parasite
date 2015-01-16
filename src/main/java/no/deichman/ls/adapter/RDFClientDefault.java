@@ -1,4 +1,4 @@
-package no.deichman.ls.consumer;
+package no.deichman.ls.adapter;
 
 import java.io.StringWriter;
 
@@ -8,7 +8,9 @@ import org.apache.jena.riot.RDFDataMgr;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
-public class RDFClientDefault implements RdfClient {
+public class RDFClientDefault {
+    
+    // TODO Move into DataDeichmanAdapterDefault.java
 
     private final Model model = ModelFactory.createDefaultModel();
 
@@ -17,18 +19,15 @@ public class RDFClientDefault implements RdfClient {
 
     }
 
-    @Override
     public void loadData(String url) {
 
         RDFDataMgr.read(model, url);
     }
 
-    @Override
     public Model getModel() {
         return model;
     }
 
-    @Override
     public String printModel(Lang lang) {
 
         StringWriter sw = new StringWriter();

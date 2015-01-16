@@ -6,10 +6,12 @@
 package service;
 
 import java.util.HashMap;
-import no.deichman.ls.consumer.ManifestationConsumer;
-import no.deichman.ls.consumer.WorkConsumerMock;
-import no.deichman.ls.consumer.ManifestationConsumerMock;
-import no.deichman.ls.consumer.WorkConsumer;
+import no.deichman.ls.adapter.KohaAdapter;
+import no.deichman.ls.adapter.DataDeichmanAdapterMock;
+import no.deichman.ls.adapter.KohaAdapterMock;
+import no.deichman.ls.adapter.DataDeichmanAdapter;
+import no.deichman.ls.adapter.DataDeichmanAdapterDefault;
+import no.deichman.ls.adapter.KohaAdapterDefault;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
 
@@ -18,25 +20,25 @@ import no.deichman.ls.domain.Work;
  * @author sbd
  */
 public class Service {
-    static private WorkConsumer workConsumer =  new WorkConsumerMock();
-    static private ManifestationConsumer manifestationConsumer = new ManifestationConsumerMock();
+    static private DataDeichmanAdapter dataDeichmanAdapter =  new DataDeichmanAdapterMock();
+    static private KohaAdapter kohaAdapter = new KohaAdapterDefault();
     
     public HashMap<Integer, Work> retriveWorkList() {
-        return workConsumer.getWorkList();
+        return dataDeichmanAdapter.getWorkList();
 }
 
     public HashMap<Integer, Manifestation> retriveManifestationList() {
-        return manifestationConsumer.getManifestationList();
+        return kohaAdapter.getManifestationList();
     }
 
     public Work retriveWorkById(int id) {
-        Work work = workConsumer.getWork(id);
-        work.setManifestations(manifestationConsumer.getManifestationsByWorkId(id));
+        Work work = dataDeichmanAdapter.getWork(id);
+        work.setManifestations(kohaAdapter.getManifestationsByWorkId(id));
         return work;
     }
 
     public Manifestation retriveManifestationById(int id) {
-        return manifestationConsumer.getManifestationById(id);
+        return kohaAdapter.getManifestationById(id);
     }
 
 }

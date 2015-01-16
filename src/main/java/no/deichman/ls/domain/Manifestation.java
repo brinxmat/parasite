@@ -18,7 +18,7 @@ public class Manifestation {
     private String publisher;
     private String publicationYear;
     private int workId;
-    private HashMap<Integer, Item> items;
+    private HashMap<String, Item> items;
 
     public Manifestation(int id, String isbn, String publisher, String publicationYear, int workId) {
         this.id = id;
@@ -26,7 +26,7 @@ public class Manifestation {
         this.publisher = publisher;
         this.publicationYear = publicationYear;
         this.workId = workId;
-        this.items = new HashMap<Integer, Item>();
+        this.items = new HashMap<String, Item>();
     }
 
     public Manifestation(int id) {
@@ -53,11 +53,11 @@ public class Manifestation {
         return workId;
     }
 
-    public HashMap<Integer, Item> getItems() {
+    public HashMap<String, Item> getItems() {
         return items;
     }
 
-    public void setItems(HashMap<Integer, Item> items) {
+    public void setItems(HashMap<String, Item> items) {
         this.items = items;
     }
 }

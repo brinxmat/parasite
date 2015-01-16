@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.deichman.ls.consumer;
+package no.deichman.ls.adapter;
 
 import java.util.HashMap;
 import no.deichman.ls.domain.Manifestation;
@@ -12,12 +12,12 @@ import no.deichman.ls.domain.Manifestation;
  *
  * @author sbd
  */
-public class ManifestationConsumerMock implements ManifestationConsumer {
+public class KohaAdapterMock implements KohaAdapter {
 
     private HashMap<Integer, Manifestation> manifestationList = new HashMap<Integer, Manifestation>();
     private HashMap<Integer, HashMap<Integer, Manifestation>> manifestationListByWorkId = new HashMap<Integer, HashMap<Integer, Manifestation>>();
 
-    public ManifestationConsumerMock() {
+    public KohaAdapterMock() {
         createMockLists();
     }
 

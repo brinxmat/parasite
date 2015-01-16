@@ -6,7 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
-import no.deichman.ls.consumer.RDFClientDefault;
+import no.deichman.ls.adapter.RDFClientDefault;
 
 import com.hp.hpl.jena.rdf.model.*;
 

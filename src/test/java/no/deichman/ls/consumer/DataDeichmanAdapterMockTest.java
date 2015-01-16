@@ -5,6 +5,7 @@
  */
 package no.deichman.ls.consumer;
 
+import no.deichman.ls.adapter.KohaAdapterMock;
 import java.util.HashMap;
 import no.deichman.ls.domain.Manifestation;
 import org.junit.After;
@@ -18,9 +19,9 @@ import static org.junit.Assert.*;
  *
  * @author sbd
  */
-public class WorkConsumerMockTest {
+public class DataDeichmanAdapterMockTest {
     
-    public WorkConsumerMockTest() {
+    public DataDeichmanAdapterMockTest() {
     }
     
     @BeforeClass
@@ -40,38 +41,38 @@ public class WorkConsumerMockTest {
     }
 
     /**
-     * Test of getManifestationList method, of class ManifestationConsumerMock.
+     * Test of getManifestationList method, of class KohaAdapterMock.
      */
     @Test
     public void testGetManifestationList() {
         System.out.println("getManifestationList");
-        ManifestationConsumerMock instance = new ManifestationConsumerMock();
+        KohaAdapterMock instance = new KohaAdapterMock();
         HashMap<Integer, Manifestation> expResult = null;
         HashMap<Integer, Manifestation> result = instance.getManifestationList();
         assertEquals(3, result.size());
     }
 
     /**
-     * Test of getManifestationsByWorkId method, of class ManifestationConsumerMock.
+     * Test of getManifestationsByWorkId method, of class KohaAdapterMock.
      */
     @Test
     public void testGetManifestationsByWorkId() {
         System.out.println("getManifestationsByWorkId");
         int id = 1;
-        ManifestationConsumerMock instance = new ManifestationConsumerMock();
+        KohaAdapterMock instance = new KohaAdapterMock();
         HashMap<Integer, Manifestation> expResult = null;
         HashMap<Integer, Manifestation> result = instance.getManifestationsByWorkId(id);
         assertEquals(2, result.size());
     }
 
     /**
-     * Test of getManifestationById method, of class ManifestationConsumerMock.
+     * Test of getManifestationById method, of class KohaAdapterMock.
      */
     @Test
     public void testGetManifestationById() {
         System.out.println("getManifestationById");
         int manifestationId = 1;
-        ManifestationConsumerMock instance = new ManifestationConsumerMock();
+        KohaAdapterMock instance = new KohaAdapterMock();
         Manifestation expResult = null;
         Manifestation result = instance.getManifestationById(manifestationId);
         assertEquals(1, result.getId());

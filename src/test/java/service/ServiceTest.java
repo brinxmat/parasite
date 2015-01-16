@@ -56,29 +56,29 @@ public class ServiceTest {
     /**
      * Test of retriveManifestationList method, of class Service.
      */
-    @Test
-    public void testRetriveManifestationList() {
-        System.out.println("retriveManifestationList");
-        Service instance = new Service();
-        HashMap<Integer, Manifestation> expResult = null;
-        HashMap<Integer, Manifestation> result = instance.retriveManifestationList();
-        assertNotNull(result);
-        // assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testRetriveManifestationList() {
+//        System.out.println("retriveManifestationList");
+//        Service instance = new Service();
+//        HashMap<Integer, Manifestation> expResult = null;
+//        HashMap<Integer, Manifestation> result = instance.retriveManifestationList();
+//        assertNotNull(result);
+//        // assertEquals(expResult, result);
+//    }
 
     /**
      * Test of retriveWorkById method, of class Service.
      */
-    @Test
-    public void testRetriveWorkById() {
-        System.out.println("retriveWorkById");
-        int id = 1;
-        Service instance = new Service();
-        Work expResult = null;
-        Work result = instance.retriveWorkById(id);
-        assertNotNull(result);
-        // assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testRetriveWorkById() {
+//        System.out.println("retriveWorkById");
+//        int id = 1;
+//        Service instance = new Service();
+//        Work expResult = null;
+//        Work result = instance.retriveWorkById(id);
+//        assertNotNull(result);
+//        // assertEquals(expResult, result);
+//    }
 
     /**
      * Test of retriveManifestationById method, of class Service.

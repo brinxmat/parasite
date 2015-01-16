@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.deichman.ls.consumer;
+package no.deichman.ls.adapter;
 
 import com.owlike.genson.Genson;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -15,14 +17,16 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import no.deichman.ls.dao.ItemDAO;
 import no.deichman.ls.domain.Item;
 import no.deichman.ls.domain.Manifestation;
+import no.deichman.ls.mapper.ItemMapper;
 
 /**
  *
  * @author sbd
  */
-public class ManifestationConsumerDefault implements ManifestationConsumer {
+public class KohaAdapterDefault implements KohaAdapter {
 
     @Override
     public Manifestation getManifestationById(int manifestationId) {
@@ -58,13 +62,19 @@ public class ManifestationConsumerDefault implements ManifestationConsumer {
 
     private Manifestation mapResponseToManifestation(int id, Response response) {
 
-        Genson genson = null;
+	Genson genson = new Genson();
         String r = response.readEntity(String.class);
-        HashMap<Integer, Item> items = new HashMap<Integer, Item>();
-        items = genson.deserialize(r, HashMap.class);
-
+        List<no.deichman.ls.dao.ItemDAO> itemListDAO = genson.deserialize(r, new com.owlike.genson.GenericType<List<no.deichman.ls.dao.ItemDAO>>(){});
+	
+        ItemMapper itemMapper = new ItemMapper();
+        HashMap<String, Item> itemList = new HashMap<String, Item>();
+        for (ItemDAO i : itemListDAO ) {
+            Item item = itemMapper.mapItemDAOToItem(i);
+            itemList.put(item.getId(), item);
+        }
+        
         Manifestation manifestation = new Manifestation(id);
-        manifestation.setItems(items);
+        manifestation.setItems(itemList);
         
         return manifestation;
     }

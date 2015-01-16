@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.deichman.ls.consumer;
+package no.deichman.ls.adapter;
+
+import java.util.HashMap;
+import no.deichman.ls.domain.Work;
 
 /**
  *
  * @author sbd
  */
-public interface JSONClient {
+public interface DataDeichmanAdapter {
 
-    public void openConnection(String url);
+    Work getWork(int id);
 
-    public String connect(String url);
-
-    public String getResponse();
-
+    HashMap<Integer, Work> getWorkList();
+    
 }

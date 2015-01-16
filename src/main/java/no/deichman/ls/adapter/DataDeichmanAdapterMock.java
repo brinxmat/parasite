@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.deichman.ls.consumer;
+package no.deichman.ls.adapter;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import java.util.HashMap;
@@ -14,11 +14,11 @@ import org.apache.jena.riot.Lang;
  *
  * @author sbd
  */
-public class WorkConsumerMock implements WorkConsumer {
+public class DataDeichmanAdapterMock implements DataDeichmanAdapter {
 
     private HashMap<Integer, Work> workList = new HashMap<Integer, Work>();
 
-    public WorkConsumerMock() {
+    public DataDeichmanAdapterMock() {
         createMockList();
     }
 

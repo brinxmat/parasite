@@ -5,6 +5,7 @@
  */
 package no.deichman.ls.consumer;
 
+import no.deichman.ls.adapter.KohaAdapterMock;
 import java.util.HashMap;
 import no.deichman.ls.domain.Manifestation;
 import org.junit.After;
@@ -18,9 +19,9 @@ import static org.junit.Assert.*;
  *
  * @author sbd
  */
-public class ManifestationConsumerMockTest {
+public class KohaAdapterMockTest {
     
-    public ManifestationConsumerMockTest() {
+    public KohaAdapterMockTest() {
     }
     
     @BeforeClass
@@ -40,12 +41,12 @@ public class ManifestationConsumerMockTest {
     }
 
     /**
-     * Test of getManifestationList method, of class ManifestationConsumerMock.
+     * Test of getManifestationList method, of class KohaAdapterMock.
      */
     @Test
     public void testGetManifestationList() {
         System.out.println("getManifestationList");
-        ManifestationConsumerMock instance = new ManifestationConsumerMock();
+        KohaAdapterMock instance = new KohaAdapterMock();
         HashMap<Integer, Manifestation> expResult = null;
         HashMap<Integer, Manifestation> result = instance.getManifestationList();
         assertNotNull(result);
@@ -53,13 +54,13 @@ public class ManifestationConsumerMockTest {
     }
 
     /**
-     * Test of getManifestationsByWorkId method, of class ManifestationConsumerMock.
+     * Test of getManifestationsByWorkId method, of class KohaAdapterMock.
      */
     @Test
     public void testGetManifestationsByWorkId() {
         System.out.println("getManifestationsByWorkId");
         int id = 1;
-        ManifestationConsumerMock instance = new ManifestationConsumerMock();
+        KohaAdapterMock instance = new KohaAdapterMock();
         HashMap<Integer, Manifestation> expResult = null;
         HashMap<Integer, Manifestation> result = instance.getManifestationsByWorkId(id);
         assertNotNull(result);
@@ -67,13 +68,13 @@ public class ManifestationConsumerMockTest {
     }
 
     /**
-     * Test of getManifestationById method, of class ManifestationConsumerMock.
+     * Test of getManifestationById method, of class KohaAdapterMock.
      */
     @Test
     public void testGetManifestationById() {
         System.out.println("getManifestationById");
         int manifestationId = 1;
-        ManifestationConsumerMock instance = new ManifestationConsumerMock();
+        KohaAdapterMock instance = new KohaAdapterMock();
         Manifestation expResult = null;
         Manifestation result = instance.getManifestationById(manifestationId);
         assertNotNull(result);
