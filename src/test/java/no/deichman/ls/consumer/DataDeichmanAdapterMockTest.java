@@ -47,8 +47,8 @@ public class DataDeichmanAdapterMockTest {
     public void testGetManifestationList() {
         System.out.println("getManifestationList");
         KohaAdapterMock instance = new KohaAdapterMock();
-        HashMap<Integer, Manifestation> expResult = null;
-        HashMap<Integer, Manifestation> result = instance.getManifestationList();
+        HashMap<String, Manifestation> expResult = null;
+        HashMap<String, Manifestation> result = instance.getManifestationList();
         assertEquals(3, result.size());
     }
 
@@ -58,11 +58,11 @@ public class DataDeichmanAdapterMockTest {
     @Test
     public void testGetManifestationsByWorkId() {
         System.out.println("getManifestationsByWorkId");
-        int id = 1;
+        String id = "2";
         KohaAdapterMock instance = new KohaAdapterMock();
-        HashMap<Integer, Manifestation> expResult = null;
-        HashMap<Integer, Manifestation> result = instance.getManifestationsByWorkId(id);
-        assertEquals(2, result.size());
+        HashMap<String, Manifestation> expResult = null;
+        HashMap<String, Manifestation> result = instance.getManifestationsByWorkId(id);
+        assertEquals(id, result.size());
     }
 
     /**
@@ -71,11 +71,11 @@ public class DataDeichmanAdapterMockTest {
     @Test
     public void testGetManifestationById() {
         System.out.println("getManifestationById");
-        int manifestationId = 1;
+        String manifestationId = "1";
         KohaAdapterMock instance = new KohaAdapterMock();
         Manifestation expResult = null;
         Manifestation result = instance.getManifestationById(manifestationId);
-        assertEquals(1, result.getId());
+        assertEquals(manifestationId, result.getId());
     }
     
 }

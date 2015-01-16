@@ -78,8 +78,7 @@ public class WorkResource {
     @GET
     @Produces("application/json;qs=0.2")
     public Response getJSON(@PathParam("id") String id) {
-        int idAsInt = Integer.parseInt(id);
-        return Response.ok(SERVICE.retriveWorkById(idAsInt)).build();
+        return Response.ok(SERVICE.retriveWorkById(id)).build();
     }
 
     /**

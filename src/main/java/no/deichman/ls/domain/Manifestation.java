@@ -13,14 +13,14 @@ import java.util.HashMap;
  */
 public class Manifestation {
 
-    private int id;
+    private String id;
     private String isbn;
     private String publisher;
     private String publicationYear;
-    private int workId;
+    private String workId;
     private HashMap<String, Item> items;
 
-    public Manifestation(int id, String isbn, String publisher, String publicationYear, int workId) {
+    public Manifestation(String id, String isbn, String publisher, String publicationYear, String workId) {
         this.id = id;
         this.isbn = isbn;
         this.publisher = publisher;
@@ -29,11 +29,11 @@ public class Manifestation {
         this.items = new HashMap<String, Item>();
     }
 
-    public Manifestation(int id) {
+    public Manifestation(String id) {
         this.id = id;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -49,7 +49,7 @@ public class Manifestation {
         return publicationYear;
     }
 
-    public int getWorkId() {
+    public String getWorkId() {
         return workId;
     }
 

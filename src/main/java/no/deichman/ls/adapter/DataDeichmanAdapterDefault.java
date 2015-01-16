@@ -15,12 +15,12 @@ import no.deichman.ls.domain.Work;
 public class DataDeichmanAdapterDefault implements DataDeichmanAdapter {
 
     @Override
-    public Work getWork(int id) {
+    public Work getWork(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public HashMap<Integer, Work> getWorkList() {
+    public HashMap<String, Work> getWorkList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

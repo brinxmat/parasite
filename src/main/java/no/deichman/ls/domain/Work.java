@@ -15,25 +15,25 @@ import java.util.List;
  */
 public class Work {
 
-    private int id;
+    private String id;
     private String title;
     private String author;
     private double price;
-    private HashMap<Integer, Manifestation> manifestations;
+    private HashMap<String, Manifestation> manifestations;
 
-    public Work(int id, String title, String author, double price) {
-        this.manifestations = new HashMap<Integer, Manifestation>();
+    public Work(String id, String title, String author, double price) {
+        this.manifestations = new HashMap<String, Manifestation>();
         this.id = id;
         this.title = title;
         this.author = author;
         this.price = price;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,11 +61,11 @@ public class Work {
         this.price = price;
     }
 
-    public HashMap<Integer, Manifestation> getManifestations() {
+    public HashMap<String, Manifestation> getManifestations() {
         return manifestations;
     }
 
-    public void setManifestations(HashMap<Integer, Manifestation> manifestations) {
+    public void setManifestations(HashMap<String, Manifestation> manifestations) {
         this.manifestations = manifestations;
     }
     

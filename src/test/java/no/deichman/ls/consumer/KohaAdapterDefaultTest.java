@@ -46,7 +46,7 @@ public class KohaAdapterDefaultTest {
     @Test
     public void testGetManifestationById() {
         System.out.println("getManifestationById");
-        int manifestationId = 626460;
+        String manifestationId = "626460";
         KohaAdapterDefault instance = new KohaAdapterDefault();
         Manifestation expResult = null;
         Manifestation result = instance.getManifestationById(manifestationId);

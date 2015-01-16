@@ -16,26 +16,26 @@ import org.apache.jena.riot.Lang;
  */
 public class DataDeichmanAdapterMock implements DataDeichmanAdapter {
 
-    private HashMap<Integer, Work> workList = new HashMap<Integer, Work>();
+    private HashMap<String, Work> workList = new HashMap<String, Work>();
 
     public DataDeichmanAdapterMock() {
         createMockList();
     }
 
     @Override
-    public HashMap<Integer, Work> getWorkList() {
+    public HashMap<String, Work> getWorkList() {
         return workList;
     }
 
     @Override
-    public Work getWork(int id) {
+    public Work getWork(String id) {
         return workList.get(id);
     }
 
     private void createMockList() {
-        Work workItem1 = new Work(1, "Sult", "Knut Hamsun", 22.20);
+        Work workItem1 = new Work("1", "Sult", "Knut Hamsun", 22.20);
         workList.put(workItem1.getId(), workItem1);
-        Work workItem2 = new Work(2, "Sykkelrytteren", "Tim Krabbé", 22.20);
+        Work workItem2 = new Work("2", "Sykkelrytteren", "Tim Krabbé", 22.20);
         workList.put(workItem2.getId(), workItem2);
     }
 }

@@ -3,19 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.deichman.ls.adapter;
-
-import java.util.HashMap;
-import no.deichman.ls.domain.Work;
+package no.deichman.ls.repository;
 
 /**
  *
  * @author sbd
  */
-public interface DataDeichmanAdapter {
-
-    Work getWork(String id);
-
-    HashMap<String, Work> getWorkList();
+interface Repository {
     
 }

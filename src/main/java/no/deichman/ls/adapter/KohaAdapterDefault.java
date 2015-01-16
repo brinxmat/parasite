@@ -29,7 +29,7 @@ import no.deichman.ls.mapper.ItemMapper;
 public class KohaAdapterDefault implements KohaAdapter {
 
     @Override
-    public Manifestation getManifestationById(int manifestationId) {
+    public Manifestation getManifestationById(String manifestationId) {
 
         Client client = ClientBuilder.newClient();
 
@@ -51,21 +51,22 @@ public class KohaAdapterDefault implements KohaAdapter {
     }
 
     @Override
-    public HashMap<Integer, Manifestation> getManifestationList() {
+    public HashMap<String, Manifestation> getManifestationList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public HashMap<Integer, Manifestation> getManifestationsByWorkId(int id) {
+    public HashMap<String, Manifestation> getManifestationsByWorkId(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private Manifestation mapResponseToManifestation(int id, Response response) {
+    private Manifestation mapResponseToManifestation(String id, Response response) {
 
 	Genson genson = new Genson();
         String r = response.readEntity(String.class);
         List<no.deichman.ls.dao.ItemDAO> itemListDAO = genson.deserialize(r, new com.owlike.genson.GenericType<List<no.deichman.ls.dao.ItemDAO>>(){});
 	
+        // TODO vurder å flytte dette inn i en ManifestationMapper.java
         ItemMapper itemMapper = new ItemMapper();
         HashMap<String, Item> itemList = new HashMap<String, Item>();
         for (ItemDAO i : itemListDAO ) {

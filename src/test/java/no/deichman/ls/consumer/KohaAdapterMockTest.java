@@ -47,8 +47,8 @@ public class KohaAdapterMockTest {
     public void testGetManifestationList() {
         System.out.println("getManifestationList");
         KohaAdapterMock instance = new KohaAdapterMock();
-        HashMap<Integer, Manifestation> expResult = null;
-        HashMap<Integer, Manifestation> result = instance.getManifestationList();
+        HashMap<String, Manifestation> expResult = null;
+        HashMap<String, Manifestation> result = instance.getManifestationList();
         assertNotNull(result);
         // assertEquals(expResult, result);
     }
@@ -59,10 +59,10 @@ public class KohaAdapterMockTest {
     @Test
     public void testGetManifestationsByWorkId() {
         System.out.println("getManifestationsByWorkId");
-        int id = 1;
+        String id = "1";
         KohaAdapterMock instance = new KohaAdapterMock();
-        HashMap<Integer, Manifestation> expResult = null;
-        HashMap<Integer, Manifestation> result = instance.getManifestationsByWorkId(id);
+        HashMap<String, Manifestation> expResult = null;
+        HashMap<String, Manifestation> result = instance.getManifestationsByWorkId(id);
         assertNotNull(result);
         // assertEquals(expResult, result);
     }
@@ -73,7 +73,7 @@ public class KohaAdapterMockTest {
     @Test
     public void testGetManifestationById() {
         System.out.println("getManifestationById");
-        int manifestationId = 1;
+        String manifestationId = "1";
         KohaAdapterMock instance = new KohaAdapterMock();
         Manifestation expResult = null;
         Manifestation result = instance.getManifestationById(manifestationId);

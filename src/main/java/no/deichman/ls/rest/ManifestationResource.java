@@ -48,8 +48,7 @@ public class ManifestationResource {
     @GET
     @Produces("application/json;qs=0.2")
     public Response getJSON(@PathParam("id") String id) {
-        int idAsInt = Integer.parseInt(id);
-        return Response.ok(SERVICE.retriveManifestationById(idAsInt)).build();
+        return Response.ok(SERVICE.retriveManifestationById(id)).build();
     }
 
 }

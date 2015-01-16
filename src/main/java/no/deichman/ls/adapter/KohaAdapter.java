@@ -14,10 +14,10 @@ import no.deichman.ls.domain.Manifestation;
  */
 public interface KohaAdapter {
 
-    Manifestation getManifestationById(int manifestationId);
+    Manifestation getManifestationById(String manifestationId);
 
-    HashMap<Integer, Manifestation> getManifestationList();
+    HashMap<String, Manifestation> getManifestationList();
 
-    HashMap<Integer, Manifestation> getManifestationsByWorkId(int id);
+    HashMap<String, Manifestation> getManifestationsByWorkId(String id);
     
 }
