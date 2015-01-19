@@ -5,8 +5,10 @@
  */
 package no.deichman.ls.adapter;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
+import com.hp.hpl.jena.rdf.model.Model;
 
 import no.deichman.ls.domain.Work;
 
@@ -16,7 +18,7 @@ import no.deichman.ls.domain.Work;
  */
 public interface DataDeichmanAdapter {
 
-    Work getWork(String id);
+    Model getWork(String id) throws FileNotFoundException;
 
     HashMap<String, Work> getWorkList();
     

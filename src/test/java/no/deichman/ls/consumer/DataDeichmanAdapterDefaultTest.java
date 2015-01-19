@@ -18,9 +18,8 @@ public class DataDeichmanAdapterDefaultTest {
 	@Test
 	public void test() throws FileNotFoundException {
 		DataDeichmanAdapterDefault x = new DataDeichmanAdapterDefault();
-		Model m = x.describeWork("749919");
+		Model m = x.getWork("749919");
         RDFDataMgr.write(System.out, m, Lang.TRIG);
-
 
 	}
 

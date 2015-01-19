@@ -39,17 +39,7 @@ public class DataDeichmanAdapterDefault implements DataDeichmanAdapter {
 //    	this.url = this.dataDeichmanURL + id;
     	this.url = "http://data.deichman.no/sparql?default-graph-uri=&query=describe+%3Chttp%3A%2F%2Fdata.deichman.no%2Fresource%2Ftnr_" + id + "%3E%0D%0A&format=application%2Frdf%2Bxml&timeout=0&debug=on";
     }
-    
-    public Model describeWork (String id) throws FileNotFoundException {
-    	
-    	setURL (id);
 
-    	dereference (this.url);
-        
-    	return this.model;
-    }
-    
- 
 	@Override
 	public HashMap<String, Work> getWorkList() {
 		// TODO Auto-generated method stub
@@ -57,9 +47,11 @@ public class DataDeichmanAdapterDefault implements DataDeichmanAdapter {
 	}
 
 	@Override
-	public Work getWork(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Model getWork(String id) throws FileNotFoundException {
+    	setURL (id);
+    	dereference (this.url);
+        
+    	return this.model;
 	}
     
 }
