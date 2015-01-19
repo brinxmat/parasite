@@ -5,10 +5,11 @@
  */
 package no.deichman.ls.adapter;
 
-import com.hp.hpl.jena.rdf.model.Model;
+
 import java.util.HashMap;
+
 import no.deichman.ls.domain.Work;
-import org.apache.jena.riot.Lang;
+
 
 /**
  *
@@ -37,5 +38,6 @@ public class DataDeichmanAdapterMock implements DataDeichmanAdapter {
         workList.put(workItem1.getId(), workItem1);
         Work workItem2 = new Work("2", "Sykkelrytteren", "Tim Krabbé", 22.20);
         workList.put(workItem2.getId(), workItem2);
+
     }
 }

@@ -22,6 +22,7 @@ public class RDFClientDefault {
     public void loadData(String url) {
 
         RDFDataMgr.read(model, url);
+        
     }
 
     public Model getModel() {

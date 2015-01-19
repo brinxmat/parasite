@@ -6,6 +6,8 @@
 package no.deichman.ls.adapter;
 
 import java.util.HashMap;
+
+
 import no.deichman.ls.domain.Work;
 
 /**
