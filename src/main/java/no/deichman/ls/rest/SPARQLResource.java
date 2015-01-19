@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import service.Service;
+import service.ServiceDefault;
 
 /**
  *
@@ -22,7 +22,7 @@ import service.Service;
 @Path("sparql/")
 public class SPARQLResource {
 
-    private static final Service SERVICE = new Service();
+    private static final ServiceDefault SERVICE = new ServiceDefault();
 
     @GET
     @Produces("application/rdf+xml")

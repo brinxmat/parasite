@@ -62,7 +62,7 @@ public class DataDeichmanAdapterMockTest {
         KohaAdapterMock instance = new KohaAdapterMock();
         HashMap<String, Manifestation> expResult = null;
         HashMap<String, Manifestation> result = instance.getManifestationsByWorkId(id);
-        assertEquals(id, result.size());
+        assertEquals(1, result.size());
     }
 
     /**

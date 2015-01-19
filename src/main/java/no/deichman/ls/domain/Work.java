@@ -18,15 +18,16 @@ public class Work {
     private String id;
     private String title;
     private String author;
-    private double price;
     private HashMap<String, Manifestation> manifestations;
+
+    public Work() {
+    }
 
     public Work(String id, String title, String author, double price) {
         this.manifestations = new HashMap<String, Manifestation>();
         this.id = id;
         this.title = title;
         this.author = author;
-        this.price = price;
     }
 
     public String getId() {
@@ -53,14 +54,6 @@ public class Work {
         this.author = author;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public HashMap<String, Manifestation> getManifestations() {
         return manifestations;
     }
@@ -76,7 +69,6 @@ public class Work {
         stringBuilder.append("Id : " + this.id + '\n');
         stringBuilder.append("Title : " + this.title + '\n');
         stringBuilder.append("Author : " + this.author + '\n');
-        stringBuilder.append("Price : " + this.price + '\n');
 
         return stringBuilder.toString();
     }

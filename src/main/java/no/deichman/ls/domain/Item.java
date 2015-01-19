@@ -28,6 +28,9 @@ public class Item {
     private String holdingBranch;
     private int copyNumber;
 
+    public Item() {
+    }
+
     public String getBiblioItemNumber() {
         return biblioItemNumber;
     }

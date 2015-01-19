@@ -20,6 +20,9 @@ public class Manifestation {
     private String workId;
     private HashMap<String, Item> items;
 
+    public Manifestation() {
+    }
+
     public Manifestation(String id, String isbn, String publisher, String publicationYear, String workId) {
         this.id = id;
         this.isbn = isbn;
@@ -59,5 +62,30 @@ public class Manifestation {
 
     public void setItems(HashMap<String, Item> items) {
         this.items = items;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setPublicationYear(String publicationYear) {
+        this.publicationYear = publicationYear;
+    }
+
+    public void setWorkId(String workId) {
+        this.workId = workId;
+    }
+
+    @Override
+    public String toString() {
+        return "Manifestation{" + "id=" + id + ", isbn=" + isbn + ", publisher=" + publisher + ", publicationYear=" + publicationYear + ", workId=" + workId + ", items=" + items + '}';
     }
 }
