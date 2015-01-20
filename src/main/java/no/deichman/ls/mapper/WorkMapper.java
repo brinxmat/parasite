@@ -15,6 +15,8 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import java.util.HashMap;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 
 /**
  *
@@ -35,15 +37,17 @@ public class WorkMapper {
         model.add(mapIdToStatement(work.getId()));
         model.add(mapTitleToStatement(work.getTitle()));
         model.add(mapAuthorToStatement(work.getAuthor()));
-        model.add(mapManifestationsToModel(work.getManifestations()));
+        if (work.getManifestations() != null) {
+            model.add(mapManifestationsToModel(work.getManifestations()));
+        }
 
         return model;
     }
 
     public static Work mapModelToWork(Model model) {
-
+        RDFDataMgr.write(System.out, model, Lang.JSONLD);
         // todo
-        return new Work();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private static Statement mapIdToStatement(String id) {
@@ -72,11 +76,9 @@ public class WorkMapper {
     }
 
     private static Model mapManifestationsToModel(HashMap<String, Manifestation> map) {
-        // TODO: for all manifestations map them, add to model and return
         Model model = ModelFactory.createDefaultModel();
-        ManifestationMapper mm = new ManifestationMapper();
         for (Manifestation m : map.values()) {
-            model.add(mm.mapManifestationToModel(m));
+            model.add(ManifestationMapper.mapManifestationToModel(m));
         }
         return model;
     }

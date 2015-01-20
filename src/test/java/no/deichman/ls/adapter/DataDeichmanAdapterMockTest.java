@@ -47,6 +47,7 @@ public class DataDeichmanAdapterMockTest {
         DataDeichmanAdapterMock instance = new DataDeichmanAdapterMock();
         Model expResult = null;
         Model result = instance.getManifestationList();
+        assertNotNull(result);
         assertEquals(3, result.size());
     }
 
@@ -56,11 +57,12 @@ public class DataDeichmanAdapterMockTest {
     @Test
     public void testGetManifestationsByWorkId() {
         System.out.println("getManifestationsByWorkId");
-        String id = "2";
+        String id = "1";
         DataDeichmanAdapterMock instance = new DataDeichmanAdapterMock();
-        Model expResult = null;
+        int expResult = 3;
         Model result = instance.getManifestationsByWorkId(id);
-        assertEquals(1, result.size());
+        assertNotNull(result);
+        assertEquals(expResult, result.size());
     }
 
     /**

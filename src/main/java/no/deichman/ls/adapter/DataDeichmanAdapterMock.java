@@ -22,10 +22,12 @@ public class DataDeichmanAdapterMock implements DataDeichmanAdapter {
     private HashMap<String, Work> workList = new HashMap<String, Work>();
     private HashMap<String, Manifestation> manifestationList = new HashMap<String, Manifestation>();
     private HashMap<String, HashMap<String, Manifestation>> manifestationListByWorkId = new HashMap<String, HashMap<String, Manifestation>>();
+    private HashMap manifestationListOfWork1 = new HashMap<Integer, Manifestation>();
+    private HashMap manifestationListOfWork2 = new HashMap<Integer, Manifestation>();
 
     public DataDeichmanAdapterMock() {
-        createWorkMockList();
         createManifestationMockList();
+        createWorkMockList();
     }
 
     @Override
@@ -75,6 +77,7 @@ public class DataDeichmanAdapterMock implements DataDeichmanAdapter {
 
     private void createWorkMockList() {
         Work workItem1 = new Work("1", "Sult", "Knut Hamsun", 22.20);
+        workItem1.setManifestations(manifestationList);
         workList.put(workItem1.getId(), workItem1);
         Work workItem2 = new Work("2", "Sykkelrytteren", "Tim Krabbé", 22.20);
         workList.put(workItem2.getId(), workItem2);
@@ -84,13 +87,11 @@ public class DataDeichmanAdapterMock implements DataDeichmanAdapter {
     private void createManifestationMockList() {
         Manifestation manifestation1 = new Manifestation("1", "1234-5678-90", "Gyldendal", "1906", "1");
         manifestationList.put(manifestation1.getId(), manifestation1);
-        HashMap manifestationListOfWork1 = new HashMap<Integer, Manifestation>();
         manifestationListOfWork1.put(manifestation1.getId(), manifestation1);
         manifestationListByWorkId.put(manifestation1.getWorkId(), manifestationListOfWork1);
 
         Manifestation manifestation2 = new Manifestation("2", "9788291614823", "Arneberg Forlag", "2009", "2");
         manifestationList.put(manifestation2.getId(), manifestation2);
-        HashMap manifestationListOfWork2 = new HashMap<Integer, Manifestation>();
         manifestationListOfWork2.put(manifestation2.getId(), manifestation2);
         manifestationListByWorkId.put(manifestation2.getWorkId(), manifestationListOfWork2);
 

@@ -1,5 +1,7 @@
 package no.deichman.ls.rest;
 
+import com.hp.hpl.jena.rdf.model.Model;
+import java.io.StringWriter;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -8,6 +10,8 @@ import javax.ws.rs.core.MediaType;
 
 
 import javax.ws.rs.core.Response;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 
 import service.ServiceDefault;
 
@@ -38,9 +42,19 @@ public class WorkResource {
      */
     @Path("/{id}")
     @GET
-    @Produces("application/json;qs=0.2")
+    @Produces({MediaType.APPLICATION_JSON})
+    //@Produces("application/json+ld;qs=0.2")
     public Response getJSON(@PathParam("id") String id) {
-        return Response.ok(SERVICE.retriveWorkById(id)).build();
+        
+        StringWriter sw = new StringWriter();
+        Model model = SERVICE.retriveWorkById(id);
+        RDFDataMgr.write(sw, model, Lang.JSONLD);
+
+        String data = sw.toString();
+
+        return Response.ok()
+                .entity(data)
+                .build();
     }
 
 

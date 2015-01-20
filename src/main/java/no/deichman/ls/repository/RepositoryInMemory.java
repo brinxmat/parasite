@@ -18,7 +18,7 @@ public class RepositoryInMemory implements Repository {
 
     @Override
     public Model retrieveWork(String id) {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -34,7 +34,7 @@ public class RepositoryInMemory implements Repository {
 
     @Override
     public Model retrieveManifestation(String id) {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -56,7 +56,7 @@ public class RepositoryInMemory implements Repository {
 
     @Override
     public Model retrieveItem(String id) {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

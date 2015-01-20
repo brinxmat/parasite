@@ -5,41 +5,56 @@
  */
 package no.deichman.ls.repository;
 
+import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.ResourceFactory;
+import com.hp.hpl.jena.rdf.model.Statement;
+import java.util.HashMap;
+import java.util.List;
+import no.deichman.ls.dao.ItemDAO;
 import no.deichman.ls.domain.Item;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
 import no.deichman.ls.mapper.ItemMapper;
 import no.deichman.ls.mapper.ManifestationMapper;
 import no.deichman.ls.mapper.WorkMapper;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
  * @author sbd
  */
 public class RepositoryInMemoryTest {
-    
+
+    static final String NS = "http://data.deichman.no/work/";
+    static String resource;
+
     public RepositoryInMemoryTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -47,6 +62,7 @@ public class RepositoryInMemoryTest {
     /**
      * Test of retrieveWork method, of class RepositoryInMemory.
      */
+    @Ignore
     @Test
     public void testRetrieveWork() {
         System.out.println("retrieveWork");
@@ -54,7 +70,11 @@ public class RepositoryInMemoryTest {
         Model w = createWorkInstance();
         String id = instance.createWork(w);
         Model expResult = w;
+        System.out.println("expResult");
+        RDFDataMgr.write(System.out, w, Lang.JSONLD);
         Model result = instance.retrieveWork(id);
+        System.out.println("result");
+        RDFDataMgr.write(System.out, result, Lang.JSONLD);
         assertEquals(expResult, result);
     }
 
@@ -66,38 +86,11 @@ public class RepositoryInMemoryTest {
         System.out.println("createWork");
         Model work = createWorkInstance();
         RepositoryInMemory instance = new RepositoryInMemory();
-        String expResult = null;
+        String expResult = work.toString();
         String result = instance.createWork(work);
         assertNotNull(result);
+        assertEquals(expResult, result);
     }
-
-    /**
-     * Test of deleteWork method, of class RepositoryInMemory.
-     */
-//    @Test
-//    public void testDeleteWork() {
-//        System.out.println("deleteWork");
-//        String id = "";
-//        RepositoryInMemory instance = new RepositoryInMemory();
-//        instance.deleteWork(id);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-
-    /**
-     * Test of retrieveManifestation method, of class RepositoryInMemory.
-     */
-//    @Test
-//    public void testRetrieveManifestation() {
-//        System.out.println("retrieveManifestation");
-//        String id = "";
-//        RepositoryInMemory instance = new RepositoryInMemory();
-//        Manifestation expResult = null;
-//        Manifestation result = instance.retrieveManifestation(id);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
 
     /**
      * Test of createManifestation method, of class RepositoryInMemory.
@@ -107,23 +100,11 @@ public class RepositoryInMemoryTest {
         System.out.println("createManifestation");
         Model manifestation = createManifestationInstance();
         RepositoryInMemory instance = new RepositoryInMemory();
-        String expResult = null;
+        String expResult = manifestation.toString();
         String result = instance.createManifestation(manifestation);
         assertNotNull(result);
+        assertEquals(expResult, result);
     }
-
-    /**
-     * Test of deleteManifestation method, of class RepositoryInMemory.
-     */
-//    @Test
-//    public void testDeleteManifestation() {
-//        System.out.println("deleteManifestation");
-//        String id = "";
-//        RepositoryInMemory instance = new RepositoryInMemory();
-//        instance.deleteManifestation(id);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
 
     /**
      * Test of createItem method, of class RepositoryInMemory.
@@ -138,59 +119,86 @@ public class RepositoryInMemoryTest {
         assertNotNull(result);
     }
 
-    /**
-     * Test of retrieveItem method, of class RepositoryInMemory.
+    /*
+     Private util-methods
      */
-//    @Test
-//    public void testRetrieveItem() {
-//        System.out.println("retrieveItem");
-//        String id = "";
-//        RepositoryInMemory instance = new RepositoryInMemory();
-//        Item expResult = null;
-//        Item result = instance.retrieveItem(id);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    private static Model createWorkInstance() {
+        Model model = ModelFactory.createDefaultModel();
 
-    /**
-     * Test of deleteItem method, of class RepositoryInMemory.
-     */
-//    @Test
-//    public void testDeleteItem() {
-//        System.out.println("deleteItem");
-//        String id = "";
-//        RepositoryInMemory instance = new RepositoryInMemory();
-//        instance.deleteItem(id);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-    
-    private Model createWorkInstance () {
-        Work work = new Work();
-        work.setId("1");
-        work.setAuthor("Hamsun");
-        work.setTitle("Sult");
-        
-        return WorkMapper.mapWorkToModel(work);
-    }
-    
-    private Model createManifestationInstance() {
-        Manifestation manifestation = new Manifestation();
-        manifestation.setId("2");
-        manifestation.setWorkId("1");
-        manifestation.setIsbn("this-is-a-test-isbn");
-        manifestation.setPublicationYear("1999");
-        manifestation.setPublisher("ParaSite Inc.");
+        model.add(createWorkId("1"));
+        model.add(createAuthor("Knut Hamsun"));
+        model.add(createTitle("Sult"));
 
-        return ManifestationMapper.mapManifestationToModel(manifestation);
+        return model;
     }
-    
-    private Model createItemInstance() {
-        Item item = new Item();
-        item.setId("3");
-        item.setManifestationId("2");
-        item.setHoldingBranch("The ParaSite Main Library");
-        return ItemMapper.mapItemToModel(item);
+
+    private static Model createManifestationInstance() {
+
+        Model model = ModelFactory.createDefaultModel();
+
+        model.setNsPrefix("", NS);
+        model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
+
+        model.add(createManifestationId("2"));
+
+        return model;
+    }
+
+    private static Model createItemInstance() {
+        Model model = ModelFactory.createDefaultModel();
+
+        model.setNsPrefix("", NS);
+        model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
+
+        model.add(createItemId("3"));
+
+        return model;
+    }
+
+    private static Statement createManifestationId(String id) {
+        setResource(id);
+        Resource s = ResourceFactory.createResource(resource);
+        Property p = ResourceFactory.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+        Resource o = ResourceFactory.createResource("http://purl.org/vocab/frbr/core#Manifestation");
+
+        return ResourceFactory.createStatement(s, p, o);
+    }
+
+    private static Statement createWorkId(String id) {
+        setResource(id);
+        Resource s = ResourceFactory.createResource(resource);
+        Property p = ResourceFactory.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+        Resource o = ResourceFactory.createResource("http://purl.org/vocab/frbr/core#Work");
+
+        return ResourceFactory.createStatement(s, p, o);
+    }
+
+    private static Statement createTitle(String title) {
+        Resource s = ResourceFactory.createResource(resource);
+        Property p = ResourceFactory.createProperty("http://purl.org/dc/terms/title");
+        Literal o = ResourceFactory.createTypedLiteral(title);
+
+        return ResourceFactory.createStatement(s, p, o);
+    }
+
+    private static Statement createAuthor(String author) {
+        Resource s = ResourceFactory.createResource(resource);
+        Property p = ResourceFactory.createProperty("http://purl.org/dc/terms/creator");
+        Resource o = ResourceFactory.createResource(author);
+
+        return ResourceFactory.createStatement(s, p, o);
+    }
+
+    private static Statement createItemId(String id) {
+        setResource(id);
+        Resource s = ResourceFactory.createResource(resource);
+        Property p = ResourceFactory.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+        Resource o = ResourceFactory.createResource("http://purl.org/vocab/frbr/core#Item");
+
+        return ResourceFactory.createStatement(s, p, o);
+    }
+
+    static private void setResource(String id) {
+        resource = new String(NS + "w" + id);
     }
 }

@@ -5,6 +5,7 @@
  */
 package service;
 
+import com.hp.hpl.jena.rdf.model.Model;
 import java.util.HashMap;
 import no.deichman.ls.domain.Item;
 import no.deichman.ls.domain.Manifestation;
@@ -22,7 +23,7 @@ public interface Service {
 
     HashMap<String, Manifestation> retriveManifestationList();
 
-    Work retriveWorkById(String id);
+    Model retriveWorkById(String id);
 
     HashMap<String, Work> retriveWorkList();
     

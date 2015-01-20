@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -41,6 +42,7 @@ public class KohaAdapterDefaultTest {
     /**
      * Test of getManifestationById method, of class KohaAdapterDefault.
      */
+    @Ignore
     @Test
     public void testGetManifestationById() {
         System.out.println("getManifestationById");

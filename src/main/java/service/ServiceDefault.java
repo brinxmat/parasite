@@ -51,14 +51,15 @@ public class ServiceDefault implements Service {
     }
 
     @Override
-    public Work retriveWorkById(String id) {
+    public Model retriveWorkById(String id) {
 
         // Pseudo:
         // queryModel(workIId)
         // If found in model
         // -- return model, resource, or POJO?
         // If not found in model, fetch from adapter:
-        Model model = repository.retrieveWork(id);
+        //Model model = repository.retrieveWork(id);
+        Model model = null;
         if (model == null) {
             try {
                 model = dataDeichmanAdapter.getWork(id);
@@ -70,7 +71,7 @@ public class ServiceDefault implements Service {
             }
         }
         //model.setManifestations(kohaAdapter.getManifestationsByWorkId(id));
-        return WorkMapper.mapModelToWork(model);
+        return model;
     }
 
     @Override
