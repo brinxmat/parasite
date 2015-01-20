@@ -5,9 +5,8 @@
  */
 package no.deichman.ls.adapter;
 
+import com.hp.hpl.jena.rdf.model.Model;
 import no.deichman.ls.adapter.KohaAdapterMock;
-import java.util.HashMap;
-import no.deichman.ls.domain.Manifestation;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,43 +40,17 @@ public class KohaAdapterMockTest {
     }
 
     /**
-     * Test of getManifestationList method, of class KohaAdapterMock.
+     * Test of getItemsByManifestationId method, of class KohaAdapterMock.
      */
     @Test
-    public void testGetManifestationList() {
-        System.out.println("getManifestationList");
+    public void testGetItemsByManifestationId() {
+        System.out.println("getItemsByManifestationId");
+        String id = "";
         KohaAdapterMock instance = new KohaAdapterMock();
-        HashMap<String, Manifestation> expResult = null;
-        HashMap<String, Manifestation> result = instance.getManifestationList();
-        assertNotNull(result);
-        // assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getManifestationsByWorkId method, of class KohaAdapterMock.
-     */
-    @Test
-    public void testGetManifestationsByWorkId() {
-        System.out.println("getManifestationsByWorkId");
-        String id = "1";
-        KohaAdapterMock instance = new KohaAdapterMock();
-        HashMap<String, Manifestation> expResult = null;
-        HashMap<String, Manifestation> result = instance.getManifestationsByWorkId(id);
-        assertNotNull(result);
-        // assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getManifestationById method, of class KohaAdapterMock.
-     */
-    @Test
-    public void testGetManifestationById() {
-        System.out.println("getManifestationById");
-        String manifestationId = "1";
-        KohaAdapterMock instance = new KohaAdapterMock();
-        Manifestation expResult = null;
-        Manifestation result = instance.getManifestationById(manifestationId);
-        assertNotNull(result);
-        // assertEquals(expResult, result);
+        Model expResult = null;
+        Model result = instance.getItemsByManifestationId(id);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 }

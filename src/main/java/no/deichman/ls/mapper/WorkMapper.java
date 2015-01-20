@@ -25,11 +25,6 @@ public class WorkMapper {
     static final String NS = "http://data.deichman.no/work/";
     static String resource;
 
-    public Work mapWorkDAOToWork(Model workDAO) {
-
-        return null;
-    }
-
     public static Model mapWorkToModel(Work work) {
 
         Model model = ModelFactory.createDefaultModel();

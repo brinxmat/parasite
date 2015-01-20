@@ -5,7 +5,11 @@
  */
 package service;
 
+import com.hp.hpl.jena.rdf.model.Model;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import no.deichman.ls.adapter.KohaAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapterMock;
 import no.deichman.ls.adapter.KohaAdapterMock;
@@ -13,6 +17,8 @@ import no.deichman.ls.adapter.DataDeichmanAdapter;
 import no.deichman.ls.domain.Item;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
+import no.deichman.ls.mapper.ManifestationMapper;
+import no.deichman.ls.mapper.WorkMapper;
 import no.deichman.ls.repository.RepositoryInMemory;
 
 /**
@@ -27,12 +33,21 @@ public class ServiceDefault implements Service {
 
     @Override
     public HashMap<String, Work> retriveWorkList() {
-        return dataDeichmanAdapter.getWorkList();
+
+        Model model = dataDeichmanAdapter.getWorkList();
+        HashMap<String, Work> map = new HashMap<String, Work>();
+        // for all works in model
+        //   put them in the map
+        return map;
     }
 
     @Override
     public HashMap<String, Manifestation> retriveManifestationList() {
-        return kohaAdapter.getManifestationList();
+        Model model = dataDeichmanAdapter.getManifestationList();
+        HashMap<String, Manifestation> map = new HashMap<String, Manifestation>();
+        // for all manifestations in model
+        //   put them in the map
+        return map;
     }
 
     @Override
@@ -43,27 +58,33 @@ public class ServiceDefault implements Service {
         // If found in model
         // -- return model, resource, or POJO?
         // If not found in model, fetch from adapter:
-        Work work = repository.retrieveWork(id);
-        if (work == null) {
-            work = dataDeichmanAdapter.getWork(id);
-            // TODO Burde ikkje work bli lagt til i modellen her?
+        Model model = repository.retrieveWork(id);
+        if (model == null) {
+            try {
+                model = dataDeichmanAdapter.getWork(id);
+                repository.createWork(model);
+
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ServiceDefault.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        work.setManifestations(kohaAdapter.getManifestationsByWorkId(id));
-        return work;
+        //model.setManifestations(kohaAdapter.getManifestationsByWorkId(id));
+        return WorkMapper.mapModelToWork(model);
     }
 
     @Override
     public Manifestation retriveManifestationById(String id) {
-        Manifestation manifestation = repository.retrieveManifestation(id);
-        if (manifestation == null) {
-            manifestation = kohaAdapter.getManifestationById(id);
+        Model model = repository.retrieveManifestation(id);
+        if (model == null) {
+            model = dataDeichmanAdapter.getManifestationById(id);
+            repository.createManifestation(model);
         }
-        return kohaAdapter.getManifestationById(id);
+        return ManifestationMapper.mapModelToManifestation(model);
     }
 
     @Override
     public Item retriveItemById(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

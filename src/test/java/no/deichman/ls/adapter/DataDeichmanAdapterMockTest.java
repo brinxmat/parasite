@@ -5,9 +5,7 @@
  */
 package no.deichman.ls.adapter;
 
-import no.deichman.ls.adapter.KohaAdapterMock;
-import java.util.HashMap;
-import no.deichman.ls.domain.Manifestation;
+import com.hp.hpl.jena.rdf.model.Model;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,22 +18,22 @@ import static org.junit.Assert.*;
  * @author sbd
  */
 public class DataDeichmanAdapterMockTest {
-    
+
     public DataDeichmanAdapterMockTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -46,9 +44,9 @@ public class DataDeichmanAdapterMockTest {
     @Test
     public void testGetManifestationList() {
         System.out.println("getManifestationList");
-        KohaAdapterMock instance = new KohaAdapterMock();
-        HashMap<String, Manifestation> expResult = null;
-        HashMap<String, Manifestation> result = instance.getManifestationList();
+        DataDeichmanAdapterMock instance = new DataDeichmanAdapterMock();
+        Model expResult = null;
+        Model result = instance.getManifestationList();
         assertEquals(3, result.size());
     }
 
@@ -59,9 +57,9 @@ public class DataDeichmanAdapterMockTest {
     public void testGetManifestationsByWorkId() {
         System.out.println("getManifestationsByWorkId");
         String id = "2";
-        KohaAdapterMock instance = new KohaAdapterMock();
-        HashMap<String, Manifestation> expResult = null;
-        HashMap<String, Manifestation> result = instance.getManifestationsByWorkId(id);
+        DataDeichmanAdapterMock instance = new DataDeichmanAdapterMock();
+        Model expResult = null;
+        Model result = instance.getManifestationsByWorkId(id);
         assertEquals(1, result.size());
     }
 
@@ -72,10 +70,9 @@ public class DataDeichmanAdapterMockTest {
     public void testGetManifestationById() {
         System.out.println("getManifestationById");
         String manifestationId = "1";
-        KohaAdapterMock instance = new KohaAdapterMock();
-        Manifestation expResult = null;
-        Manifestation result = instance.getManifestationById(manifestationId);
-        assertEquals(manifestationId, result.getId());
+        DataDeichmanAdapterMock instance = new DataDeichmanAdapterMock();
+        Model expResult = null;
+        Model result = instance.getManifestationById(manifestationId);
+        assertNotNull(result);
     }
-    
 }

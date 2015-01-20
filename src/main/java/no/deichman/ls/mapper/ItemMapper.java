@@ -21,7 +21,7 @@ import no.deichman.ls.domain.Item;
  */
 public class ItemMapper {
 
-    public Item mapItemDAOToItem(ItemDAO itemDAO) {
+    public static Item mapItemDAOToItem(ItemDAO itemDAO) {
         Item i = new Item();
         i.setId(itemDAO.barcode);
         i.setManifestationId(itemDAO.biblionumber);
@@ -45,15 +45,7 @@ public class ItemMapper {
         return i;
     }
 
-    public ItemDAO mapItemToItemDAO(Item item) {
-        // TODO
-
-        //ItemDAO i = new ItemDAO();
-        //return i;
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Model mapItemToModel(Item item) {
+    public static Model mapItemToModel(Item item) {
 
         Model model = ModelFactory.createDefaultModel();
         String NS = "http://www.computas.no/zebra/";
@@ -68,5 +60,9 @@ public class ItemMapper {
         model.add(stmt);
 
         return model;
+    }
+
+    Statement mapItemDAOToModel(ItemDAO m) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -13,6 +13,9 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
 import java.util.HashMap;
+import java.util.List;
+import no.deichman.ls.dao.ItemDAO;
+import no.deichman.ls.dao.ManifestationDAO;
 import no.deichman.ls.domain.Item;
 import no.deichman.ls.domain.Manifestation;
 
@@ -29,12 +32,20 @@ public class ManifestationMapper {
         return new Manifestation();
     }
 
-    public Manifestation mapManifestationDAOToManifestation(Model manifestationDAO) {
+    public static Model mapManifestationDAOToModel(ManifestationDAO manifestationDAO) {
 
-        return null;
+        Model model = ModelFactory.createDefaultModel();
+
+        model.setNsPrefix("", NS);
+        model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
+
+        model.add(mapIdToStatement(manifestationDAO.getId()));
+        model.add(mapItemListToModel(manifestationDAO.getItemListDAO()));
+
+        return model;
     }
 
-    public Model mapManifestationToModel(Manifestation manifestation) {
+    public static Model mapManifestationToModel(Manifestation manifestation) {
 
         Model model = ModelFactory.createDefaultModel();
 
@@ -42,12 +53,12 @@ public class ManifestationMapper {
         model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
 
         model.add(mapIdToStatement(manifestation.getId()));
-        model.add(mapManifestationsToModel(manifestation.getItems()));
+        model.add(mapItemListToModel(manifestation.getItems()));
 
         return model;
     }
 
-    private Statement mapIdToStatement(String id) {
+    private static Statement mapIdToStatement(String id) {
         setResource(id);
         Resource s = ResourceFactory.createResource(resource);
         Property p = ResourceFactory.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
@@ -56,7 +67,7 @@ public class ManifestationMapper {
         return ResourceFactory.createStatement(s, p, o);
     }
 
-    private Statement mapTitleToStatement(String title) {
+    private static Statement mapTitleToStatement(String title) {
         Resource s = ResourceFactory.createResource(resource);
         Property p = ResourceFactory.createProperty("http://purl.org/dc/terms/title");
         Literal o = ResourceFactory.createTypedLiteral(title);
@@ -64,7 +75,7 @@ public class ManifestationMapper {
         return ResourceFactory.createStatement(s, p, o);
     }
 
-    private Statement mapAuthorToStatement(String author) {
+    private static Statement mapAuthorToStatement(String author) {
         Resource s = ResourceFactory.createResource(resource);
         Property p = ResourceFactory.createProperty("http://purl.org/dc/terms/creator");
         Resource o = ResourceFactory.createResource(author);
@@ -72,7 +83,7 @@ public class ManifestationMapper {
         return ResourceFactory.createStatement(s, p, o);
     }
 
-    private Model mapManifestationsToModel(HashMap<String, Item> map) {
+    private static Model mapItemListToModel(HashMap<String, Item> map) {
         // TODO: for all manifestations map them, add to model and return
         Model model = ModelFactory.createDefaultModel();
         ItemMapper im = new ItemMapper();
@@ -82,13 +93,17 @@ public class ManifestationMapper {
         return model;
     }
 
+        private static Model mapItemListToModel(List<ItemDAO> itemListDAO) {
+        // TODO: for all manifestations map them, add to model and return
+        Model model = ModelFactory.createDefaultModel();
+        ItemMapper im = new ItemMapper();
+        for (ItemDAO m : itemListDAO) {
+            model.add(im.mapItemDAOToModel(m));
+        }
+        return model;
+    }
+
     static private void setResource(String id) {
         resource = new String(NS + "w" + id);
     }
 }
-
-//
-//  private int id;
-//  private String title;
-//  private String author;
-//  private HashMap<Integer, Manifestation> manifestations;

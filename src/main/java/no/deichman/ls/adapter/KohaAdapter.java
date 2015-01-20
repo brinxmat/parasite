@@ -6,8 +6,6 @@
 package no.deichman.ls.adapter;
 
 import com.hp.hpl.jena.rdf.model.Model;
-import java.util.HashMap;
-import no.deichman.ls.domain.Manifestation;
 
 /**
  *
@@ -15,10 +13,5 @@ import no.deichman.ls.domain.Manifestation;
  */
 public interface KohaAdapter {
 
-    Model getManifestationById(String manifestationId);
-
-    Model getManifestationList();
-
-    Model getManifestationsByWorkId(String id);
-    
+    Model getItemsByManifestationId(String id);
 }

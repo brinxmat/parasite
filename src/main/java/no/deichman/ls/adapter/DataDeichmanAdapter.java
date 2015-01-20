@@ -6,11 +6,9 @@
 package no.deichman.ls.adapter;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
-import no.deichman.ls.domain.Work;
 
 /**
  *
@@ -24,4 +22,11 @@ public interface DataDeichmanAdapter {
     
     Model getAllWorks(String type, int limit, int offset);
     
+    
+    Model getManifestationById(String manifestationId);
+
+    Model getManifestationList();
+
+    Model getManifestationsByWorkId(String id);
+
 }

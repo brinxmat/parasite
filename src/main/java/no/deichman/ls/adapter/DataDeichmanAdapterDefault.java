@@ -10,16 +10,13 @@ import com.hp.hpl.jena.query.QueryException;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
-import java.util.HashMap;
 import java.io.*;
 
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.riot.lang.LangRDFXML;
 
 import com.hp.hpl.jena.rdf.model.*;
 
-import no.deichman.ls.domain.Work;
 
 /**
  *
@@ -63,7 +60,7 @@ public class DataDeichmanAdapterDefault implements DataDeichmanAdapter {
 
     @Override
     public Model getAllWorks(String type, int limit, int offset) {
-		// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
         Query query = null;
 
@@ -85,6 +82,21 @@ public class DataDeichmanAdapterDefault implements DataDeichmanAdapter {
         }
 
         return model;
+    }
+
+    @Override
+    public Model getManifestationList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Model getManifestationsByWorkId(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Model getManifestationById(String manifestationId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

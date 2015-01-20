@@ -5,10 +5,13 @@
  */
 package no.deichman.ls.repository;
 
-import java.util.HashMap;
+import com.hp.hpl.jena.rdf.model.Model;
 import no.deichman.ls.domain.Item;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
+import no.deichman.ls.mapper.ItemMapper;
+import no.deichman.ls.mapper.ManifestationMapper;
+import no.deichman.ls.mapper.WorkMapper;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -48,10 +51,10 @@ public class RepositoryInMemoryTest {
     public void testRetrieveWork() {
         System.out.println("retrieveWork");
         RepositoryInMemory instance = new RepositoryInMemory();
-        Work w = createWorkInstance();
+        Model w = createWorkInstance();
         String id = instance.createWork(w);
-        Work expResult = w;
-        Work result = instance.retrieveWork(id);
+        Model expResult = w;
+        Model result = instance.retrieveWork(id);
         assertEquals(expResult, result);
     }
 
@@ -61,11 +64,11 @@ public class RepositoryInMemoryTest {
     @Test
     public void testCreateWork() {
         System.out.println("createWork");
-        Work work = createWorkInstance();
+        Model work = createWorkInstance();
         RepositoryInMemory instance = new RepositoryInMemory();
-        String expResult = work.getId();
+        String expResult = null;
         String result = instance.createWork(work);
-        assertEquals(expResult, result);
+        assertNotNull(result);
     }
 
     /**
@@ -102,11 +105,11 @@ public class RepositoryInMemoryTest {
     @Test
     public void testCreateManifestation() {
         System.out.println("createManifestation");
-        Manifestation manifestation = createManifestationInstance();
+        Model manifestation = createManifestationInstance();
         RepositoryInMemory instance = new RepositoryInMemory();
-        String expResult = manifestation.getId();
+        String expResult = null;
         String result = instance.createManifestation(manifestation);
-        assertEquals(expResult, result);
+        assertNotNull(result);
     }
 
     /**
@@ -128,11 +131,11 @@ public class RepositoryInMemoryTest {
     @Test
     public void testCreateItem() {
         System.out.println("createItem");
-        Item item = createItemInstance();
+        Model item = createItemInstance();
         RepositoryInMemory instance = new RepositoryInMemory();
-        String expResult = item.getId();
+        String expResult = null;
         String result = instance.createItem(item);
-        assertEquals(expResult, result);
+        assertNotNull(result);
     }
 
     /**
@@ -163,39 +166,31 @@ public class RepositoryInMemoryTest {
 //        fail("The test case is a prototype.");
 //    }
     
-    private Work createWorkInstance () {
+    private Model createWorkInstance () {
         Work work = new Work();
         work.setId("1");
         work.setAuthor("Hamsun");
         work.setTitle("Sult");
-        Manifestation m = createManifestationInstance();
-        HashMap<String, Manifestation> map = new HashMap<String, Manifestation>();
-        map.put(m.getId(), m);
-        work.setManifestations(map);
         
-        return work;
+        return WorkMapper.mapWorkToModel(work);
     }
     
-    private Manifestation createManifestationInstance() {
+    private Model createManifestationInstance() {
         Manifestation manifestation = new Manifestation();
         manifestation.setId("2");
         manifestation.setWorkId("1");
         manifestation.setIsbn("this-is-a-test-isbn");
         manifestation.setPublicationYear("1999");
         manifestation.setPublisher("ParaSite Inc.");
-        Item i = createItemInstance();
-        HashMap<String, Item> map = new HashMap<String, Item>();
-        map.put(i.getId(), i);
-        manifestation.setItems(map);
 
-        return manifestation;
+        return ManifestationMapper.mapManifestationToModel(manifestation);
     }
     
-    private Item createItemInstance() {
+    private Model createItemInstance() {
         Item item = new Item();
         item.setId("3");
         item.setManifestationId("2");
         item.setHoldingBranch("The ParaSite Main Library");
-        return item;
+        return ItemMapper.mapItemToModel(item);
     }
 }

@@ -5,8 +5,7 @@
  */
 package no.deichman.ls.adapter;
 
-import no.deichman.ls.adapter.KohaAdapterDefault;
-import no.deichman.ls.domain.Manifestation;
+import com.hp.hpl.jena.rdf.model.Model;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -46,11 +45,10 @@ public class KohaAdapterDefaultTest {
     public void testGetManifestationById() {
         System.out.println("getManifestationById");
         String manifestationId = "626460";
-        KohaAdapterDefault instance = new KohaAdapterDefault();
-        Manifestation expResult = null;
-        Manifestation result = instance.getManifestationById(manifestationId);
+        DataDeichmanAdapterDefault instance = new DataDeichmanAdapterDefault();
+        Model expResult = null;
+        Model result = instance.getManifestationById(manifestationId);
         assertNotNull(result);
-        assertEquals(manifestationId, result.getId());
     }
 
     /**

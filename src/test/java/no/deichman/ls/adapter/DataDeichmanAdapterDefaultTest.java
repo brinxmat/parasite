@@ -4,11 +4,8 @@ import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 
-import no.deichman.ls.adapter.DataDeichmanAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapterDefault;
 
-import org.apache.jena.riot.Lang;
-import org.apache.jena.riot.RDFDataMgr;
 import org.junit.Test;
 
 import com.hp.hpl.jena.rdf.model.Model;
