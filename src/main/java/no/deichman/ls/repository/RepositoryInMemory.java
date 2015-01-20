@@ -5,17 +5,8 @@
  */
 package no.deichman.ls.repository;
 
-import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ResourceFactory;
-import com.hp.hpl.jena.rdf.model.Statement;
-import no.deichman.ls.domain.Item;
-import no.deichman.ls.domain.Manifestation;
-import no.deichman.ls.domain.Work;
-import no.deichman.ls.mapper.ItemMapper;
-import no.deichman.ls.mapper.ManifestationMapper;
-import no.deichman.ls.mapper.WorkMapper;
-import org.apache.jena.riot.RDFDataMgr;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 /**
  *
@@ -26,15 +17,14 @@ public class RepositoryInMemory implements Repository {
     private final Model model = ModelFactory.createDefaultModel();
 
     @Override
-    public Work retrieveWork(String id) {
+    public Model retrieveWork(String id) {
         return null;
     }
 
     @Override
-    public String createWork(Work work) {
-        WorkMapper mapper = new WorkMapper();
-        model.add(mapper.mapWorkToModel(work));
-        return work.getId();
+    public String createWork(Model model) {
+        model.add(model);
+        return model.toString();
     }
 
     @Override
@@ -43,15 +33,14 @@ public class RepositoryInMemory implements Repository {
     }
 
     @Override
-    public Manifestation retrieveManifestation(String id) {
+    public Model retrieveManifestation(String id) {
         return null;
     }
 
     @Override
-    public String createManifestation(Manifestation manifestation) {
-        ManifestationMapper mapper = new ManifestationMapper();
-        model.add(mapper.mapManifestationToModel(manifestation));
-        return manifestation.getId();
+    public String createManifestation(Model model) {
+        model.add(model);
+        return model.toString();
     }
 
     @Override
@@ -60,14 +49,13 @@ public class RepositoryInMemory implements Repository {
     }
 
     @Override
-    public String createItem(Item item) {
-        ItemMapper mapper = new ItemMapper();
-        model.add(mapper.mapItemToModel(item));
-        return item.getId();
+    public String createItem(Model model) {
+        model.add(model);
+        return model.toString(); //TODO return the subject uri as a String
     }
 
     @Override
-    public Item retrieveItem(String id) {
+    public Model retrieveItem(String id) {
         return null;
     }
 

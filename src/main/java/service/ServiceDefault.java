@@ -10,8 +10,6 @@ import no.deichman.ls.adapter.KohaAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapterMock;
 import no.deichman.ls.adapter.KohaAdapterMock;
 import no.deichman.ls.adapter.DataDeichmanAdapter;
-import no.deichman.ls.adapter.DataDeichmanAdapterDefault;
-import no.deichman.ls.adapter.KohaAdapterDefault;
 import no.deichman.ls.domain.Item;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
@@ -48,6 +46,7 @@ public class ServiceDefault implements Service {
         Work work = repository.retrieveWork(id);
         if (work == null) {
             work = dataDeichmanAdapter.getWork(id);
+            // TODO Burde ikkje work bli lagt til i modellen her?
         }
         work.setManifestations(kohaAdapter.getManifestationsByWorkId(id));
         return work;

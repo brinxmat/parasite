@@ -44,16 +44,16 @@ public class RepositoryInMemoryTest {
     /**
      * Test of retrieveWork method, of class RepositoryInMemory.
      */
-//    @Test
-//    public void testRetrieveWork() {
-//        System.out.println("retrieveWork");
-//        RepositoryInMemory instance = new RepositoryInMemory();
-//        Work w = createWorkInstance();
-//        String id = instance.createWork(w);
-//        Work expResult = w;
-//        Work result = instance.retrieveWork(id);
-//        assertEquals(expResult, result);
-//    }
+    @Test
+    public void testRetrieveWork() {
+        System.out.println("retrieveWork");
+        RepositoryInMemory instance = new RepositoryInMemory();
+        Work w = createWorkInstance();
+        String id = instance.createWork(w);
+        Work expResult = w;
+        Work result = instance.retrieveWork(id);
+        assertEquals(expResult, result);
+    }
 
     /**
      * Test of createWork method, of class RepositoryInMemory.

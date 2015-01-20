@@ -5,11 +5,10 @@
  */
 package no.deichman.ls.adapter;
 
-
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 import java.util.HashMap;
-
 import no.deichman.ls.domain.Work;
-
 
 /**
  *
@@ -24,13 +23,17 @@ public class DataDeichmanAdapterMock implements DataDeichmanAdapter {
     }
 
     @Override
-    public HashMap<String, Work> getWorkList() {
-        return workList;
+    public Model getWorkList() {
+        Model model = ModelFactory.createDefaultModel();
+        // todo map mocklist to model
+        return model;
     }
 
     @Override
-    public Work getWork(String id) {
-        return workList.get(id);
+    public Model getWork(String id) {
+        Model model = ModelFactory.createDefaultModel();
+        // todo map work to model
+        return model;
     }
 
     private void createMockList() {
@@ -39,5 +42,10 @@ public class DataDeichmanAdapterMock implements DataDeichmanAdapter {
         Work workItem2 = new Work("2", "Sykkelrytteren", "Tim Krabbé", 22.20);
         workList.put(workItem2.getId(), workItem2);
 
+    }
+
+    @Override
+    public Model getAllWorks(String type, int limit, int offset) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

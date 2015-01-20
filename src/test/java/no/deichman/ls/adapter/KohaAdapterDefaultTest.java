@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package no.deichman.ls.consumer;
+package no.deichman.ls.adapter;
 
 import no.deichman.ls.adapter.KohaAdapterDefault;
-import java.util.HashMap;
 import no.deichman.ls.domain.Manifestation;
 import org.junit.After;
 import org.junit.AfterClass;

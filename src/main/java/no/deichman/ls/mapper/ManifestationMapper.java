@@ -12,11 +12,8 @@ import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.vocabulary.RDF;
-import com.hp.hpl.jena.vocabulary.RDFSyntax;
 import java.util.HashMap;
 import no.deichman.ls.domain.Item;
-import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Manifestation;
 
 /**
@@ -27,6 +24,10 @@ public class ManifestationMapper {
 
     static final String NS = "http://data.deichman.no/manifestation/";
     static String resource;
+
+    public static Manifestation mapModelToManifestation(Model model) {
+        return new Manifestation();
+    }
 
     public Manifestation mapManifestationDAOToManifestation(Model manifestationDAO) {
 

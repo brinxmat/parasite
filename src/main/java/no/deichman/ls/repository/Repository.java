@@ -5,26 +5,23 @@
  */
 package no.deichman.ls.repository;
 
-import no.deichman.ls.domain.Item;
-import no.deichman.ls.domain.Manifestation;
-import no.deichman.ls.domain.Work;
-
+import com.hp.hpl.jena.rdf.model.Model;
 /**
  *
  * @author sbd
  */
 interface Repository {
     
-    public String createWork (Work work);
-    public Work retrieveWork(String id);
+    public String createWork (Model model);
+    public Model retrieveWork(String id);
     public void deleteWork (String id);
 
-    public String createManifestation (Manifestation manifestation);
-    public Manifestation retrieveManifestation(String id);
+    public String createManifestation (Model model);
+    public Model retrieveManifestation(String id);
     public void deleteManifestation (String id);
 
-    public String createItem (Item item);
-    public Item retrieveItem(String id);
+    public String createItem (Model model);
+    public Model retrieveItem(String id);
     public void deleteItem (String id);
 
 }

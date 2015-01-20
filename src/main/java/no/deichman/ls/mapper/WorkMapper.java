@@ -12,10 +12,7 @@ import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.vocabulary.RDF;
-import com.hp.hpl.jena.vocabulary.RDFSyntax;
 import java.util.HashMap;
-import no.deichman.ls.domain.Item;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
 
@@ -33,7 +30,7 @@ public class WorkMapper {
         return null;
     }
 
-    public Model mapWorkToModel(Work work) {
+    public static Model mapWorkToModel(Work work) {
 
         Model model = ModelFactory.createDefaultModel();
 
@@ -48,7 +45,13 @@ public class WorkMapper {
         return model;
     }
 
-    private Statement mapIdToStatement(String id) {
+    public static Work mapModelToWork(Model model) {
+
+        // todo
+        return new Work();
+    }
+
+    private static Statement mapIdToStatement(String id) {
         setResource(id);
         Resource s = ResourceFactory.createResource(resource);
         Property p = ResourceFactory.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
@@ -57,7 +60,7 @@ public class WorkMapper {
         return ResourceFactory.createStatement(s, p, o);
     }
 
-    private Statement mapTitleToStatement(String title) {
+    private static Statement mapTitleToStatement(String title) {
         Resource s = ResourceFactory.createResource(resource);
         Property p = ResourceFactory.createProperty("http://purl.org/dc/terms/title");
         Literal o = ResourceFactory.createTypedLiteral(title);
@@ -65,7 +68,7 @@ public class WorkMapper {
         return ResourceFactory.createStatement(s, p, o);
     }
 
-    private Statement mapAuthorToStatement(String author) {
+    private static Statement mapAuthorToStatement(String author) {
         Resource s = ResourceFactory.createResource(resource);
         Property p = ResourceFactory.createProperty("http://purl.org/dc/terms/creator");
         Resource o = ResourceFactory.createResource(author);
@@ -73,7 +76,7 @@ public class WorkMapper {
         return ResourceFactory.createStatement(s, p, o);
     }
 
-    private Model mapManifestationsToModel(HashMap<String, Manifestation> map) {
+    private static Model mapManifestationsToModel(HashMap<String, Manifestation> map) {
         // TODO: for all manifestations map them, add to model and return
         Model model = ModelFactory.createDefaultModel();
         ManifestationMapper mm = new ManifestationMapper();
@@ -87,9 +90,3 @@ public class WorkMapper {
         resource = new String(NS + "w" + id);
     }
 }
-
-//
-//  private int id;
-//  private String title;
-//  private String author;
-//  private HashMap<Integer, Manifestation> manifestations;

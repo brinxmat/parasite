@@ -6,7 +6,6 @@
 package service;
 
 import java.util.HashMap;
-import no.deichman.ls.domain.Item;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
 import org.junit.After;

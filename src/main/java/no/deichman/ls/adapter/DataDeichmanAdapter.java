@@ -20,6 +20,8 @@ public interface DataDeichmanAdapter {
 
     Model getWork(String id) throws FileNotFoundException;
 
-    HashMap<String, Work> getWorkList();
+    Model getWorkList();
+    
+    Model getAllWorks(String type, int limit, int offset);
     
 }

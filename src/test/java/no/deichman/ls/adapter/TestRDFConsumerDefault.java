@@ -1,4 +1,4 @@
-package no.deichman.ls.consumer;
+package no.deichman.ls.adapter;
 
 import static org.junit.Assert.*;
 
