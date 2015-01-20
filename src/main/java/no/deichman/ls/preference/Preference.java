@@ -1,0 +1,27 @@
+package no.deichman.ls.preference;
+
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
+
+public class Preference {
+	
+	static Configuration properties = null;
+
+	private static void init() throws ConfigurationException {
+		
+		if (properties == null) {
+			properties = new PropertiesConfiguration("config.properties");		
+		}
+	}
+
+
+	public static final String getBaseURI() throws ConfigurationException {
+		
+		Preference.init();
+		String uri = properties.getProperty("uri.baseuri").toString();
+		return uri;
+		
+	}
+
+}
