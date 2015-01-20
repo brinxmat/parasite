@@ -24,7 +24,7 @@ import org.apache.jena.riot.RDFDataMgr;
  */
 public class WorkMapper {
 
-    static final String NS = "http://data.deichman.no/work/";
+    static final String NS = "http://localhost:8080/parasite/work/";
     static String resource;
 
     public static Model mapWorkToModel(Work work) {
@@ -84,6 +84,6 @@ public class WorkMapper {
     }
 
     static private void setResource(String id) {
-        resource = new String(NS + "w" + id);
+        resource = new String(NS + id);
     }
 }

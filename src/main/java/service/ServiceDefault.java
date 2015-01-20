@@ -14,6 +14,8 @@ import no.deichman.ls.adapter.KohaAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapterMock;
 import no.deichman.ls.adapter.KohaAdapterMock;
 import no.deichman.ls.adapter.DataDeichmanAdapter;
+import no.deichman.ls.adapter.DataDeichmanAdapterDefault;
+import no.deichman.ls.adapter.KohaAdapterDefault;
 import no.deichman.ls.domain.Item;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
@@ -27,8 +29,8 @@ import no.deichman.ls.repository.RepositoryInMemory;
  */
 public class ServiceDefault implements Service {
 
-    static private DataDeichmanAdapter dataDeichmanAdapter = new DataDeichmanAdapterMock();
-    static private KohaAdapter kohaAdapter = new KohaAdapterMock();
+    static private DataDeichmanAdapter dataDeichmanAdapter = new DataDeichmanAdapterDefault();
+    static private KohaAdapter kohaAdapter = new KohaAdapterDefault();
     static private RepositoryInMemory repository = new RepositoryInMemory();
 
     @Override
@@ -76,7 +78,8 @@ public class ServiceDefault implements Service {
 
     @Override
     public Manifestation retriveManifestationById(String id) {
-        Model model = repository.retrieveManifestation(id);
+        //Model model = repository.retrieveManifestation(id);
+        Model model = null;
         if (model == null) {
             model = dataDeichmanAdapter.getManifestationById(id);
             repository.createManifestation(model);

@@ -25,7 +25,7 @@ import no.deichman.ls.domain.Manifestation;
  */
 public class ManifestationMapper {
 
-    static final String NS = "http://data.deichman.no/manifestation/";
+    static final String NS = "http://localhost:8080/parasite/manifestation/";
     static String resource;
 
     public static Manifestation mapModelToManifestation(Model model) {
@@ -104,6 +104,6 @@ public class ManifestationMapper {
     }
 
     static private void setResource(String id) {
-        resource = new String(NS + "w" + id);
+        resource = new String(NS + id);
     }
 }
