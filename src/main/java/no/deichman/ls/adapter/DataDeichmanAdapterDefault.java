@@ -32,7 +32,7 @@ public class DataDeichmanAdapterDefault implements DataDeichmanAdapter {
     private String url = null;
 
     private String endpointURI = "http://data.deichman.no/sparql";
-    private final String getAllWorks = "prefix fabio: <http://purl.org/spar/fabio/> CONSTRUCT {?uri a fabio:Work } WHERE {?uri a fabio:Work }";
+    private final String getAllWorks = "prefix fabio: <http://purl.org/spar/fabio/> prefix dcterms: <http://purl.org/dc/terms/> prefix foaf: <http://xmlns.com/foaf/0.1/> CONSTRUCT {?uri a fabio:Work; dcterms:creator ?author ; dcterms:title ?title ; fabio:hasManifestation ?manifestation } WHERE { ?uri a fabio:Work ; dcterms:creator ?creator ; dcterms:title ?title ; fabio:hasManifestation ?manifestation . ?creator foaf:name ?author }";
 
     private void dereference(String url) throws FileNotFoundException {
 
