@@ -18,6 +18,7 @@ import no.deichman.ls.dao.ItemDAO;
 import no.deichman.ls.dao.ManifestationDAO;
 import no.deichman.ls.domain.Item;
 import no.deichman.ls.domain.Manifestation;
+import static no.deichman.ls.mapper.ItemMapper.resource;
 
 /**
  *
@@ -42,6 +43,7 @@ public class ManifestationMapper {
 
         model.add(mapIdToStatement(manifestationDAO.getId()));
         model.add(mapItemListDAOToModel(manifestationDAO.getItemListDAO()));
+        model.add(mapWorkIdToStatement(manifestationDAO.getWorkId()));
 
         return model;
     }
@@ -80,6 +82,14 @@ public class ManifestationMapper {
         Resource s = ResourceFactory.createResource(resource);
         Property p = ResourceFactory.createProperty("http://purl.org/dc/terms/creator");
         Resource o = ResourceFactory.createResource(author);
+
+        return ResourceFactory.createStatement(s, p, o);
+    }
+
+        private static Statement mapWorkIdToStatement(String workId) {
+        Resource s = ResourceFactory.createResource(resource);
+        Property p = ResourceFactory.createProperty("http://purl.org/vocab/frbr/core#isManifestationOf");
+        Resource o = ResourceFactory.createResource("http://localhost:8080/parasite/work/" + workId);
 
         return ResourceFactory.createStatement(s, p, o);
     }

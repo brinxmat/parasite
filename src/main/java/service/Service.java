@@ -22,10 +22,10 @@ public interface Service {
 
     Model retriveManifestationById(String id);
 
-    HashMap<String, Manifestation> retriveManifestationList();
+    Model retriveManifestationList();
 
     Model retriveWorkById(String id);
 
-    HashMap<String, Work> retriveWorkList();
+    Model retriveWorkList();
 
 }

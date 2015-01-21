@@ -8,7 +8,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-
 import javax.ws.rs.core.Response;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
@@ -19,9 +18,10 @@ import service.ServiceDefault;
 public class WorkResource {
 
     private static final ServiceDefault SERVICE = new ServiceDefault();
+
     /**
-     * Method processing HTTP GET requests, producing "application/json" MIME media
-     * type.
+     * Method processing HTTP GET requests, producing "application/json" MIME
+     * media type.
      *
      * @return String that will be send back as a response of type
      * "application/json".
@@ -30,7 +30,15 @@ public class WorkResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getWorkList() {
 
-        return Response.ok(SERVICE.retriveWorkList()).build();
+        StringWriter sw = new StringWriter();
+        Model model = SERVICE.retriveWorkList();
+        RDFDataMgr.write(sw, model, Lang.JSONLD);
+
+        String data = sw.toString();
+
+        return Response.ok()
+                .entity(data)
+                .build();
     }
 
     /**
@@ -45,7 +53,7 @@ public class WorkResource {
     @Produces({MediaType.APPLICATION_JSON})
     //@Produces("application/json+ld;qs=0.2")
     public Response getJSON(@PathParam("id") String id) {
-        
+
         StringWriter sw = new StringWriter();
         Model model = SERVICE.retriveWorkById(id);
         RDFDataMgr.write(sw, model, Lang.JSONLD);
@@ -56,6 +64,5 @@ public class WorkResource {
                 .entity(data)
                 .build();
     }
-
 
 }

@@ -11,6 +11,38 @@ public class ManifestationDAO {
     private String publisher;
     private String publicationYear;
     private String workId;
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getPublicationYear() {
+        return publicationYear;
+    }
+
+    public void setPublicationYear(String publicationYear) {
+        this.publicationYear = publicationYear;
+    }
+
+    public String getWorkId() {
+        return workId;
+    }
+
+    public void setWorkId(String workId) {
+        this.workId = workId;
+    }
     private List<no.deichman.ls.dao.ItemDAO> itemListDAO;
 
     public ManifestationDAO(String id) {

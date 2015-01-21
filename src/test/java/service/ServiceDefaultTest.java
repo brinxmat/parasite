@@ -49,8 +49,8 @@ public class ServiceDefaultTest {
     public void testRetriveWorkList() {
         System.out.println("retriveWorkList");
         ServiceDefault instance = new ServiceDefault();
-        HashMap<String, Work> expResult = null;
-        HashMap<String, Work> result = instance.retriveWorkList();
+        Model expResult = null;
+        Model result = instance.retriveWorkList();
         assertNotNull(result);
         // assertEquals(expResult, result);
     }

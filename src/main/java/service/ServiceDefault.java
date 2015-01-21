@@ -31,22 +31,16 @@ public class ServiceDefault implements Service {
     static private RepositoryInMemory repository = new RepositoryInMemory();
 
     @Override
-    public HashMap<String, Work> retriveWorkList() {
+    public Model retriveWorkList() {
 
         Model model = dataDeichmanAdapter.getWorkList();
-        HashMap<String, Work> map = new HashMap<String, Work>();
-        // for all works in model
-        //   put them in the map
-        return map;
+        return model;
     }
 
     @Override
-    public HashMap<String, Manifestation> retriveManifestationList() {
+    public Model retriveManifestationList() {
         Model model = dataDeichmanAdapter.getManifestationList();
-        HashMap<String, Manifestation> map = new HashMap<String, Manifestation>();
-        // for all manifestations in model
-        //   put them in the map
-        return map;
+        return model;
     }
 
     @Override

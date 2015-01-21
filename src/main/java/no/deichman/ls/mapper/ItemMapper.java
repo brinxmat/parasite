@@ -68,7 +68,7 @@ public class ItemMapper {
 
     private static Statement mapManifestationIdToStatement(String biblionumber) {
         Resource s = ResourceFactory.createResource(resource);
-        Property p = ResourceFactory.createProperty("http://purl.org/vocab/frbr/core#isManifestationOf");
+        Property p = ResourceFactory.createProperty("http://purl.org/vocab/frbr/core#isItemOf");
         Resource o = ResourceFactory.createResource("http://localhost:8080/parasite/manifestation/" + biblionumber);
 
         return ResourceFactory.createStatement(s, p, o);

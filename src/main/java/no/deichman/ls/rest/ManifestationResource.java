@@ -37,7 +37,16 @@ public class ManifestationResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getManifestationList() {
 
-        return Response.ok(SERVICE.retriveManifestationList()).build();
+        
+        StringWriter sw = new StringWriter();
+        Model model = SERVICE.retriveManifestationList();
+        RDFDataMgr.write(sw, model, Lang.JSONLD);
+
+        String data = sw.toString();
+
+        return Response.ok()
+                .entity(data)
+                .build();
     }
 
     /**

@@ -78,7 +78,12 @@ public class KohaAdapterMock implements KohaAdapter {
         item4.barcode = "4234567890";
         item4.biblionumber = "m3"; // this is the FK to manifestationId
         item4.onloan = "På hylla";
-        itemList = new HashMap<String, ItemDAO>();
+        if (itemMap.get(item4.biblionumber) == null) {
+            itemList = new HashMap<String, ItemDAO>();
+        }
+        else {
+            itemList = itemMap.get(item4.biblionumber);
+        }
         itemList.put(item4.biblioitemnumber, item4);
         allItemList.put(item4.biblioitemnumber, item4);
         itemMap.put(item4.biblionumber, itemList);
