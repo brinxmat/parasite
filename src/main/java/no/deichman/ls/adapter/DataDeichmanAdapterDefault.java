@@ -10,8 +10,12 @@ import com.hp.hpl.jena.query.QueryException;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
+
 import java.io.*;
 
+import no.deichman.ls.preference.Preference;
+
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 
@@ -29,7 +33,6 @@ public class DataDeichmanAdapterDefault implements DataDeichmanAdapter {
     private String url = null;
 
     private String endpointURI = "http://data.deichman.no/sparql";
-    private final String getAllWorks = "prefix fabio: <http://purl.org/spar/fabio/> prefix dcterms: <http://purl.org/dc/terms/> prefix foaf: <http://xmlns.com/foaf/0.1/> CONSTRUCT {?uri a fabio:Work; dcterms:creator ?author ; dcterms:title ?title ; fabio:hasManifestation ?manifestation } WHERE { ?uri a fabio:Work ; dcterms:creator ?creator ; dcterms:title ?title ; fabio:hasManifestation ?manifestation . ?creator foaf:name ?author }";
 
     private void dereference(String url) throws FileNotFoundException {
 
@@ -59,13 +62,13 @@ public class DataDeichmanAdapterDefault implements DataDeichmanAdapter {
     }
 
     @Override
-    public Model getAllWorks(String type, int limit, int offset) {
+    public Model getAllWorks(String type, int limit, int offset) throws ConfigurationException, Error {
         // TODO Auto-generated method stub
 
         Query query = null;
 
         if (type.equals("allWorks")) {
-            query = QueryFactory.create(this.getAllWorks + " LIMIT " + limit + " OFFSET " + offset);
+            query = QueryFactory.create(Preference.getAllWorksQuery() + " LIMIT " + limit + " OFFSET " + offset);
         } else {
             throw new Error("Invalid query type");
         }

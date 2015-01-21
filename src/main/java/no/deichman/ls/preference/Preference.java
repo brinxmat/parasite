@@ -8,6 +8,7 @@ public class Preference {
 	
 	static Configuration properties = null;
 
+
 	private static void init() throws ConfigurationException {
 		
 		if (properties == null) {
@@ -22,6 +23,22 @@ public class Preference {
 		String uri = properties.getProperty("uri.baseuri").toString();
 		return uri;
 		
+	}
+
+
+	public static String getSPARQLEndpointURI() throws ConfigurationException {
+		
+		Preference.init();
+		String uri = properties.getProperty("uri.baseuri").toString();
+		return uri;	
+		
+	}
+	
+	public static String getAllWorksQuery () throws ConfigurationException {
+		Preference.init();
+		String uri = properties.getProperty("query.getallworks").toString();
+		System.out.println(uri);
+		return uri;
 	}
 
 }

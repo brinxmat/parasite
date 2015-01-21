@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 
 import no.deichman.ls.adapter.DataDeichmanAdapterDefault;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.junit.Test;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -20,7 +21,7 @@ public class DataDeichmanAdapterDefaultTest {
     }
 
     @Test
-    public void test() {
+    public void test() throws ConfigurationException, Error {
         DataDeichmanAdapterDefault x = new DataDeichmanAdapterDefault();
         Model m = x.getAllWorks("allWorks", 100, 200);
         assertNotNull(m);

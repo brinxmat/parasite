@@ -7,6 +7,8 @@ package no.deichman.ls.adapter;
 
 import java.io.FileNotFoundException;
 
+import org.apache.commons.configuration.ConfigurationException;
+
 import com.hp.hpl.jena.rdf.model.Model;
 
 
@@ -20,7 +22,7 @@ public interface DataDeichmanAdapter {
 
     Model getWorkList();
     
-    Model getAllWorks(String type, int limit, int offset);
+    Model getAllWorks(String type, int limit, int offset) throws ConfigurationException;
     
     
     Model getManifestationById(String manifestationId);

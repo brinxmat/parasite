@@ -13,4 +13,14 @@ public class PreferenceTest {
 		assertNotNull(baseuri);
 	}
 
+	@Test
+	public void getAllWorksQuery() throws ConfigurationException {
+		String getAllWorksQuery = Preference.getAllWorksQuery();
+		assertNotNull(getAllWorksQuery);
+	}
+	@Test
+	public void testGetSPARQLEndpointURI() throws ConfigurationException {
+		String SPARQLEndpointURI = Preference.getSPARQLEndpointURI();
+		assertNotNull(SPARQLEndpointURI);
+	}
 }
