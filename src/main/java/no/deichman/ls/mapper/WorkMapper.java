@@ -13,6 +13,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
 import java.util.HashMap;
+import no.deichman.ls.dao.ManifestationDAO;
 import no.deichman.ls.dao.WorkDAO;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
@@ -84,11 +85,32 @@ public class WorkMapper {
         return model;
     }
 
+    
+    private static Model mapManifestationsDAOToModel(HashMap<String, ManifestationDAO> map) {
+        Model model = ModelFactory.createDefaultModel();
+        for (ManifestationDAO m : map.values()) {
+            model.add(ManifestationMapper.mapManifestationDAOToModel(m));
+        }
+        return model;
+    }
+
     static private void setResource(String id) {
         resource = new String(NS + id);
     }
 
-    public static Model mapWorkDAOToModel(WorkDAO get) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static Model mapWorkDAOToModel(WorkDAO work) {
+        Model model = ModelFactory.createDefaultModel();
+
+        model.setNsPrefix("", NS);
+        model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
+
+        model.add(mapIdToStatement(work.getId()));
+        model.add(mapTitleToStatement(work.getTitle()));
+        model.add(mapAuthorToStatement(work.getAuthor()));
+        if (work.getManifestations() != null) {
+            model.add(mapManifestationsDAOToModel(work.getManifestations()));
+        }
+
+        return model;
     }
 }

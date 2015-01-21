@@ -18,6 +18,8 @@ public interface Service {
 
     Model retriveItemById(String id);
 
+    Model retriveItemByManifestationId(String id);
+
     Model retriveManifestationById(String id);
 
     HashMap<String, Manifestation> retriveManifestationList();
@@ -25,5 +27,5 @@ public interface Service {
     Model retriveWorkById(String id);
 
     HashMap<String, Work> retriveWorkList();
-    
+
 }

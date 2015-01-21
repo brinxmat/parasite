@@ -51,7 +51,7 @@ public class KohaAdapterMockTest {
     @Test
     public void testGetItemsByManifestationId() {
         System.out.println("getItemsByManifestationId");
-        String id = "1";
+        String id = "m1";
         KohaAdapterMock instance = new KohaAdapterMock();
         Model expResult = null;
         Model result = instance.getItemsByManifestationId(id);
@@ -67,7 +67,7 @@ public class KohaAdapterMockTest {
     private Model createItemInstanceModel() {
         Model model = ModelFactory.createDefaultModel();
         
-        model.add(createId("1"));
+        model.add(createId("m1"));
         model.add(createAuthor("Knut Hamsun"));
         model.add(createTitle("Sult"));
         

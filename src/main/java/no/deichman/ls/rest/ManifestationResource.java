@@ -5,12 +5,16 @@
  */
 package no.deichman.ls.rest;
 
+import com.hp.hpl.jena.rdf.model.Model;
+import java.io.StringWriter;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 import service.ServiceDefault;
 
 /**
@@ -36,7 +40,6 @@ public class ManifestationResource {
         return Response.ok(SERVICE.retriveManifestationList()).build();
     }
 
-
     /**
      * Method processing HTTP GET requests, producing "application/json" MIME
      * media type.
@@ -46,9 +49,18 @@ public class ManifestationResource {
      */
     @Path("/{id}")
     @GET
-    @Produces("application/json;qs=0.2")
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getJSON(@PathParam("id") String id) {
-        return Response.ok(SERVICE.retriveManifestationById(id)).build();
+
+        StringWriter sw = new StringWriter();
+        Model model = SERVICE.retriveManifestationById(id);
+        RDFDataMgr.write(sw, model, Lang.JSONLD);
+
+        String data = sw.toString();
+
+        return Response.ok()
+                .entity(data)
+                .build();
     }
 
 }

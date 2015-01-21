@@ -13,7 +13,9 @@ import java.util.logging.Logger;
 import no.deichman.ls.adapter.KohaAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapterDefault;
+import no.deichman.ls.adapter.DataDeichmanAdapterMock;
 import no.deichman.ls.adapter.KohaAdapterDefault;
+import no.deichman.ls.adapter.KohaAdapterMock;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
 import no.deichman.ls.repository.RepositoryInMemory;
@@ -24,8 +26,8 @@ import no.deichman.ls.repository.RepositoryInMemory;
  */
 public class ServiceDefault implements Service {
 
-    static private DataDeichmanAdapter dataDeichmanAdapter = new DataDeichmanAdapterDefault();
-    static private KohaAdapter kohaAdapter = new KohaAdapterDefault();
+    static private DataDeichmanAdapter dataDeichmanAdapter = new DataDeichmanAdapterMock();
+    static private KohaAdapter kohaAdapter = new KohaAdapterMock();
     static private RepositoryInMemory repository = new RepositoryInMemory();
 
     @Override
@@ -77,13 +79,30 @@ public class ServiceDefault implements Service {
         Model model = null;
         if (model == null) {
             model = dataDeichmanAdapter.getManifestationById(id);
+            model.add(kohaAdapter.getItemsByManifestationId(id));
             repository.createManifestation(model);
         }
         return model;
     }
 
     @Override
+    public Model retriveItemByManifestationId(String id) {
+        Model model = null;
+        if (model == null) {
+            model = dataDeichmanAdapter.getManifestationById(id);
+            model.add(kohaAdapter.getItemsByManifestationId(id));
+            //repository.createItem(model);
+        }
+        return model;
+    }
+
+    @Override
     public Model retriveItemById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Model model = null;
+        if (model == null) {
+            model = kohaAdapter.getItemById(id);
+            //repository.createItem(model);
+        }
+        return model;
     }
 }

@@ -29,7 +29,7 @@ public class ManifestationMapper {
     static String resource;
 
     public static Manifestation mapModelToManifestation(Model model) {
-        
+
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -94,14 +94,16 @@ public class ManifestationMapper {
         return model;
     }
 
-
-        private static Model mapItemListDAOToModel(List<ItemDAO> itemListDAO) {
+    private static Model mapItemListDAOToModel(List<ItemDAO> itemListDAO) {
         // TODO: for all manifestations map them, add to model and return
         Model model = ModelFactory.createDefaultModel();
         ItemMapper im = new ItemMapper();
-        for (ItemDAO m : itemListDAO) {
-            model.add(im.mapItemDAOToModel(m));
+        if (itemListDAO != null) {
+            for (ItemDAO m : itemListDAO) {
+                model.add(im.mapItemDAOToModel(m));
+            }
         }
+
         return model;
     }
 

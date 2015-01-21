@@ -1,18 +1,28 @@
 package no.deichman.ls.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import no.deichman.ls.domain.Item;
 
 public class ManifestationDAO {
 
     private String id;
+    private String isbn;
+    private String publisher;
+    private String publicationYear;
+    private String workId;
     private List<no.deichman.ls.dao.ItemDAO> itemListDAO;
 
     public ManifestationDAO(String id) {
         this.id = id;
     }
 
-    public ManifestationDAO(String string, String string0, String gyldendal, String string1, String string2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ManifestationDAO(String id, String isbn, String publisher, String publicationYear, String workId) {
+        this.id = id;
+        this.isbn = isbn;
+        this.publisher = publisher;
+        this.publicationYear = publicationYear;
+        this.workId = workId;
     }
 
     public String getId() {

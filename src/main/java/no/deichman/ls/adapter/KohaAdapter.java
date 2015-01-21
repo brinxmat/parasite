@@ -13,5 +13,6 @@ import com.hp.hpl.jena.rdf.model.Model;
  */
 public interface KohaAdapter {
 
+    Model getItemById(String id);
     Model getItemsByManifestationId(String id);
 }
