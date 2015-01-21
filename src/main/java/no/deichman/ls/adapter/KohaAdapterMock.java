@@ -38,7 +38,18 @@ public class KohaAdapterMock implements KohaAdapter {
     public Model getItemById(String id) {
         Model model = ModelFactory.createDefaultModel();
         ItemDAO itemDAO = allItemList.get(id);
-        model.add(ItemMapper.mapItemDAOToModel(itemDAO));
+        if (itemDAO != null) {
+            model.add(ItemMapper.mapItemDAOToModel(itemDAO));
+        }
+        return model;
+    }
+
+    @Override
+    public Model getItemList() {
+        Model model = ModelFactory.createDefaultModel();
+        for (ItemDAO i : allItemList.values()) {
+            model.add(ItemMapper.mapItemDAOToModel(i));
+        }
         return model;
     }
 
@@ -80,8 +91,7 @@ public class KohaAdapterMock implements KohaAdapter {
         item4.onloan = "På hylla";
         if (itemMap.get(item4.biblionumber) == null) {
             itemList = new HashMap<String, ItemDAO>();
-        }
-        else {
+        } else {
             itemList = itemMap.get(item4.biblionumber);
         }
         itemList.put(item4.biblioitemnumber, item4);

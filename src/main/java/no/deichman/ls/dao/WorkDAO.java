@@ -22,7 +22,7 @@ public class WorkDAO {
     public WorkDAO() {
     }
 
-    public WorkDAO(String id, String title, String author, double price) {
+    public WorkDAO(String id, String title, String author) {
         this.manifestations = new HashMap<String, ManifestationDAO>();
         this.id = id;
         this.title = title;

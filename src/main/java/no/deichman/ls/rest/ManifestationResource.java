@@ -8,6 +8,7 @@ package no.deichman.ls.rest;
 import com.hp.hpl.jena.rdf.model.Model;
 import java.io.StringWriter;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -37,16 +38,24 @@ public class ManifestationResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getManifestationList() {
 
-        
         StringWriter sw = new StringWriter();
         Model model = SERVICE.retriveManifestationList();
-        RDFDataMgr.write(sw, model, Lang.JSONLD);
 
-        String data = sw.toString();
+        if (!model.isEmpty()) {
+            RDFDataMgr.write(sw, model, Lang.JSONLD);
 
-        return Response.ok()
-                .entity(data)
-                .build();
+            String data = sw.toString();
+
+            return Response.ok()
+                    .entity(data)
+                    .build();
+
+        } else {
+            return Response.ok().
+                    entity("{\"Message\":\"The query executed correctly, but the list is empty.\"}").
+                    build();
+        }
+
     }
 
     /**
@@ -63,13 +72,18 @@ public class ManifestationResource {
 
         StringWriter sw = new StringWriter();
         Model model = SERVICE.retriveManifestationById(id);
-        RDFDataMgr.write(sw, model, Lang.JSONLD);
 
-        String data = sw.toString();
+        if (!model.isEmpty()) {
+            RDFDataMgr.write(sw, model, Lang.JSONLD);
 
-        return Response.ok()
-                .entity(data)
-                .build();
+            String data = sw.toString();
+
+            return Response.ok()
+                    .entity(data)
+                    .build();
+
+        } else {
+            throw new NotFoundException();
+        }
     }
-
 }

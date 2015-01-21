@@ -46,56 +46,73 @@ public class ServiceDefault implements Service {
     @Override
     public Model retriveWorkById(String id) {
 
-        // Pseudo:
-        // queryModel(workIId)
-        // If found in model
-        // -- return model, resource, or POJO?
-        // If not found in model, fetch from adapter:
-        //Model model = repository.retrieveWork(id);
-        Model model = null;
-        if (model == null) {
+        Model model = repository.retrieveWork(id);
+        if (model.isEmpty()) {
             try {
                 model = dataDeichmanAdapter.getWork(id);
-                repository.createWork(model);
+                if (model != null) {
+                    repository.createWork(model);
+                }
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ServiceDefault.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
         }
-        //model.setManifestations(kohaAdapter.getManifestationsByWorkId(id));
         return model;
     }
 
     @Override
     public Model retriveManifestationById(String id) {
-        //Model model = repository.retrieveManifestation(id);
-        Model model = null;
-        if (model == null) {
+
+        Model model = repository.retrieveManifestation(id);
+        if (model.isEmpty()) {
             model = dataDeichmanAdapter.getManifestationById(id);
-            model.add(kohaAdapter.getItemsByManifestationId(id));
-            repository.createManifestation(model);
+            if (model != null) {
+                model.add(kohaAdapter.getItemsByManifestationId(id));
+            }
+            if (model != null) {
+                repository.createManifestation(model);
+            }
         }
         return model;
     }
 
     @Override
     public Model retriveItemByManifestationId(String id) {
-        Model model = null;
-        if (model == null) {
+        Model model = repository.retrieveManifestation(id);
+        if (model.isEmpty()) {
             model = dataDeichmanAdapter.getManifestationById(id);
-            model.add(kohaAdapter.getItemsByManifestationId(id));
-            //repository.createItem(model);
+            if (model != null) {
+                model.add(kohaAdapter.getItemsByManifestationId(id));
+            }
+            if (model != null) {
+                repository.createItem(model);
+            }
         }
         return model;
     }
 
     @Override
     public Model retriveItemById(String id) {
-        Model model = null;
-        if (model == null) {
+        Model model = repository.retrieveItem(id);
+        if (model.isEmpty()) {
             model = kohaAdapter.getItemById(id);
-            //repository.createItem(model);
+            if (model != null) {
+                repository.createItem(model);
+            }
+        }
+        return model;
+    }
+
+    @Override
+    public Model retriveItemList() {
+        Model model = repository.listItems();
+        if (model.isEmpty()) {
+            model = kohaAdapter.getItemList();
+            if (model != null) {
+                repository.createItem(model);
+            }
         }
         return model;
     }

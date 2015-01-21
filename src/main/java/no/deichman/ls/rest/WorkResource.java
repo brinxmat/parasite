@@ -3,21 +3,24 @@ package no.deichman.ls.rest;
 import com.hp.hpl.jena.rdf.model.Model;
 import java.io.StringWriter;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 import javax.ws.rs.core.Response;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
+import service.Service;
 
 import service.ServiceDefault;
 
 @Path("/work")
 public class WorkResource {
 
-    private static final ServiceDefault SERVICE = new ServiceDefault();
+    private static final Service SERVICE = new ServiceDefault();
 
     /**
      * Method processing HTTP GET requests, producing "application/json" MIME
@@ -32,13 +35,19 @@ public class WorkResource {
 
         StringWriter sw = new StringWriter();
         Model model = SERVICE.retriveWorkList();
-        RDFDataMgr.write(sw, model, Lang.JSONLD);
+        if (!model.isEmpty()) {
+            RDFDataMgr.write(sw, model, Lang.JSONLD);
 
-        String data = sw.toString();
+            String data = sw.toString();
 
-        return Response.ok()
-                .entity(data)
-                .build();
+            return Response.ok()
+                    .entity(data)
+                    .build();
+        } else {
+            return Response.ok().
+                    entity("{\"Message\":\"The query executed correctly, but the list is empty.\"}").
+                    build();
+        }
     }
 
     /**
@@ -56,13 +65,17 @@ public class WorkResource {
 
         StringWriter sw = new StringWriter();
         Model model = SERVICE.retriveWorkById(id);
-        RDFDataMgr.write(sw, model, Lang.JSONLD);
+        if (!model.isEmpty()) {
+            RDFDataMgr.write(sw, model, Lang.JSONLD);
 
-        String data = sw.toString();
+            String data = sw.toString();
 
-        return Response.ok()
-                .entity(data)
-                .build();
+            return Response.ok()
+                    .entity(data)
+                    .build();
+        } else {
+            throw new NotFoundException();
+        }
     }
 
 }

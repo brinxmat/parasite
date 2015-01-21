@@ -99,6 +99,7 @@ public class WorkMapper {
     }
 
     public static Model mapWorkDAOToModel(WorkDAO work) {
+
         Model model = ModelFactory.createDefaultModel();
 
         model.setNsPrefix("", NS);

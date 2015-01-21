@@ -33,6 +33,7 @@ public class RootResource {
     public Response getSlashJSON() {
 
         return Response.ok().
+                entity("Welcome to theparaSite!\n ").
                 link("http://localhost:8080/parasite/", "self" ).
                 link("http://localhost:8080/parasite/work", "works" ).
                 link("http://localhost:8080/parasite/manifestation", "manifestations").
@@ -44,6 +45,7 @@ public class RootResource {
     public Response getSlashHTML() {
 
         return Response.ok().
+                entity("Welcome to paraSite!\n ").
                 link("http://localhost:8080/parasite/", "self" ).
                 link("http://localhost:8080/parasite/work", "works" ).
                 link("http://localhost:8080/parasite/manifestation", "manifestations").

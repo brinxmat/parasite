@@ -48,7 +48,7 @@ public class ServiceDefaultTest {
     @Test
     public void testRetriveWorkList() {
         System.out.println("retriveWorkList");
-        ServiceDefault instance = new ServiceDefault();
+        Service instance = new ServiceDefault();
         Model expResult = null;
         Model result = instance.retriveWorkList();
         assertNotNull(result);

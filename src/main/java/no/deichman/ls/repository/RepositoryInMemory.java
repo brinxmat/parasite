@@ -18,7 +18,10 @@ public class RepositoryInMemory implements Repository {
 
     @Override
     public Model retrieveWork(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // TODO
+        Model model = ModelFactory.createDefaultModel();
+        //model.query(Selector);
+        return model;
     }
 
     @Override
@@ -34,7 +37,8 @@ public class RepositoryInMemory implements Repository {
 
     @Override
     public Model retrieveManifestation(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Model model = ModelFactory.createDefaultModel();
+        return model;
     }
 
     @Override
@@ -56,11 +60,30 @@ public class RepositoryInMemory implements Repository {
 
     @Override
     public Model retrieveItem(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Model model = ModelFactory.createDefaultModel();
+        return model;
     }
 
     @Override
     public void deleteItem(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Model listWorks() {
+        Model model = ModelFactory.createDefaultModel();
+        return model;
+    }
+
+    @Override
+    public Model listManifestations() {
+        Model model = ModelFactory.createDefaultModel();
+        return model;
+    }
+
+    @Override
+    public Model listItems() {
+        Model model = ModelFactory.createDefaultModel();
+        return model;
     }
 }
