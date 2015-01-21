@@ -13,6 +13,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
 import java.util.HashMap;
+import no.deichman.ls.dao.WorkDAO;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
 import org.apache.jena.riot.Lang;
@@ -85,5 +86,9 @@ public class WorkMapper {
 
     static private void setResource(String id) {
         resource = new String(NS + id);
+    }
+
+    public static Model mapWorkDAOToModel(WorkDAO get) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

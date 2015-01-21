@@ -29,7 +29,8 @@ public class ManifestationMapper {
     static String resource;
 
     public static Manifestation mapModelToManifestation(Model model) {
-        return new Manifestation();
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public static Model mapManifestationDAOToModel(ManifestationDAO manifestationDAO) {
@@ -40,7 +41,7 @@ public class ManifestationMapper {
         model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
 
         model.add(mapIdToStatement(manifestationDAO.getId()));
-        model.add(mapItemListToModel(manifestationDAO.getItemListDAO()));
+        model.add(mapItemListDAOToModel(manifestationDAO.getItemListDAO()));
 
         return model;
     }
@@ -93,7 +94,8 @@ public class ManifestationMapper {
         return model;
     }
 
-        private static Model mapItemListToModel(List<ItemDAO> itemListDAO) {
+
+        private static Model mapItemListDAOToModel(List<ItemDAO> itemListDAO) {
         // TODO: for all manifestations map them, add to model and return
         Model model = ModelFactory.createDefaultModel();
         ItemMapper im = new ItemMapper();

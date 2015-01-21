@@ -5,6 +5,7 @@
  */
 package service;
 
+import com.hp.hpl.jena.rdf.model.Model;
 import java.util.HashMap;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
@@ -63,54 +64,9 @@ public class ServiceDefaultTest {
         System.out.println("retriveManifestationById");
         String id = "1";
         ServiceDefault instance = new ServiceDefault();
-        Manifestation expResult = null;
-        Manifestation result = instance.retriveManifestationById(id);
+        Model expResult = null;
+        Model result = instance.retriveManifestationById(id);
         assertNotNull(result);        
         // assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of retriveManifestationList method, of class ServiceDefault.
-     */
-//    @Test
-//    public void testRetriveManifestationList() {
-//        System.out.println("retriveManifestationList");
-//        ServiceDefault instance = new ServiceDefault();
-//        HashMap<String, Manifestation> expResult = null;
-//        HashMap<String, Manifestation> result = instance.retriveManifestationList();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-
-    /**
-     * Test of retriveWorkById method, of class ServiceDefault.
-     */
-//    @Test
-//    public void testRetriveWorkById() {
-//        System.out.println("retriveWorkById");
-//        String id = "0";
-//        ServiceDefault instance = new ServiceDefault();
-//        Work expResult = null;
-//        Work result = instance.retriveWorkById(id);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-
-    /**
-     * Test of retriveItemById method, of class ServiceDefault.
-     */
-//    @Test
-//    public void testRetriveItemById() {
-//        System.out.println("retriveItemById");
-//        String id = "0";
-//        ServiceDefault instance = new ServiceDefault();
-//        Item expResult = null;
-//        Item result = instance.retriveItemById(id);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-    
+    }    
 }

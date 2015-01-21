@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -41,6 +42,7 @@ public class DataDeichmanAdapterMockTest {
     /**
      * Test of getManifestationList method, of class KohaAdapterMock.
      */
+    @Ignore
     @Test
     public void testGetManifestationList() {
         System.out.println("getManifestationList");
@@ -54,6 +56,7 @@ public class DataDeichmanAdapterMockTest {
     /**
      * Test of getManifestationsByWorkId method, of class KohaAdapterMock.
      */
+    @Ignore
     @Test
     public void testGetManifestationsByWorkId() {
         System.out.println("getManifestationsByWorkId");
@@ -68,6 +71,7 @@ public class DataDeichmanAdapterMockTest {
     /**
      * Test of getManifestationById method, of class KohaAdapterMock.
      */
+    @Ignore
     @Test
     public void testGetManifestationById() {
         System.out.println("getManifestationById");

@@ -21,31 +21,7 @@ import no.deichman.ls.domain.Item;
  */
 public class ItemMapper {
 
-    public static Item mapItemDAOToItem(ItemDAO itemDAO) {
-        Item i = new Item();
-        i.setId(itemDAO.barcode);
-        i.setManifestationId(itemDAO.biblionumber);
-        i.setBiblioItemNumber(itemDAO.biblioitemnumber);
-        i.setHoldingBranchName(itemDAO.holdingbranchname);
-        i.setNotForLoan(Boolean.parseBoolean(itemDAO.notforloan)); // private boolean 
-        i.setItemNumber(itemDAO.itemnumber); // private String 
-        i.setItemCallNumber(itemDAO.itemcallnumber); // private String 
-        if (itemDAO.itemlost != null) {
-            i.setItemLost(Integer.parseInt(itemDAO.itemlost)); // private int 
-        }
-        i.setDateDue(itemDAO.date_due); // private String 
-        i.setUri(itemDAO.uri); // private String 
-        i.setDateLastSeen(itemDAO.datelastseen); // private String 
-        i.setHomeBranch(itemDAO.homebranch); // private String 
-        i.setHomeBranchName(itemDAO.holdingbranchname); // private String 
-        i.setHoldingBranch(itemDAO.holdingbranch); // private String 
-        if (itemDAO.copynumber != null) {
-            i.setCopyNumber(Integer.parseInt(itemDAO.copynumber)); // private int 
-        }
-        return i;
-    }
-
-    public static Model mapItemToModel(Item item) {
+    public static Model mapItemDAOToModel(ItemDAO item) {
 
         Model model = ModelFactory.createDefaultModel();
         String NS = "http://www.computas.no/zebra/";
@@ -62,7 +38,8 @@ public class ItemMapper {
         return model;
     }
 
-    Statement mapItemDAOToModel(ItemDAO m) {
+    Statement mapItemToModel(Item m) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

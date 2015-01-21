@@ -11,16 +11,11 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import no.deichman.ls.adapter.KohaAdapter;
-import no.deichman.ls.adapter.DataDeichmanAdapterMock;
-import no.deichman.ls.adapter.KohaAdapterMock;
 import no.deichman.ls.adapter.DataDeichmanAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapterDefault;
 import no.deichman.ls.adapter.KohaAdapterDefault;
-import no.deichman.ls.domain.Item;
 import no.deichman.ls.domain.Manifestation;
 import no.deichman.ls.domain.Work;
-import no.deichman.ls.mapper.ManifestationMapper;
-import no.deichman.ls.mapper.WorkMapper;
 import no.deichman.ls.repository.RepositoryInMemory;
 
 /**
@@ -77,18 +72,18 @@ public class ServiceDefault implements Service {
     }
 
     @Override
-    public Manifestation retriveManifestationById(String id) {
+    public Model retriveManifestationById(String id) {
         //Model model = repository.retrieveManifestation(id);
         Model model = null;
         if (model == null) {
             model = dataDeichmanAdapter.getManifestationById(id);
             repository.createManifestation(model);
         }
-        return ManifestationMapper.mapModelToManifestation(model);
+        return model;
     }
 
     @Override
-    public Item retriveItemById(String id) {
+    public Model retriveItemById(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

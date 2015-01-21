@@ -5,6 +5,7 @@
  */
 package no.deichman.ls.mapper;
 
+import com.hp.hpl.jena.rdf.model.Model;
 import no.deichman.ls.dao.ItemDAO;
 import no.deichman.ls.domain.Item;
 import org.junit.After;
@@ -48,25 +49,8 @@ public class ItemMapperTest {
         ItemDAO itemDAO = new ItemDAO();
         itemDAO.barcode = "1";
         ItemMapper instance = new ItemMapper();
-        Item expResult = null;
-        Item result = instance.mapItemDAOToItem(itemDAO);
+        Model expResult = null;
+        Model result = instance.mapItemDAOToModel(itemDAO);
         assertNotNull(result);
-        assertEquals(itemDAO.barcode ,result.getId());
-    }
-
-//    /**
-//     * Test of mapItemToItemDAO method, of class ItemMapper.
-//     */
-//    @Test
-//    public void testMapItemToItemDAO() {
-//        System.out.println("mapItemToItemDAO");
-//        Item item = null;
-//        ItemMapper instance = new ItemMapper();
-//        ItemDAO expResult = null;
-//        ItemDAO result = instance.mapItemToItemDAO(item);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-    
+    }    
 }
