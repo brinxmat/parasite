@@ -5,7 +5,6 @@
  */
 package no.deichman.ls.mapper;
 
-import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -13,9 +12,6 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
 import no.deichman.ls.dao.ItemDAO;
-import no.deichman.ls.domain.Item;
-import static no.deichman.ls.mapper.ManifestationMapper.NS;
-import static no.deichman.ls.mapper.ManifestationMapper.resource;
 
 /**
  *
@@ -74,9 +70,6 @@ public class ItemMapper {
         return ResourceFactory.createStatement(s, p, o);
     }
 
-    Statement mapItemToModel(Item m) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     static private void setResource(String id) {
         resource = new String(NS + id);

@@ -6,9 +6,6 @@
 package service;
 
 import com.hp.hpl.jena.rdf.model.Model;
-import java.util.HashMap;
-import no.deichman.ls.domain.Manifestation;
-import no.deichman.ls.domain.Work;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

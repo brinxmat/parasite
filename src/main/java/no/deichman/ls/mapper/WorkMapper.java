@@ -15,10 +15,6 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import java.util.HashMap;
 import no.deichman.ls.dao.ManifestationDAO;
 import no.deichman.ls.dao.WorkDAO;
-import no.deichman.ls.domain.Manifestation;
-import no.deichman.ls.domain.Work;
-import org.apache.jena.riot.Lang;
-import org.apache.jena.riot.RDFDataMgr;
 
 /**
  *
@@ -28,29 +24,6 @@ public class WorkMapper {
 
     static final String NS = "http://localhost:8080/parasite/work/";
     static String resource;
-
-    public static Model mapWorkToModel(Work work) {
-
-        Model model = ModelFactory.createDefaultModel();
-
-        model.setNsPrefix("", NS);
-        model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
-
-        model.add(mapIdToStatement(work.getId()));
-        model.add(mapTitleToStatement(work.getTitle()));
-        model.add(mapAuthorToStatement(work.getAuthor()));
-        if (work.getManifestations() != null) {
-            model.add(mapManifestationsToModel(work.getManifestations()));
-        }
-
-        return model;
-    }
-
-    public static Work mapModelToWork(Model model) {
-        RDFDataMgr.write(System.out, model, Lang.JSONLD);
-        // todo
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     private static Statement mapIdToStatement(String id) {
         setResource(id);
@@ -75,14 +48,6 @@ public class WorkMapper {
         Resource o = ResourceFactory.createResource(author);
 
         return ResourceFactory.createStatement(s, p, o);
-    }
-
-    private static Model mapManifestationsToModel(HashMap<String, Manifestation> map) {
-        Model model = ModelFactory.createDefaultModel();
-        for (Manifestation m : map.values()) {
-            model.add(ManifestationMapper.mapManifestationToModel(m));
-        }
-        return model;
     }
 
     

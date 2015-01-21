@@ -7,17 +7,12 @@ package service;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import no.deichman.ls.adapter.KohaAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapter;
-import no.deichman.ls.adapter.DataDeichmanAdapterDefault;
 import no.deichman.ls.adapter.DataDeichmanAdapterMock;
-import no.deichman.ls.adapter.KohaAdapterDefault;
 import no.deichman.ls.adapter.KohaAdapterMock;
-import no.deichman.ls.domain.Manifestation;
-import no.deichman.ls.domain.Work;
 import no.deichman.ls.repository.RepositoryInMemory;
 
 /**

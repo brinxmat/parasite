@@ -1,8 +1,6 @@
 package no.deichman.ls.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import no.deichman.ls.domain.Item;
 
 public class ManifestationDAO {
 

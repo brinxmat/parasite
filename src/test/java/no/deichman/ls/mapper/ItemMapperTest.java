@@ -7,7 +7,6 @@ package no.deichman.ls.mapper;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import no.deichman.ls.dao.ItemDAO;
-import no.deichman.ls.domain.Item;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

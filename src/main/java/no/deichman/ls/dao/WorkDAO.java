@@ -5,7 +5,6 @@
  */
 package no.deichman.ls.dao;
 
-import no.deichman.ls.domain.*;
 import java.util.HashMap;
 
 /**
