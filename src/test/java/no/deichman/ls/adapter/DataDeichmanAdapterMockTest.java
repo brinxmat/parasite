@@ -42,43 +42,45 @@ public class DataDeichmanAdapterMockTest {
     /**
      * Test of getManifestationList method, of class KohaAdapterMock.
      */
-    @Ignore
     @Test
     public void testGetManifestationList() {
         System.out.println("getManifestationList");
         DataDeichmanAdapterMock instance = new DataDeichmanAdapterMock();
         Model expResult = null;
         Model result = instance.getManifestationList();
+        //result.write(System.out);
         assertNotNull(result);
-        assertEquals(3, result.size());
+        assertFalse(result.isEmpty());
+        //assertEquals(expResult, result.size());
     }
 
     /**
      * Test of getManifestationsByWorkId method, of class KohaAdapterMock.
      */
-    @Ignore
     @Test
     public void testGetManifestationsByWorkId() {
         System.out.println("getManifestationsByWorkId");
-        String id = "1";
+        String id = "w1";
         DataDeichmanAdapterMock instance = new DataDeichmanAdapterMock();
         int expResult = 3;
         Model result = instance.getManifestationsByWorkId(id);
+        result.write(System.out);
         assertNotNull(result);
-        assertEquals(expResult, result.size());
+        assertFalse(result.isEmpty());
+        //assertEquals(expResult, result.size());
     }
 
     /**
      * Test of getManifestationById method, of class KohaAdapterMock.
      */
-    @Ignore
     @Test
     public void testGetManifestationById() {
         System.out.println("getManifestationById");
-        String manifestationId = "1";
+        String manifestationId = "m1";
         DataDeichmanAdapterMock instance = new DataDeichmanAdapterMock();
         Model expResult = null;
         Model result = instance.getManifestationById(manifestationId);
         assertNotNull(result);
+        assertFalse(result.isEmpty());
     }
 }

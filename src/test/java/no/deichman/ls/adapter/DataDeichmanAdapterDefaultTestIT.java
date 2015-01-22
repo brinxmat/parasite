@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
-public class DataDeichmanAdapterDefaultTest {
+public class DataDeichmanAdapterDefaultTestIT {
 
     @Test
     public void testNothing() throws FileNotFoundException {

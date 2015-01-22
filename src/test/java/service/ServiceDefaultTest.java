@@ -55,11 +55,10 @@ public class ServiceDefaultTest {
     /**
      * Test of retriveManifestationById method, of class ServiceDefault.
      */
-    @Ignore
     @Test
     public void testRetriveManifestationById() {
         System.out.println("retriveManifestationById");
-        String id = "1";
+        String id = "m1";
         ServiceDefault instance = new ServiceDefault();
         Model expResult = null;
         Model result = instance.retriveManifestationById(id);

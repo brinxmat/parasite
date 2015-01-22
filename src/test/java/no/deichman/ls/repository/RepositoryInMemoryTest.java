@@ -62,7 +62,7 @@ public class RepositoryInMemoryTest {
         String id = instance.createWork(w);
         Model expResult = w;
         System.out.println("expResult");
-        RDFDataMgr.write(System.out, w, Lang.JSONLD);
+        RDFDataMgr.write(System.out, expResult, Lang.JSONLD);
         Model result = instance.retrieveWork(id);
         System.out.println("result");
         RDFDataMgr.write(System.out, result, Lang.JSONLD);

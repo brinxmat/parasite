@@ -6,6 +6,7 @@
 package no.deichman.ls.adapter;
 
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.owlike.genson.Genson;
 import java.util.List;
 import javax.ws.rs.client.Client;
@@ -26,6 +27,7 @@ public class KohaAdapterDefault implements KohaAdapter {
     @Override
     public Model getItemsByManifestationId(String manifestationId) {
 
+        Model model = ModelFactory.createDefaultModel();
         Client client = ClientBuilder.newClient();
 
         WebTarget webTarget = client.target("http://192.168.50.12:8080/cgi-bin/koha/rest.pl");
@@ -36,11 +38,10 @@ public class KohaAdapterDefault implements KohaAdapter {
 
         Response response = invocationBuilder.get();
 
-        if (response.getStatusInfo() == Response.Status.NOT_FOUND) {
-            return null;
-        } else {
-            return mapResponseToModel(manifestationId, response);
+        if (response.getStatusInfo() == Response.Status.OK) {
+            model = mapResponseToModel(manifestationId, response);
         }
+        return model;
     }
 
     private Model mapResponseToModel(String id, Response response) {
