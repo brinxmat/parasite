@@ -26,5 +26,7 @@ public interface Service {
     Model retriveWorkList();
 
     Model retriveItemList();
+    
+    Model queryModel(String query);
 
 }

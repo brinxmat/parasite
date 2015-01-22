@@ -88,6 +88,11 @@ public class DataDeichmanAdapterMock implements DataDeichmanAdapter {
         // work2:
         work = new WorkDAO("w2", "Sykkelrytteren", "Tim Krabbé");
         addWorkToLists(work);
+
+        // work3:
+        work = new WorkDAO("w3", "Berlinerpoplene", "Anne B. Ragde");
+        addWorkToLists(work);
+
     }
 
     private void createManifestationDAOMockList() {
@@ -103,6 +108,11 @@ public class DataDeichmanAdapterMock implements DataDeichmanAdapter {
         // another manifestation of work1:
         manifestation = new ManifestationDAO("m3", "9788205277489", "Gyldendal Norsk Forlag", "2001", "w1");
         addManifestationToLists(manifestation);
+
+        // manifestation of work3:
+        manifestation = new ManifestationDAO("626460", "8249502728", "Oslo Oktober", "2009", "w3");
+        addManifestationToLists(manifestation);
+
     }
 
     private void addWorkToLists(WorkDAO w) {

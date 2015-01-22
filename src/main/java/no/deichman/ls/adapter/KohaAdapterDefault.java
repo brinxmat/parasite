@@ -38,7 +38,7 @@ public class KohaAdapterDefault implements KohaAdapter {
 
         Response response = invocationBuilder.get();
 
-        if (response.getStatusInfo() == Response.Status.OK) {
+        if (response.getStatus() == 200 ) {
             model = mapResponseToModel(manifestationId, response);
         }
         return model;

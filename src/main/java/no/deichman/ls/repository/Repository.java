@@ -26,5 +26,7 @@ interface Repository {
     public Model createItem (Model model);
     public Model retrieveItem(String id);
     public void deleteItem (String id);
+    
+    public Model queryModel(String query);
 
 }

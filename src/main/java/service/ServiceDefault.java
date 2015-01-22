@@ -7,6 +7,7 @@ package service;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import java.io.FileNotFoundException;
+import java.io.StringWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import no.deichman.ls.adapter.KohaAdapter;
@@ -23,8 +24,9 @@ import no.deichman.ls.repository.RepositoryInMemory;
 public class ServiceDefault implements Service {
 
     static private DataDeichmanAdapter dataDeichmanAdapter = new DataDeichmanAdapterMock();
-    static private KohaAdapter kohaAdapter = new KohaAdapterMock();
+    static private KohaAdapter kohaAdapter = new KohaAdapterDefault();
     static private RepositoryInMemory repository = new RepositoryInMemory();
+    static private final String BASE_URI = "http://localhost:8080/parasite/";
 
     @Override
     public Model retriveWorkList() {
@@ -41,12 +43,12 @@ public class ServiceDefault implements Service {
 
     @Override
     public Model retriveWorkById(String id) {
-
-        Model model = repository.retrieveWork(id);
+        String uri = BASE_URI + "work/" + id;
+        Model model = repository.retrieveWork(uri);
         if (model.isEmpty()) {
             try {
-                model = dataDeichmanAdapter.getWork(id);
-                if (model != null) {
+                model.add(dataDeichmanAdapter.getWork(id));
+                if (!model.isEmpty()) {
                     repository.createWork(model);
                 }
 
@@ -60,14 +62,13 @@ public class ServiceDefault implements Service {
 
     @Override
     public Model retriveManifestationById(String id) {
-
-        Model model = repository.retrieveManifestation(id);
+        String uri = BASE_URI + "manifestation/" + id;
+        Model model = repository.retrieveManifestation(uri);
         if (model.isEmpty()) {
-            model = dataDeichmanAdapter.getManifestationById(id);
-            if (model != null) {
-                model.add(kohaAdapter.getItemsByManifestationId(id));
-            }
-            if (model != null) {
+            model.add(dataDeichmanAdapter.getManifestationById(id));
+            model.add(kohaAdapter.getItemsByManifestationId(id));
+            String debug = modelToString(model);
+            if (!model.isEmpty()) {
                 repository.createManifestation(model);
             }
         }
@@ -76,13 +77,11 @@ public class ServiceDefault implements Service {
 
     @Override
     public Model retriveItemByManifestationId(String id) {
-        Model model = repository.retrieveManifestation(id);
+        String uri = BASE_URI + "manifestation/" + id;
+        Model model = repository.retrieveManifestation(uri);
         if (model.isEmpty()) {
-            model = dataDeichmanAdapter.getManifestationById(id);
-            if (model != null) {
-                model.add(kohaAdapter.getItemsByManifestationId(id));
-            }
-            if (model != null) {
+            model.add(kohaAdapter.getItemsByManifestationId(id));
+            if (!model.isEmpty()) {
                 repository.createItem(model);
             }
         }
@@ -91,7 +90,8 @@ public class ServiceDefault implements Service {
 
     @Override
     public Model retriveItemById(String id) {
-        Model model = repository.retrieveItem(id);
+                String uri = BASE_URI + "item/" + id;
+        Model model = repository.retrieveItem(uri);
         if (model.isEmpty()) {
             model = kohaAdapter.getItemById(id);
             if (model != null) {
@@ -111,5 +111,17 @@ public class ServiceDefault implements Service {
             }
         }
         return model;
+    }
+
+    @Override
+    public Model queryModel(String query) {
+        return repository.queryModel(query);
+    }
+
+    private String modelToString(Model m) {
+        String syntax = "TURTLE"; // also try "N-TRIPLE" and "TURTLE"
+        StringWriter out = new StringWriter();
+        m.write(out, syntax);
+        return out.toString();
     }
 }

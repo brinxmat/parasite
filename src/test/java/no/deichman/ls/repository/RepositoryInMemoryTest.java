@@ -146,7 +146,7 @@ public class RepositoryInMemoryTest {
         Model expResult = m;
         System.out.println("expResult");
         RDFDataMgr.write(System.out, expResult, Lang.JSONLD);
-        Model result = instance.retrieveWork(BASE_URI + "manifestation/" + MANIFESTATION_ID);
+        Model result = instance.retrieveManifestation(BASE_URI + "manifestation/" + MANIFESTATION_ID);
         System.out.println("result");
         RDFDataMgr.write(System.out, result, Lang.JSONLD);
         assertNotNull(result);
@@ -179,7 +179,7 @@ public class RepositoryInMemoryTest {
         Model expResult = i;
         System.out.println("expResult");
         RDFDataMgr.write(System.out, expResult, Lang.JSONLD);
-        Model result = instance.retrieveWork(BASE_URI + "item/" + ITEM_ID);
+        Model result = instance.retrieveItem(BASE_URI + "item/" + ITEM_ID);
         System.out.println("result");
         RDFDataMgr.write(System.out, result, Lang.JSONLD);
         assertNotNull(result);

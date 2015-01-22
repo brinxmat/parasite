@@ -13,6 +13,7 @@ import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Selector;
 import com.hp.hpl.jena.rdf.model.SimpleSelector;
 import com.hp.hpl.jena.vocabulary.RDFS;
+import java.io.StringWriter;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 
@@ -25,21 +26,24 @@ public class RepositoryInMemory implements Repository {
     private final Model inMemoryModel = ModelFactory.createDefaultModel();
 
     private Model retrieveResource(String id) {
+        String debug = modelToString(inMemoryModel);
         Model result = ModelFactory.createDefaultModel();
         Resource resource = ResourceFactory.createResource(id);
         Selector selector = new SimpleSelector(resource, null, (RDFNode) null);
         result = inMemoryModel.query(selector);
+        String debugResult = modelToString(result);
         return result;
     }
 
     @Override
-    public Model retrieveWork(String id) {
-        return retrieveResource(id);
+    public Model retrieveWork(String uri) {
+        return retrieveResource(uri);
     }
 
     @Override
     public Model createWork(Model model) {
         inMemoryModel.add(model);
+        String debug = modelToString(inMemoryModel);
         return model;
     }
 
@@ -49,13 +53,14 @@ public class RepositoryInMemory implements Repository {
     }
 
     @Override
-    public Model retrieveManifestation(String id) {
-        return retrieveResource(id);
+    public Model retrieveManifestation(String uri) {
+        return retrieveResource(uri);
     }
 
     @Override
     public Model createManifestation(Model model) {
         inMemoryModel.add(model);
+        String debug = modelToString(inMemoryModel);
         return model;
     }
 
@@ -67,12 +72,14 @@ public class RepositoryInMemory implements Repository {
     @Override
     public Model createItem(Model model) {
         inMemoryModel.add(model);
+        String debug = modelToString(inMemoryModel);
         return model;
     }
 
     @Override
-    public Model retrieveItem(String id) {
-        return retrieveResource(id);
+    public Model retrieveItem(String uri) {
+        String debug = modelToString(inMemoryModel);
+        return retrieveResource(uri);
     }
 
     @Override
@@ -96,5 +103,19 @@ public class RepositoryInMemory implements Repository {
     public Model listItems() {
         Model model = ModelFactory.createDefaultModel();
         return model;
+    }
+
+    private String modelToString(Model m) {
+        String syntax = "TURTLE"; // also try "N-TRIPLE" and "TURTLE"
+        StringWriter out = new StringWriter();
+        m.write(out, syntax);
+        return out.toString();
+    }
+
+    @Override
+    public Model queryModel(String query) {
+        // For now just return the whole model
+        //TODO
+        return inMemoryModel;
     }
 }
