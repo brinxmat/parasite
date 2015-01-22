@@ -29,7 +29,7 @@ public class ItemMapper {
         model.setNsPrefix("", NS);
         model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
 
-        model.add(mapIdToStatement(item.biblioitemnumber));
+        model.add(mapIdToStatement(item.itemnumber));
         model.add(mapBarcodeToStatement(item.barcode));
         model.add(mapStatusToStatement(item.onloan));
         model.add(mapManifestationIdToStatement(item.biblionumber));

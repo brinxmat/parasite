@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import no.deichman.ls.adapter.KohaAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapterMock;
+import no.deichman.ls.adapter.KohaAdapterDefault;
 import no.deichman.ls.adapter.KohaAdapterMock;
 import no.deichman.ls.repository.RepositoryInMemory;
 

@@ -29,12 +29,14 @@ public class ManifestationMapper {
 
         Model model = ModelFactory.createDefaultModel();
 
-        model.setNsPrefix("", NS);
-        model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
+        if (manifestationDAO != null) {
+            model.setNsPrefix("", NS);
+            model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
 
-        model.add(mapIdToStatement(manifestationDAO.getId()));
-        model.add(mapItemListDAOToModel(manifestationDAO.getItemListDAO()));
-        model.add(mapWorkIdToStatement(manifestationDAO.getWorkId()));
+            model.add(mapIdToStatement(manifestationDAO.getId()));
+            model.add(mapItemListDAOToModel(manifestationDAO.getItemListDAO()));
+            model.add(mapWorkIdToStatement(manifestationDAO.getWorkId()));
+        }
 
         return model;
     }
@@ -64,7 +66,7 @@ public class ManifestationMapper {
         return ResourceFactory.createStatement(s, p, o);
     }
 
-        private static Statement mapWorkIdToStatement(String workId) {
+    private static Statement mapWorkIdToStatement(String workId) {
         Resource s = ResourceFactory.createResource(resource);
         Property p = ResourceFactory.createProperty("http://purl.org/vocab/frbr/core#isManifestationOf");
         Resource o = ResourceFactory.createResource("http://localhost:8080/parasite/work/" + workId);

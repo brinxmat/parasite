@@ -45,6 +45,7 @@ public class KohaAdapterDefault implements KohaAdapter {
 
     private Model mapResponseToModel(String id, Response response) {
 
+        // First we map response to DAO (pojo):
 	Genson genson = new Genson();
         String r = response.readEntity(String.class);
         List<no.deichman.ls.dao.ItemDAO> itemListDAO = genson.deserialize(r, new com.owlike.genson.GenericType<List<no.deichman.ls.dao.ItemDAO>>(){});
@@ -52,6 +53,7 @@ public class KohaAdapterDefault implements KohaAdapter {
         ManifestationDAO manifestationDAO = new ManifestationDAO(id);
         manifestationDAO.setItemListDAO(itemListDAO);
         
+        // Then we map DAO to model and return:
         return ManifestationMapper.mapManifestationDAOToModel(manifestationDAO);
     }
 

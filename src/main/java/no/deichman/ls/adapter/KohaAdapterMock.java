@@ -28,8 +28,10 @@ public class KohaAdapterMock implements KohaAdapter {
     public Model getItemsByManifestationId(String id) {
         Model model = ModelFactory.createDefaultModel();
 
-        for (ItemDAO i : itemMap.get(id).values()) {
-            model.add(ItemMapper.mapItemDAOToModel(i));
+        if (itemMap.get(id) != null) {
+            for (ItemDAO i : itemMap.get(id).values()) {
+                model.add(ItemMapper.mapItemDAOToModel(i));
+            }
         }
         return model;
     }
@@ -55,37 +57,37 @@ public class KohaAdapterMock implements KohaAdapter {
 
     private void createItemMockList() {
         ItemDAO item1 = new ItemDAO();
-        item1.biblioitemnumber = "i1";
+        item1.itemnumber = "i1";
         item1.barcode = "1234567890";
         item1.biblionumber = "m1"; // this is the FK to manifestationId
         item1.onloan = "På hylla";
         HashMap<String, ItemDAO> itemList = new HashMap<String, ItemDAO>();
-        itemList.put(item1.biblioitemnumber, item1);
-        allItemList.put(item1.biblioitemnumber, item1);
+        itemList.put(item1.itemnumber, item1);
+        allItemList.put(item1.itemnumber, item1);
         itemMap.put(item1.biblionumber, itemList);
 
         ItemDAO item2 = new ItemDAO();
-        item2.biblioitemnumber = "i2";
+        item2.itemnumber = "i2";
         item2.barcode = "2234567890";
         item2.biblionumber = "m2"; // this is the FK to manifestationId
         item2.onloan = "Utlånt";
         itemList = new HashMap<String, ItemDAO>();
-        itemList.put(item2.biblioitemnumber, item2);
-        allItemList.put(item2.biblioitemnumber, item2);
+        itemList.put(item2.itemnumber, item2);
+        allItemList.put(item2.itemnumber, item2);
         itemMap.put(item2.biblionumber, itemList);
 
         ItemDAO item3 = new ItemDAO();
-        item3.biblioitemnumber = "i3";
+        item3.itemnumber = "i3";
         item3.barcode = "3234567890";
         item3.biblionumber = "m3"; // this is the FK to manifestationId
         item3.onloan = "På hylla";
         itemList = new HashMap<String, ItemDAO>();
-        itemList.put(item3.biblioitemnumber, item3);
-        allItemList.put(item3.biblioitemnumber, item3);
+        itemList.put(item3.itemnumber, item3);
+        allItemList.put(item3.itemnumber, item3);
         itemMap.put(item3.biblionumber, itemList);
 
         ItemDAO item4 = new ItemDAO();
-        item4.biblioitemnumber = "i4";
+        item4.itemnumber = "i4";
         item4.barcode = "4234567890";
         item4.biblionumber = "m3"; // this is the FK to manifestationId
         item4.onloan = "På hylla";
@@ -94,8 +96,8 @@ public class KohaAdapterMock implements KohaAdapter {
         } else {
             itemList = itemMap.get(item4.biblionumber);
         }
-        itemList.put(item4.biblioitemnumber, item4);
-        allItemList.put(item4.biblioitemnumber, item4);
+        itemList.put(item4.itemnumber, item4);
+        allItemList.put(item4.itemnumber, item4);
         itemMap.put(item4.biblionumber, itemList);
     }
 }

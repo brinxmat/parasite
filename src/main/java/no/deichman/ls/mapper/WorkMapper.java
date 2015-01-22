@@ -25,6 +25,25 @@ public class WorkMapper {
     static final String NS = "http://localhost:8080/parasite/work/";
     static String resource;
 
+    public static Model mapWorkDAOToModel(WorkDAO work) {
+
+        Model model = ModelFactory.createDefaultModel();
+
+        if (work != null) {
+            model.setNsPrefix("", NS);
+            model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
+
+            model.add(mapIdToStatement(work.getId()));
+            model.add(mapTitleToStatement(work.getTitle()));
+            model.add(mapAuthorToStatement(work.getAuthor()));
+            if (work.getManifestations() != null) {
+                model.add(mapManifestationsDAOToModel(work.getManifestations()));
+            }
+        }
+
+        return model;
+    }
+
     private static Statement mapIdToStatement(String id) {
         setResource(id);
         Resource s = ResourceFactory.createResource(resource);
@@ -50,7 +69,6 @@ public class WorkMapper {
         return ResourceFactory.createStatement(s, p, o);
     }
 
-    
     private static Model mapManifestationsDAOToModel(HashMap<String, ManifestationDAO> map) {
         Model model = ModelFactory.createDefaultModel();
         for (ManifestationDAO m : map.values()) {
@@ -61,22 +79,5 @@ public class WorkMapper {
 
     static private void setResource(String id) {
         resource = new String(NS + id);
-    }
-
-    public static Model mapWorkDAOToModel(WorkDAO work) {
-
-        Model model = ModelFactory.createDefaultModel();
-
-        model.setNsPrefix("", NS);
-        model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
-
-        model.add(mapIdToStatement(work.getId()));
-        model.add(mapTitleToStatement(work.getTitle()));
-        model.add(mapAuthorToStatement(work.getAuthor()));
-        if (work.getManifestations() != null) {
-            model.add(mapManifestationsDAOToModel(work.getManifestations()));
-        }
-
-        return model;
     }
 }
