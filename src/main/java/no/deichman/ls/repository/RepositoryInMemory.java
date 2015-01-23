@@ -5,17 +5,13 @@
  */
 package no.deichman.ls.repository;
 
+import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.rdf.model.ResourceFactory;
-import com.hp.hpl.jena.rdf.model.Selector;
-import com.hp.hpl.jena.rdf.model.SimpleSelector;
-import com.hp.hpl.jena.vocabulary.RDFS;
 import java.io.StringWriter;
-import org.apache.jena.riot.Lang;
-import org.apache.jena.riot.RDFDataMgr;
 
 /**
  *
@@ -25,18 +21,18 @@ public class RepositoryInMemory implements Repository {
 
     private final Model inMemoryModel = ModelFactory.createDefaultModel();
 
-    private Model retrieveResource(String id) {
-        String debug = modelToString(inMemoryModel);
-        Model result = ModelFactory.createDefaultModel();
-        Resource resource = ResourceFactory.createResource(id);
-        Selector selector = new SimpleSelector(resource, null, (RDFNode) null);
-        result = inMemoryModel.query(selector);
-        String debugResult = modelToString(result);
-        return result;
+    @Override
+    public Model retrieveWork(String uri) {
+        return retrieveResource(uri);
+    }
+
+        @Override
+    public Model retrieveManifestation(String uri) {
+        return retrieveResource(uri);
     }
 
     @Override
-    public Model retrieveWork(String uri) {
+    public Model retrieveItem(String uri) {
         return retrieveResource(uri);
     }
 
@@ -53,14 +49,10 @@ public class RepositoryInMemory implements Repository {
     }
 
     @Override
-    public Model retrieveManifestation(String uri) {
-        return retrieveResource(uri);
-    }
-
-    @Override
     public Model createManifestation(Model model) {
         inMemoryModel.add(model);
         String debug = modelToString(inMemoryModel);
+
         return model;
     }
 
@@ -77,32 +69,63 @@ public class RepositoryInMemory implements Repository {
     }
 
     @Override
-    public Model retrieveItem(String uri) {
-        String debug = modelToString(inMemoryModel);
-        return retrieveResource(uri);
-    }
-
-    @Override
     public void deleteItem(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Model listWorks() {
-        Model model = ModelFactory.createDefaultModel();
-        return model;
+
+        String queryString = "PREFIX frbr: <http://purl.org/vocab/frbr/core#>"
+                + "DESCRIBE ?s ?p ?o\n"
+                + "WHERE\n"
+                + "{\n"
+                + " ?s a frbr:Work ;"
+                + " ?p ?o ."
+                + "}";
+        return runDescribeQuery(queryString);
     }
 
     @Override
     public Model listManifestations() {
-        Model model = ModelFactory.createDefaultModel();
-        return model;
+        String queryString = "PREFIX frbr: <http://purl.org/vocab/frbr/core#>"
+                + "DESCRIBE ?s ?p ?o\n"
+                + "WHERE\n"
+                + "{\n"
+                + " ?s a frbr:Manifestation ;"
+                + " ?p ?o ."
+                + "}";
+        return runDescribeQuery(queryString);
     }
 
     @Override
     public Model listItems() {
-        Model model = ModelFactory.createDefaultModel();
-        return model;
+        String queryString = "PREFIX frbr: <http://purl.org/vocab/frbr/core#>"
+                + "DESCRIBE ?s ?p ?o\n"
+                + "WHERE\n"
+                + "{\n"
+                + " ?s a frbr:Item ;"
+                + " ?p ?o ."
+                + "}";
+        return runDescribeQuery(queryString);
+    }
+
+    private Model runDescribeQuery(String queryString) {
+        Query query = QueryFactory.create(queryString);
+        QueryExecution qexec = QueryExecutionFactory.create(query, inMemoryModel);
+        Model resultModel = qexec.execDescribe();
+        String debug = modelToString(resultModel);
+        qexec.close();
+        return resultModel;
+    }
+
+    private Model runConstructQuery(String queryString) {
+        Query query = QueryFactory.create(queryString);
+        QueryExecution qexec = QueryExecutionFactory.create(query, inMemoryModel);
+        Model resultModel = qexec.execConstruct();
+        String debug = modelToString(resultModel);
+        qexec.close();
+        return resultModel;
     }
 
     private String modelToString(Model m) {
@@ -114,8 +137,34 @@ public class RepositoryInMemory implements Repository {
 
     @Override
     public Model queryModel(String query) {
-        // For now just return the whole model
+        // For now, just return the whole model
         //TODO
         return inMemoryModel;
+    }
+
+    public Model retrieveItemByManifestationId(String uri) {
+        String queryString = "PREFIX frbr: <http://purl.org/vocab/frbr/core#>"
+                + "DESCRIBE ?s ?p ?o\n"
+                + "WHERE\n"
+                + "{\n"
+                + " ?s a frbr:Item ."
+                + " ?s frbr:isItemOf \"" + uri + "\"."
+                + "}";
+        Query query = QueryFactory.create(queryString);
+        QueryExecution qexec = QueryExecutionFactory.create(query, inMemoryModel);
+        Model resultModel = qexec.execDescribe();
+        qexec.close();
+
+        return resultModel;
+    }
+
+    private Model retrieveResource(String uri) {
+        String queryString = "DESCRIBE <" + uri + ">";
+        Query query = QueryFactory.create(queryString);
+        QueryExecution qexec = QueryExecutionFactory.create(query, inMemoryModel);
+        Model resultModel = qexec.execDescribe();
+        qexec.close();
+
+        return resultModel;
     }
 }

@@ -7,14 +7,12 @@ package service;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import java.io.FileNotFoundException;
-import java.io.StringWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import no.deichman.ls.adapter.KohaAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapterMock;
 import no.deichman.ls.adapter.KohaAdapterDefault;
-import no.deichman.ls.adapter.KohaAdapterMock;
 import no.deichman.ls.repository.RepositoryInMemory;
 
 /**
@@ -28,16 +26,27 @@ public class ServiceDefault implements Service {
     static private RepositoryInMemory repository = new RepositoryInMemory();
     static private final String BASE_URI = "http://localhost:8080/parasite/";
 
+    public ServiceDefault() {
+        retriveManifestationList();
+        retriveWorkList();
+    }
+
     @Override
     public Model retriveWorkList() {
 
-        Model model = dataDeichmanAdapter.getWorkList();
+        Model model = repository.listWorks();
+        if (model.isEmpty()) {
+            model = repository.createWork(dataDeichmanAdapter.getWorkList());
+        }
         return model;
     }
 
     @Override
     public Model retriveManifestationList() {
-        Model model = dataDeichmanAdapter.getManifestationList();
+        Model model = repository.listManifestations();
+        if (model.isEmpty()) {
+            model = repository.createManifestation(dataDeichmanAdapter.getManifestationList());
+        }
         return model;
     }
 
@@ -47,11 +56,7 @@ public class ServiceDefault implements Service {
         Model model = repository.retrieveWork(uri);
         if (model.isEmpty()) {
             try {
-                model.add(dataDeichmanAdapter.getWork(id));
-                if (!model.isEmpty()) {
-                    repository.createWork(model);
-                }
-
+                model = repository.createWork(dataDeichmanAdapter.getWork(id));
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ServiceDefault.class
                         .getName()).log(Level.SEVERE, null, ex);
@@ -63,14 +68,11 @@ public class ServiceDefault implements Service {
     @Override
     public Model retriveManifestationById(String id) {
         String uri = BASE_URI + "manifestation/" + id;
-        Model model = repository.retrieveManifestation(uri);
+        Model model = repository.retrieveManifestation(id);
+        model.add(retriveItemByManifestationId(id));
         if (model.isEmpty()) {
-            model.add(dataDeichmanAdapter.getManifestationById(id));
-            model.add(kohaAdapter.getItemsByManifestationId(id));
-            String debug = modelToString(model);
-            if (!model.isEmpty()) {
-                repository.createManifestation(model);
-            }
+            model = repository.createManifestation(dataDeichmanAdapter.getManifestationById(id));
+            model.add(repository.createItem(kohaAdapter.getItemsByManifestationId(id)));
         }
         return model;
     }
@@ -78,25 +80,19 @@ public class ServiceDefault implements Service {
     @Override
     public Model retriveItemByManifestationId(String id) {
         String uri = BASE_URI + "manifestation/" + id;
-        Model model = repository.retrieveManifestation(uri);
+        Model model = repository.retrieveItemByManifestationId(uri);
         if (model.isEmpty()) {
-            model.add(kohaAdapter.getItemsByManifestationId(id));
-            if (!model.isEmpty()) {
-                repository.createItem(model);
-            }
+            model = repository.createItem(kohaAdapter.getItemsByManifestationId(id));
         }
         return model;
     }
 
     @Override
     public Model retriveItemById(String id) {
-                String uri = BASE_URI + "item/" + id;
+        String uri = BASE_URI + "item/" + id;
         Model model = repository.retrieveItem(uri);
         if (model.isEmpty()) {
-            model = kohaAdapter.getItemById(id);
-            if (model != null) {
-                repository.createItem(model);
-            }
+            model = repository.createItem(kohaAdapter.getItemById(id));
         }
         return model;
     }
@@ -105,23 +101,13 @@ public class ServiceDefault implements Service {
     public Model retriveItemList() {
         Model model = repository.listItems();
         if (model.isEmpty()) {
-            model = kohaAdapter.getItemList();
-            if (model != null) {
-                repository.createItem(model);
-            }
+            model = repository.createItem(kohaAdapter.getItemList());
         }
         return model;
     }
 
     @Override
-    public Model queryModel(String query) {
+    public Model runQuery(String query) {
         return repository.queryModel(query);
-    }
-
-    private String modelToString(Model m) {
-        String syntax = "TURTLE"; // also try "N-TRIPLE" and "TURTLE"
-        StringWriter out = new StringWriter();
-        m.write(out, syntax);
-        return out.toString();
     }
 }

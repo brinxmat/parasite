@@ -12,7 +12,6 @@ import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
-import no.deichman.ls.preference.Preference;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.junit.After;
@@ -203,16 +202,20 @@ public class RepositoryInMemoryTest {
     /**
      * Test of listWorks method, of class RepositoryInMemory.
      */
-    @Ignore
     @Test
     public void testListWorks() {
         System.out.println("listWorks");
         RepositoryInMemory instance = new RepositoryInMemory();
-        Model expResult = null;
+        Model expResult = createWorkInstance();
+        expResult.add(createAnotherWorkInstance());
+        instance.createManifestation(expResult);
+        System.out.println("expResult");
+        RDFDataMgr.write(System.out, expResult, Lang.JSONLD);
         Model result = instance.listWorks();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("result");
+        RDFDataMgr.write(System.out, result, Lang.JSONLD);
+        assertNotNull(result);
+        assertTrue(result.containsAll(expResult));
     }
 
     /**
@@ -256,6 +259,19 @@ public class RepositoryInMemoryTest {
         model.add(createWorkId(WORK_ID));
         model.add(createAuthor("Knut Hamsun"));
         model.add(createTitle("Sult"));
+
+        return model;
+    }
+
+    private static Model createAnotherWorkInstance() {
+        Model model = ModelFactory.createDefaultModel();
+
+        model.setNsPrefix("", BASE_URI + "work/");
+        model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
+
+        model.add(createWorkId("w2"));
+        model.add(createAuthor("Aril Hamsun"));
+        model.add(createTitle("Min far"));
 
         return model;
     }

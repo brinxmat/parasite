@@ -10,7 +10,6 @@ import java.io.StringWriter;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.jena.riot.Lang;
@@ -54,7 +53,7 @@ public class SPARQLResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getSparql() {
         StringWriter sw = new StringWriter();
-        Model model = SERVICE.retriveWorkList();
+        Model model = SERVICE.runQuery(null);
         if (!model.isEmpty()) {
             RDFDataMgr.write(sw, model, Lang.JSONLD);
 

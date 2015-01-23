@@ -72,7 +72,12 @@ public class WorkMapper {
     private static Model mapManifestationsDAOToModel(HashMap<String, ManifestationDAO> map) {
         Model model = ModelFactory.createDefaultModel();
         for (ManifestationDAO m : map.values()) {
-            model.add(ManifestationMapper.mapManifestationDAOToModel(m));
+//            model.add(ManifestationMapper.mapManifestationDAOToModel(m));
+            Resource s = ResourceFactory.createResource(resource);
+            Property p = ResourceFactory.createProperty("http://purl.org/vocab/frbr/core#hasManifestation");
+            Resource o = ResourceFactory.createResource("http://localhost:8080/parasite/manifestation/" + m.getId());
+            
+            model.add(ResourceFactory.createStatement(s, p, o));
         }
         return model;
     }

@@ -27,6 +27,6 @@ public interface Service {
 
     Model retriveItemList();
     
-    Model queryModel(String query);
+    Model runQuery(String query);
 
 }
