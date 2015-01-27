@@ -56,7 +56,7 @@ public class WorkMapper {
     private static Statement mapTitleToStatement(String title) {
         Resource s = ResourceFactory.createResource(resource);
         Property p = ResourceFactory.createProperty("http://purl.org/dc/terms/title");
-        Literal o = ResourceFactory.createTypedLiteral(title);
+        Literal o = ResourceFactory.createLangLiteral(title, "no");
 
         return ResourceFactory.createStatement(s, p, o);
     }
@@ -64,7 +64,7 @@ public class WorkMapper {
     private static Statement mapAuthorToStatement(String author) {
         Resource s = ResourceFactory.createResource(resource);
         Property p = ResourceFactory.createProperty("http://purl.org/dc/terms/creator");
-        Resource o = ResourceFactory.createResource(author);
+        Literal o = ResourceFactory.createLangLiteral(author, "no");
 
         return ResourceFactory.createStatement(s, p, o);
     }

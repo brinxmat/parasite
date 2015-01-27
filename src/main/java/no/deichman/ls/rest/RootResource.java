@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import service.ServiceDefault;
+import no.deichman.ls.service.ServiceDefault;
 
 /**
  *
@@ -39,18 +39,4 @@ public class RootResource {
                 link("http://localhost:8080/parasite/manifestation", "manifestations").
                 build();
     }
-
-    @GET
-    @Produces({MediaType.TEXT_HTML})
-    public Response getSlashHTML() {
-
-        return Response.ok().
-                entity("Welcome to paraSite!\n ").
-                link("http://localhost:8080/parasite/", "self" ).
-                link("http://localhost:8080/parasite/work", "works" ).
-                link("http://localhost:8080/parasite/manifestation", "manifestations").
-                link("http://localhost:8080/parasite/sparql", "sparql" ).
-                build();
-    }
-
 }

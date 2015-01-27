@@ -16,8 +16,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import service.Service;
-import service.ServiceDefault;
+import no.deichman.ls.service.Service;
+import no.deichman.ls.service.ServiceDefault;
 
 /**
  *
@@ -27,6 +27,28 @@ import service.ServiceDefault;
 public class ItemResource {
 
     private static final Service SERVICE = new ServiceDefault();
+
+    @GET
+    @Produces({MediaType.TEXT_PLAIN})
+    public Response getItemListTurtle() {
+
+        StringWriter sw = new StringWriter();
+        Model model = SERVICE.retriveItemList();
+
+        if (!model.isEmpty()) {
+            RDFDataMgr.write(sw, model, Lang.TURTLE);
+
+            String data = sw.toString();
+
+            return Response.ok()
+                    .entity(data)
+                    .build();
+        } else {
+            return Response.ok().
+                    entity("{\"Message\":\"The query executed correctly, but the list is empty.\"}").
+                    build();
+        }
+    }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -47,6 +69,28 @@ public class ItemResource {
             return Response.ok().
                     entity("{\"Message\":\"The query executed correctly, but the list is empty.\"}").
                     build();
+        }
+    }
+
+    @Path("/{id}")
+    @GET
+    @Produces({MediaType.TEXT_PLAIN})
+    public Response getItemByIdTurtle(@PathParam("id") String id) {
+
+        StringWriter sw = new StringWriter();
+        Model model = SERVICE.retriveItemById(id);
+        if (!model.isEmpty()) {
+
+            RDFDataMgr.write(sw, model, Lang.TURTLE);
+
+            String data = sw.toString();
+
+            return Response.ok()
+                    .entity(data)
+                    .build();
+
+        } else {
+            throw new NotFoundException();
         }
     }
 

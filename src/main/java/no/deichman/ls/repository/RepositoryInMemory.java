@@ -12,6 +12,10 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import java.io.StringWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import no.deichman.ls.preference.Preference;
+import org.apache.commons.configuration.ConfigurationException;
 
 /**
  *
@@ -76,14 +80,21 @@ public class RepositoryInMemory implements Repository {
     @Override
     public Model listWorks() {
 
-        String queryString = "PREFIX frbr: <http://purl.org/vocab/frbr/core#>"
-                + "DESCRIBE ?s ?p ?o\n"
-                + "WHERE\n"
-                + "{\n"
-                + " ?s a frbr:Work ;"
-                + " ?p ?o ."
-                + "}";
-        return runDescribeQuery(queryString);
+        String queryString = null;
+        try {
+            queryString = Preference.listWorks();
+        } catch (ConfigurationException ex) {
+            Logger.getLogger(RepositoryInMemory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        String queryString = "PREFIX frbr: <http://purl.org/vocab/frbr/core#>"
+//                + "DESCRIBE ?s ?p ?o\n"
+//                + "WHERE\n"
+//                + "{\n"
+//                + " ?s a frbr:Work ;"
+//                + " ?p ?o ."
+//                + "}";
+        return runConstructQuery(queryString);
+        //return runDescribeQuery(queryString);
     }
 
     @Override
@@ -136,10 +147,13 @@ public class RepositoryInMemory implements Repository {
     }
 
     @Override
-    public Model queryModel(String query) {
-        // For now, just return the whole model
-        //TODO
-        return inMemoryModel;
+    public Model queryModel(String queryString) {
+        Query query = QueryFactory.create(queryString);
+        QueryExecution qexec = QueryExecutionFactory.create(query, inMemoryModel);
+        Model resultModel = qexec.execConstruct();
+        qexec.close();
+
+        return resultModel;
     }
 
     public Model retrieveItemByManifestationId(String uri) {

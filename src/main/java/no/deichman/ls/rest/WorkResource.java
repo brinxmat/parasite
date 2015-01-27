@@ -12,14 +12,34 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import service.Service;
-
-import service.ServiceDefault;
+import no.deichman.ls.service.Service;
+import no.deichman.ls.service.ServiceDefault;
 
 @Path("/work")
 public class WorkResource {
 
     private static final Service SERVICE = new ServiceDefault();
+
+    @GET
+    @Produces({MediaType.TEXT_PLAIN})
+    public Response getWorkListTurtle() {
+
+        StringWriter sw = new StringWriter();
+        Model model = SERVICE.retriveWorkList();
+        if (!model.isEmpty()) {
+            RDFDataMgr.write(sw, model, Lang.TURTLE);
+
+            String data = sw.toString();
+
+            return Response.ok()
+                    .entity(data)
+                    .build();
+        } else {
+            return Response.ok().
+                    entity("{\"Message\":\"The query executed correctly, but the list is empty.\"}").
+                    build();
+        }
+    }
 
     /**
      * Method processing HTTP GET requests, producing "application/json" MIME
@@ -66,6 +86,27 @@ public class WorkResource {
         Model model = SERVICE.retriveWorkById(id);
         if (!model.isEmpty()) {
             RDFDataMgr.write(sw, model, Lang.JSONLD);
+
+            String data = sw.toString();
+
+            return Response.ok()
+                    .entity(data)
+                    .build();
+        } else {
+            throw new NotFoundException();
+        }
+    }
+
+    @Path("/{id}")
+    @GET
+    @Produces({MediaType.TEXT_PLAIN})
+    //@Produces("application/json+ld;qs=0.2")
+    public Response getWorkTurtle(@PathParam("id") String id) {
+
+        StringWriter sw = new StringWriter();
+        Model model = SERVICE.retriveWorkById(id);
+        if (!model.isEmpty()) {
+            RDFDataMgr.write(sw, model, Lang.TURTLE);
 
             String data = sw.toString();
 

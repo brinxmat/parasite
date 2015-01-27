@@ -30,11 +30,12 @@ public class KohaAdapterDefault implements KohaAdapter {
         Model model = ModelFactory.createDefaultModel();
         Client client = ClientBuilder.newClient();
 
-        WebTarget webTarget = client.target("http://192.168.50.12:8080/cgi-bin/koha/rest.pl");
-        WebTarget resourceWebTarget = webTarget.path("biblio/" + manifestationId + "/items");
+        String url = "http://192.168.50.12:8080/cgi-bin/koha/rest.pl/" 
+                + "biblio/" + manifestationId + "/items";
+        WebTarget webTarget = client.target(url);
 
         Invocation.Builder invocationBuilder
-                = resourceWebTarget.request(MediaType.APPLICATION_JSON_TYPE);
+                = webTarget.request(MediaType.APPLICATION_JSON_TYPE);
 
         Response response = invocationBuilder.get();
 

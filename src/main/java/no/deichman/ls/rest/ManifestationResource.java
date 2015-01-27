@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import service.ServiceDefault;
+import no.deichman.ls.service.ServiceDefault;
 
 /**
  *
@@ -26,17 +26,34 @@ import service.ServiceDefault;
 public class ManifestationResource {
 
     private static final ServiceDefault SERVICE = new ServiceDefault();
+    
+    @GET
+    @Produces({MediaType.TEXT_PLAIN})
+    public Response getManifestationList() {
 
-    /**
-     * Method processing HTTP GET requests, producing "text/turtle" MIME media
-     * type.
-     *
-     * @return String that will be send back as a response of type
-     * "text/turtle".
-     */
+        StringWriter sw = new StringWriter();
+        Model model = SERVICE.retriveManifestationList();
+
+        if (!model.isEmpty()) {
+            RDFDataMgr.write(sw, model, Lang.TURTLE);
+
+            String data = sw.toString();
+
+            return Response.ok()
+                    .entity(data)
+                    .build();
+
+        } else {
+            return Response.ok().
+                    entity("{\"Message\":\"The query executed correctly, but the list is empty.\"}").
+                    build();
+        }
+
+    }
+
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getManifestationList() {
+    public Response getManifestationListJSON() {
 
         StringWriter sw = new StringWriter();
         Model model = SERVICE.retriveManifestationList();
@@ -58,13 +75,28 @@ public class ManifestationResource {
 
     }
 
-    /**
-     * Method processing HTTP GET requests, producing "application/json" MIME
-     * media type.
-     *
-     * @return String that will be send back as a response of type
-     * "application/json".
-     */
+    @Path("/{id}")
+    @GET
+    @Produces({MediaType.TEXT_PLAIN})
+    public Response getTurtle(@PathParam("id") String id) {
+
+        StringWriter sw = new StringWriter();
+        Model model = SERVICE.retriveManifestationById(id);
+
+        if (!model.isEmpty()) {
+            RDFDataMgr.write(sw, model, Lang.TURTLE);
+
+            String data = sw.toString();
+
+            return Response.ok()
+                    .entity(data)
+                    .build();
+
+        } else {
+            throw new NotFoundException();
+        }
+    }
+
     @Path("/{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})

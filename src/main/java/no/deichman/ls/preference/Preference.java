@@ -41,4 +41,11 @@ public class Preference {
 		return uri;
 	}
 
+        public static String listWorks () throws ConfigurationException {
+		Preference.init();
+		String uri = properties.getProperty("query.listworks").toString();
+		System.out.println(uri);
+		return uri;
+	}
+
 }

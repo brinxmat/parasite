@@ -10,17 +10,18 @@ import java.io.StringWriter;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import service.ServiceDefault;
+import no.deichman.ls.service.ServiceDefault;
 
 /**
  *
  * @author sbd
  */
-@Path("sparql/")
+@Path("/sparql")
 public class SPARQLResource {
 
     private static final ServiceDefault SERVICE = new ServiceDefault();
@@ -51,9 +52,9 @@ public class SPARQLResource {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getSparql() {
+    public Response getSparql(@QueryParam("query") String query) {
         StringWriter sw = new StringWriter();
-        Model model = SERVICE.runQuery(null);
+        Model model = SERVICE.runQuery(query);
         if (!model.isEmpty()) {
             RDFDataMgr.write(sw, model, Lang.JSONLD);
 
