@@ -53,7 +53,7 @@ public class ServiceDefault implements Service {
     @Override
     public Model retriveWorkById(String id) {
         String uri = BASE_URI + "work/" + id;
-        Model model = repository.retrieveWork(uri);
+        Model model = repository.retrieveWorkById(uri);
         if (model.isEmpty()) {
             try {
                 model = repository.createWork(dataDeichmanAdapter.getWork(id));
@@ -68,7 +68,7 @@ public class ServiceDefault implements Service {
     @Override
     public Model retriveManifestationById(String id) {
         String uri = BASE_URI + "manifestation/" + id;
-        Model model = repository.retrieveManifestation(id);
+        Model model = repository.retrieveManifestationById(id);
         model.add(retriveItemByManifestationId(id));
         if (model.isEmpty()) {
             model = repository.createManifestation(dataDeichmanAdapter.getManifestationById(id));
@@ -90,7 +90,7 @@ public class ServiceDefault implements Service {
     @Override
     public Model retriveItemById(String id) {
         String uri = BASE_URI + "item/" + id;
-        Model model = repository.retrieveItem(uri);
+        Model model = repository.retrieveItemById(uri);
         if (model.isEmpty()) {
             model = repository.createItem(kohaAdapter.getItemById(id));
         }

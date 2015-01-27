@@ -26,17 +26,17 @@ public class RepositoryInMemory implements Repository {
     private final Model inMemoryModel = ModelFactory.createDefaultModel();
 
     @Override
-    public Model retrieveWork(String uri) {
-        return retrieveResource(uri);
-    }
-
-        @Override
-    public Model retrieveManifestation(String uri) {
+    public Model retrieveWorkById(String uri) {
         return retrieveResource(uri);
     }
 
     @Override
-    public Model retrieveItem(String uri) {
+    public Model retrieveManifestationById(String uri) {
+        return retrieveResource(uri);
+    }
+
+    @Override
+    public Model retrieveItemById(String uri) {
         return retrieveResource(uri);
     }
 
@@ -86,27 +86,18 @@ public class RepositoryInMemory implements Repository {
         } catch (ConfigurationException ex) {
             Logger.getLogger(RepositoryInMemory.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        String queryString = "PREFIX frbr: <http://purl.org/vocab/frbr/core#>"
-//                + "DESCRIBE ?s ?p ?o\n"
-//                + "WHERE\n"
-//                + "{\n"
-//                + " ?s a frbr:Work ;"
-//                + " ?p ?o ."
-//                + "}";
         return runConstructQuery(queryString);
-        //return runDescribeQuery(queryString);
     }
 
     @Override
     public Model listManifestations() {
-        String queryString = "PREFIX frbr: <http://purl.org/vocab/frbr/core#>"
-                + "DESCRIBE ?s ?p ?o\n"
-                + "WHERE\n"
-                + "{\n"
-                + " ?s a frbr:Manifestation ;"
-                + " ?p ?o ."
-                + "}";
-        return runDescribeQuery(queryString);
+        String queryString = null;
+        try {
+            queryString = Preference.listManifestations();
+        } catch (ConfigurationException ex) {
+            Logger.getLogger(RepositoryInMemory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return runConstructQuery(queryString);
     }
 
     @Override
@@ -119,6 +110,43 @@ public class RepositoryInMemory implements Repository {
                 + " ?p ?o ."
                 + "}";
         return runDescribeQuery(queryString);
+    }
+
+    @Override
+    public Model queryModel(String queryString) {
+        Query query = QueryFactory.create(queryString);
+        QueryExecution qexec = QueryExecutionFactory.create(query, inMemoryModel);
+        Model resultModel = qexec.execConstruct();
+        qexec.close();
+
+        return resultModel;
+    }
+
+    @Override
+    public Model retrieveItemByManifestationId(String uri) {
+        String queryString = "PREFIX frbr: <http://purl.org/vocab/frbr/core#>"
+                + "DESCRIBE ?s ?p ?o\n"
+                + "WHERE\n"
+                + "{\n"
+                + " ?s a frbr:Item ."
+                + " ?s frbr:isItemOf \"" + uri + "\"."
+                + "}";
+        Query query = QueryFactory.create(queryString);
+        QueryExecution qexec = QueryExecutionFactory.create(query, inMemoryModel);
+        Model resultModel = qexec.execDescribe();
+        qexec.close();
+
+        return resultModel;
+    }
+
+    private Model retrieveResource(String uri) {
+        String queryString = "DESCRIBE <" + uri + ">";
+        Query query = QueryFactory.create(queryString);
+        QueryExecution qexec = QueryExecutionFactory.create(query, inMemoryModel);
+        Model resultModel = qexec.execDescribe();
+        qexec.close();
+
+        return resultModel;
     }
 
     private Model runDescribeQuery(String queryString) {
@@ -146,39 +174,4 @@ public class RepositoryInMemory implements Repository {
         return out.toString();
     }
 
-    @Override
-    public Model queryModel(String queryString) {
-        Query query = QueryFactory.create(queryString);
-        QueryExecution qexec = QueryExecutionFactory.create(query, inMemoryModel);
-        Model resultModel = qexec.execConstruct();
-        qexec.close();
-
-        return resultModel;
-    }
-
-    public Model retrieveItemByManifestationId(String uri) {
-        String queryString = "PREFIX frbr: <http://purl.org/vocab/frbr/core#>"
-                + "DESCRIBE ?s ?p ?o\n"
-                + "WHERE\n"
-                + "{\n"
-                + " ?s a frbr:Item ."
-                + " ?s frbr:isItemOf \"" + uri + "\"."
-                + "}";
-        Query query = QueryFactory.create(queryString);
-        QueryExecution qexec = QueryExecutionFactory.create(query, inMemoryModel);
-        Model resultModel = qexec.execDescribe();
-        qexec.close();
-
-        return resultModel;
-    }
-
-    private Model retrieveResource(String uri) {
-        String queryString = "DESCRIBE <" + uri + ">";
-        Query query = QueryFactory.create(queryString);
-        QueryExecution qexec = QueryExecutionFactory.create(query, inMemoryModel);
-        Model resultModel = qexec.execDescribe();
-        qexec.close();
-
-        return resultModel;
-    }
 }

@@ -6,27 +6,51 @@
 package no.deichman.ls.repository;
 
 import com.hp.hpl.jena.rdf.model.Model;
+
 /**
  *
  * @author sbd
  */
 interface Repository {
-    
+
+    /*
+     Work
+     */
     public Model listWorks();
-    public Model createWork (Model model);
-    public Model retrieveWork(String id);
-    public void deleteWork (String id);
 
+    public Model createWork(Model model);
+
+    public Model retrieveWorkById(String id);
+
+    public void deleteWork(String id);
+
+    /*
+     Manifestation
+     */
     public Model listManifestations();
-    public Model createManifestation (Model model);
-    public Model retrieveManifestation(String id);
-    public void deleteManifestation (String id);
 
+    public Model createManifestation(Model model);
+
+    public Model retrieveManifestationById(String id);
+
+    public void deleteManifestation(String id);
+
+    /*
+     Item
+     */
     public Model listItems();
-    public Model createItem (Model model);
-    public Model retrieveItem(String id);
-    public void deleteItem (String id);
-    
+
+    public Model createItem(Model model);
+
+    public Model retrieveItemById(String id);
+
+    public Model retrieveItemByManifestationId(String id);
+
+    public void deleteItem(String id);
+
+    /*
+     Sparql "endpoint"
+     */
     public Model queryModel(String query);
 
 }

@@ -30,7 +30,7 @@ public class RepositoryInMemoryTest {
 
     static final String BASE_URI = "http://example.com/";
     static String resource;
-    
+
     static final String WORK_ID = "w1";
     static final String MANIFESTATION_ID = "m1";
     static final String ITEM_ID = "i1";
@@ -66,7 +66,7 @@ public class RepositoryInMemoryTest {
         Model expResult = w;
         System.out.println("expResult");
         RDFDataMgr.write(System.out, expResult, Lang.JSONLD);
-        Model result = instance.retrieveWork(BASE_URI + "work/" + WORK_ID);
+        Model result = instance.retrieveWorkById(BASE_URI + "work/" + WORK_ID);
         System.out.println("result");
         RDFDataMgr.write(System.out, result, Lang.JSONLD);
         assertNotNull(result);
@@ -118,7 +118,6 @@ public class RepositoryInMemoryTest {
         assertNotNull(result);
     }
 
-    
     /**
      * Test of deleteWork method, of class RepositoryInMemory.
      */
@@ -145,7 +144,7 @@ public class RepositoryInMemoryTest {
         Model expResult = m;
         System.out.println("expResult");
         RDFDataMgr.write(System.out, expResult, Lang.JSONLD);
-        Model result = instance.retrieveManifestation(BASE_URI + "manifestation/" + MANIFESTATION_ID);
+        Model result = instance.retrieveManifestationById(BASE_URI + "manifestation/" + MANIFESTATION_ID);
         System.out.println("result");
         RDFDataMgr.write(System.out, result, Lang.JSONLD);
         assertNotNull(result);
@@ -178,7 +177,7 @@ public class RepositoryInMemoryTest {
         Model expResult = i;
         System.out.println("expResult");
         RDFDataMgr.write(System.out, expResult, Lang.JSONLD);
-        Model result = instance.retrieveItem(BASE_URI + "item/" + ITEM_ID);
+        Model result = instance.retrieveItemById(BASE_URI + "item/" + ITEM_ID);
         System.out.println("result");
         RDFDataMgr.write(System.out, result, Lang.JSONLD);
         assertNotNull(result);
@@ -221,35 +220,32 @@ public class RepositoryInMemoryTest {
     /**
      * Test of listManifestations method, of class RepositoryInMemory.
      */
-    @Ignore
     @Test
     public void testListManifestations() {
         System.out.println("listManifestations");
         RepositoryInMemory instance = new RepositoryInMemory();
         Model expResult = null;
         Model result = instance.listManifestations();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
     }
 
     /**
      * Test of listItems method, of class RepositoryInMemory.
      */
-    @Ignore
     @Test
     public void testListItems() {
         System.out.println("listItems");
         RepositoryInMemory instance = new RepositoryInMemory();
         Model expResult = null;
         Model result = instance.listItems();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
     }
     /*
      Private util-methods
      */
+
     private static Model createWorkInstance() {
         Model model = ModelFactory.createDefaultModel();
 

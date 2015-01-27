@@ -26,50 +26,32 @@ public class SPARQLResource {
 
     private static final ServiceDefault SERVICE = new ServiceDefault();
 
-//    @GET
-//    @Produces("application/rdf+xml")
-//    public Response getSparqlHTML(@QueryParam("query") String query) {
-//
-//        if (query == null) {
-//            return Response.ok()
-//                    .link("http://localhost:8080/parasite/sparql", "self")
-//                    .entity("WELCOME TO THE SPARQL ENDPOINT\n")
-//                    .build();
-//        } else {
-//            if (queryOk(query)) {
-//                return Response.ok().
-//                        link("http://localhost:8080/parasite/sparql", "self")
-//                        .entity("some rdf is going to get back here\n")
-//                        .build();
-//            } else {
-//                return Response.
-//                        status(Response.Status.BAD_REQUEST)
-//                        .entity("Empty query-paramter is not allowed\n")
-//                        .build();
-//            }
-//        }
-//    }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getSparql(@QueryParam("query") String query) {
-        StringWriter sw = new StringWriter();
-        Model model = SERVICE.runQuery(query);
-        if (!model.isEmpty()) {
-            RDFDataMgr.write(sw, model, Lang.JSONLD);
+        if (queryOk(query)) {
+            Model model = SERVICE.runQuery(query);
+            if (!model.isEmpty()) {
+                StringWriter sw = new StringWriter();
+                RDFDataMgr.write(sw, model, Lang.JSONLD);
+                String data = sw.toString();
 
-            String data = sw.toString();
+                return Response.ok()
+                        .entity(data)
+                        .build();
 
-            return Response.ok()
-                    .entity(data)
-                    .build();
-
+            } else {
+                return Response.ok().
+                        entity("{\"Message\":\"The query executed correctly, but the list is empty.\"}").
+                        build();
+            }
         } else {
-            return Response.ok().
-                    entity("{\"Message\":\"The query executed correctly, but the list is empty.\"}").
-                    build();
+            return Response.
+                    status(Response.Status.BAD_REQUEST)
+                    .entity("Empty query-paramter is not allowed\n")
+                    .build();
         }
-
     }
 
     private boolean queryOk(String query) {
