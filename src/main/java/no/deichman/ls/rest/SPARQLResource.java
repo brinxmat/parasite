@@ -26,11 +26,10 @@ public class SPARQLResource {
 
     private static final ServiceDefault SERVICE = new ServiceDefault();
 
-
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getSparql(@QueryParam("query") String query) {
-        if (queryOk(query)) {
+        try {
             Model model = SERVICE.runQuery(query);
             if (!model.isEmpty()) {
                 StringWriter sw = new StringWriter();
@@ -46,19 +45,14 @@ public class SPARQLResource {
                         entity("{\"Message\":\"The query executed correctly, but the list is empty.\"}").
                         build();
             }
-        } else {
+        } catch (Exception e) {
+            if(query == null) {
+                query = "";
+            }
             return Response.
                     status(Response.Status.BAD_REQUEST)
-                    .entity("Empty query-paramter is not allowed\n")
+                    .entity("\"" + query + "\"" + " is not a valid query\n\nTry e.g.\nCONSTRUCT {?s ?p ?o } WHERE { ?s ?p ?o }\nas value for query-parameter \"query\"")
                     .build();
         }
-    }
-
-    private boolean queryOk(String query) {
-
-        if (query != null && query.length() > 0) {
-            return true;
-        }
-        return false;
     }
 }

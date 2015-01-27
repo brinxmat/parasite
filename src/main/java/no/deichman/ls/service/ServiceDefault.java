@@ -5,6 +5,8 @@
  */
 package no.deichman.ls.service;
 
+import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.rdf.model.Model;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -108,6 +110,11 @@ public class ServiceDefault implements Service {
 
     @Override
     public Model runQuery(String query) {
+        try {
+            Query q = QueryFactory.create(query);
+        } catch (Exception e) {
+            throw e;
+        }
         return repository.queryModel(query);
     }
 }
