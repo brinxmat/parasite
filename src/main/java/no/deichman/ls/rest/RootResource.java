@@ -71,7 +71,7 @@ public class RootResource {
                 + "          <div class=\"boundingbox\">"
                 + "             <h1>Welcome to the paraSite</h1>"
                 + "             <form action=\"http://localhost:8080/parasite/sparql\" method=\"get\">"
-                + "                 <h2>Submit a sparql construct query</h2>"
+                + "                 <h2>Submit a sparql query</h2>"
                 + "                 <textarea name=\"query\">CONSTRUCT {?s ?p ?o} WHERE {?s ?p ?o} </textarea>"
                 + "                 </br>"
                 + "                 <button type=\"submit\">Submit</button>"

@@ -1,0 +1,48 @@
+# list all classes in use
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?type 
+WHERE { ?x rdf:type ?type . } 
+
+------
+
+# list all properties in use
+SELECT DISTINCT ?p 
+WHERE { ?s ?p ?o . } 
+
+------
+
+# count all resources
+SELECT (COUNT (distinct ?s) as ?count) 
+WHERE
+{ ?s ?p ?o}
+
+------
+
+#list works
+prefix frbr: <http://purl.org/vocab/frbr/core#>
+prefix dcterms: <http://purl.org/dc/terms/>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+CONSTRUCT 
+{?uri a frbr:Work; dcterms:creator ?creator ; dcterms:title ?title } 
+WHERE 
+{ ?uri a frbr:Work ; dcterms:creator ?creator ; dcterms:title ?title }
+
+-------
+
+#list manifestations
+prefix frbr: <http://purl.org/vocab/frbr/core#>
+prefix dcterms: <http://purl.org/dc/terms/>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+
+CONSTRUCT {?uri a frbr:Manifestation }
+WHERE { ?uri a frbr:Manifestation }
+
+------
+
+#list items
+prefix frbr: <http://purl.org/vocab/frbr/core#>
+prefix dcterms: <http://purl.org/dc/terms/>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+
+CONSTRUCT {?uri a frbr:Item }
+WHERE { ?uri a frbr:Item }
