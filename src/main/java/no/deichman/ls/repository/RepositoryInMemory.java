@@ -9,6 +9,8 @@ import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
+import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import java.io.StringWriter;
@@ -116,7 +118,20 @@ public class RepositoryInMemory implements Repository {
     public Model queryModel(String queryString) {
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.create(query, inMemoryModel);
-        Model resultModel = qexec.execConstruct();
+        // Very rudimentary to differentiate between select, construct and select:
+        Model resultModel = null;
+        if (queryString.toUpperCase().contains("SELECT")) {
+            ResultSet resultSet;
+            resultSet = qexec.execSelect();
+            resultModel = ResultSetFormatter.toModel(resultSet);
+        } else if (queryString.toUpperCase().contains("CONSTRUCT")) {
+            resultModel = qexec.execConstruct();
+        } else if (queryString.toUpperCase().contains("DESCRIBE")) {
+            resultModel = qexec.execDescribe();
+        } else {
+            resultModel = qexec.execConstruct();
+        }
+
         qexec.close();
 
         return resultModel;
