@@ -27,7 +27,7 @@ public class SPARQLResource {
     private static final ServiceDefault SERVICE = new ServiceDefault();
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON+";qs=0.1"})
     public Response getSparql(@QueryParam("query") String query) {
         try {
             Model model = SERVICE.runQuery(query);
@@ -57,7 +57,7 @@ public class SPARQLResource {
     }
     
     @GET
-    @Produces({MediaType.TEXT_PLAIN})
+    @Produces({MediaType.TEXT_PLAIN+";qs=0.9"})
     public Response getSparqlTurtle(@QueryParam("query") String query) {
         try {
             Model model = SERVICE.runQuery(query);
