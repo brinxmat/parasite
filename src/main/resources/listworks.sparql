@@ -1,6 +1,0 @@
-query.getallworks=
-prefix frbr: <http://purl.org/vocab/frbr/core#> 
-prefix dcterms: <http://purl.org/dc/terms/> 
-prefix foaf: <http://xmlns.com/foaf/0.1/> 
-CONSTRUCT {?uri a frbr:Work; dcterms:creator ?author ; dcterms:title ?title } 
-WHERE { ?uri a frbr:Work ; dcterms:creator ?creator ; dcterms:title ?title . ?creator dcterms:creator ?author }

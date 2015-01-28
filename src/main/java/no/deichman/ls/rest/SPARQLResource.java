@@ -55,4 +55,34 @@ public class SPARQLResource {
                     .build();
         }
     }
+    
+    @GET
+    @Produces({MediaType.TEXT_PLAIN})
+    public Response getSparqlTurtle(@QueryParam("query") String query) {
+        try {
+            Model model = SERVICE.runQuery(query);
+            if (!model.isEmpty()) {
+                StringWriter sw = new StringWriter();
+                RDFDataMgr.write(sw, model, Lang.TURTLE);
+                String data = sw.toString();
+
+                return Response.ok()
+                        .entity(data)
+                        .build();
+
+            } else {
+                return Response.ok().
+                        entity("{\"Message\":\"The query executed correctly, but the list is empty.\"}").
+                        build();
+            }
+        } catch (Exception e) {
+            if(query == null) {
+                query = "";
+            }
+            return Response.
+                    status(Response.Status.BAD_REQUEST)
+                    .entity("\"" + query + "\"" + " is not a valid query\n\nTry e.g.\nCONSTRUCT {?s ?p ?o } WHERE { ?s ?p ?o }\nas value for query-parameter \"query\"")
+                    .build();
+        }
+    }
 }

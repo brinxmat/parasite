@@ -15,6 +15,7 @@ import no.deichman.ls.adapter.KohaAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapter;
 import no.deichman.ls.adapter.DataDeichmanAdapterMock;
 import no.deichman.ls.adapter.KohaAdapterDefault;
+import no.deichman.ls.adapter.KohaAdapterMock;
 import no.deichman.ls.repository.RepositoryInMemory;
 
 /**
@@ -24,7 +25,7 @@ import no.deichman.ls.repository.RepositoryInMemory;
 public class ServiceDefault implements Service {
 
     static private DataDeichmanAdapter dataDeichmanAdapter = new DataDeichmanAdapterMock();
-    static private KohaAdapter kohaAdapter = new KohaAdapterDefault();
+    static private KohaAdapter kohaAdapter = new KohaAdapterMock();
     static private RepositoryInMemory repository = new RepositoryInMemory();
     static private final String BASE_URI = "http://localhost:8080/parasite/";
 

@@ -21,7 +21,7 @@ public class WorkResource {
     private static final Service SERVICE = new ServiceDefault();
 
     @GET
-    @Produces({MediaType.TEXT_PLAIN})
+    @Produces({MediaType.TEXT_PLAIN+";qs=0.9", "text/turtle;qs=0.8"})
     public Response getWorkListTurtle() {
 
         StringWriter sw = new StringWriter();
@@ -49,7 +49,7 @@ public class WorkResource {
      * "application/json".
      */
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON+";qs=0.1"})
     public Response getWorkList() {
 
         StringWriter sw = new StringWriter();
@@ -79,7 +79,6 @@ public class WorkResource {
     @Path("/{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    //@Produces("application/json+ld;qs=0.2")
     public Response getJSON(@PathParam("id") String id) {
 
         StringWriter sw = new StringWriter();
@@ -99,8 +98,7 @@ public class WorkResource {
 
     @Path("/{id}")
     @GET
-    @Produces({MediaType.TEXT_PLAIN})
-    //@Produces("application/json+ld;qs=0.2")
+    @Produces({MediaType.TEXT_PLAIN, "text/turtle"})
     public Response getWorkTurtle(@PathParam("id") String id) {
 
         StringWriter sw = new StringWriter();
